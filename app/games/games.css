@@ -1,0 +1,21 @@
+.single-game {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.single-game-team-logo {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.team-logo-img {
+    object-fit: contain;
+}
+
+.fetch-games-btn {
+    border: 1px solid;
+    padding: 3px 7px;
+    cursor: pointer;
+}
