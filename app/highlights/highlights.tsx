@@ -1,11 +1,11 @@
 'use client';
 import React, {useMemo} from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetcher } from '../api/fetchApi';
-import { tags } from '../components/util/queryTypes';
-import { generateEventQueryFromParams } from '../components/util/queryTypes';
-import { EventType } from '../components/util/dataTypes';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { fetcher } from '@/lib/fetchApi';
+import { generateEventQueryFromParams } from '@/utils/queryUtil';
+import { tags } from '@/types/dataTypes';
+import { EventType } from '@/types/dataTypes';
 
 function Highlights() {
 
@@ -30,7 +30,6 @@ function Highlights() {
 
   const query = useMemo(() => generateEventQueryFromParams(searchParams), [searchParams]);
 
-  // Example: define per-page cache policy
   const pageStaleTimes: Record<number, number> = {
     1: 1000 * 30 * 1,  // Page 1: 30 secs
     2: 1000 * 60 * 10,  // Page 2: 10 min
@@ -49,7 +48,6 @@ function Highlights() {
   const onClearCache = () => {
     if (typeof window !== 'undefined') {
       queryClient.clear();
-      window.location.reload();
     }
   }; 
 

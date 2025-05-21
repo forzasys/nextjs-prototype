@@ -1,9 +1,9 @@
-import { EventQuery } from "../components/util/queryTypes";
+import { EventQueryType } from "@/types/dataTypes";
 import stringify from "fast-json-stable-stringify";
 
 export function getApiPath (
   path: string, 
-  query?: EventQuery,
+  query?: EventQueryType,
   league?: string
 ) {
     query = query || {}
@@ -28,9 +28,9 @@ export function getApiPath (
     return url.toString()
 }
 
-export async function fetcher(path: string, query: EventQuery) {
+export async function fetcher(path: string, query: EventQueryType) {
   const apiPath = getApiPath(path, query)
-
+  
   if (typeof window === 'undefined') {
     console.log("🟠 SSR fetching:", apiPath);
   } else {

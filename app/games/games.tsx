@@ -1,9 +1,9 @@
 'use client';
 import React from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetcher } from '../api/fetchApi';
+import { fetcher } from '@/lib/fetchApi';
+import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
-import { GameType } from '../components/util/dataTypes';
 import "./games.css";
 
 function Games() {
@@ -21,7 +21,7 @@ function Games() {
 
     console.log("Games data:", data);
 
-    const eventsList = games.map((g: GameType) => {
+    const gamesList = games.map((g: GameType) => {
     return (
       <div key={g.id} className='single-game'>
         <div className='single-game-team-logo'>
@@ -42,7 +42,6 @@ function Games() {
   const onClearCache = () => {
     if (typeof window !== 'undefined') {
       queryClient.clear();
-      window.location.reload();
     }
   };
 
@@ -50,7 +49,7 @@ function Games() {
     <div style={{fontSize: "32px"}}>Loading...</div>
   ) : (
     <div>
-      {eventsList}
+      {gamesList}
       <br />
       {data && (
         <div onClick={onClearCache}>Clear cache</div>

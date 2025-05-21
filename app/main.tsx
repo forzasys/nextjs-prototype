@@ -1,18 +1,14 @@
 import React from 'react'
-import ReactQueryProvider from "@/lib/react-query-provider";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Header from './components/header/header';
+import Header from '@/components/header/header';
 import "./main.css";
 
+// Main component for the application, direct children to the Layout component
 function Main({ children }: { children: React.ReactNode }) {
   return (
-    <ReactQueryProvider dehydratedState={{ queries: [], mutations: [] }}>
-        <div className="main-page">
-            <Header />
-            {children}
-        </div>
-        <ReactQueryDevtools initialIsOpen={false} />
-    </ReactQueryProvider>
+    <div className="main-page">
+        <Header />
+        {children}
+    </div>
   )
 }
 

@@ -1,25 +1,13 @@
-export const tags = ["goal", "shot", "yellow card", "red card"] as const;
-export type Tag = typeof tags[number];
+import { EventQueryType, Tag } from "../types/dataTypes";
 
-export type EventQuery = {
-  all_leagues?: boolean;
-  tags?: { action: Tag };
-  from_date?: string;
-  to_date?: string;
-  min_rating?: number;
-  from?: number;
-  count?: number;
-  [key: string]: unknown;
-};
-
-export function generateEventQueryFromParams(searchParams: URLSearchParams): EventQuery {
+export function generateEventQueryFromParams(searchParams: URLSearchParams): EventQueryType {
   
   const tag = searchParams.get("tag") || undefined;
   const pageParam = searchParams.get("page");
   const page = Number(pageParam) || 1;
   const from = Math.min((page - 1) * 10);
 
-  const query: EventQuery = {
+  const query: EventQueryType = {
     from_date: "2024-01-01T00:00:00.000Z",
     to_date: "2025-01-01T00:00:00.000Z",
     min_rating: 3,
