@@ -1,15 +1,14 @@
 'use client';
 import React, {useMemo} from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetcher } from '@/lib/fetchApi';
 import { generateEventQueryFromParams } from '@/utils/queryUtil';
 import { tags } from '@/types/dataTypes';
 import { EventType } from '@/types/dataTypes';
 
-function Highlights() {
+function Highlights({ eventsData }: { eventsData: EventType[] }) {
 
-  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -37,19 +36,17 @@ function Highlights() {
 
   const staleTime = pageStaleTimes[page] ?? 0;
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, } = useQuery({
     queryKey: ['events', query],
     queryFn: () => fetcher("event", query),
+    initialData: eventsData,
     staleTime: staleTime,
-  })
-
+  });
+  
   const events = data?.events || []
 
-  const onClearCache = () => {
-    if (typeof window !== 'undefined') {
-      queryClient.clear();
-    }
-  }; 
+  // console.log(eventsData)
+  // console.log(query);
 
   const tagsList = (
     <div style={{display: "flex", gap: "15px"}}>
@@ -77,10 +74,6 @@ function Highlights() {
         <button onClick={() => updateParam("page", 2)}>2</button>
         <button onClick={() => updateParam("page", 3)}>3</button>
       </div>
-      <br />
-      {data && (
-        <div onClick={onClearCache}>Clear cache</div>
-      )}
     </div>
   ) 
 
@@ -92,11 +85,6 @@ function Highlights() {
 
   return (
     <div style={{padding: "10px"}}>
-      <title>Highlights</title>
-      <h3 style={{fontSize: "50px"}}>
-        Highlights
-      </h3>
-      <br />
       {tagsList}
       <br />
       {render}

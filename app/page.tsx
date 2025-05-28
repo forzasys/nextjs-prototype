@@ -1,32 +1,22 @@
 import React from 'react'
-import { getQueryClient } from '@/lib/reactQuery';
-import { dehydrate } from '@tanstack/react-query';
-import ReactQueryProvider from '@/lib/reactQueryProvider';
 import { fetcher } from '@/lib/fetchApi';
-import { generateEventQueryFromParams, normalizeSearchParams, SearchParamsType } from '@/utils/queryUtil';
 import Home from '@/components/home/home';
+import { EventQueryType } from '@/types/dataTypes';
 
 // Home page
 // Default home page ("/" route), this page has the same level with the Layout component
-async function Page({ searchParams }: { searchParams: Promise<SearchParamsType>}) {
-  
-    const queryClient = getQueryClient();
+async function Page() {
     
-    const rawParams = await searchParams;
-    const params = normalizeSearchParams(rawParams);
-    const query = generateEventQueryFromParams(params);
+    const query: EventQueryType = {
+        tags: { action: "goal" },
+        count: 10,
+    };
 
-    await queryClient.prefetchQuery({
-        queryKey: ['events', query],
-        queryFn: () => fetcher("event", query),
-    });
-
-    const dehydratedState = dehydrate(queryClient);
+    const latestGoalsData = await fetcher("event", query);
+    const latestGoals = latestGoalsData?.events || [];
 
     return (
-        <ReactQueryProvider dehydratedState={dehydratedState}>
-            <Home/>
-        </ReactQueryProvider>
+        <Home latestGoals={latestGoals}/>
     );
 }
 

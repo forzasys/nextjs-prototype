@@ -1,34 +1,34 @@
 import React from 'react'
-import { getQueryClient } from '@/lib/reactQuery';
-import { dehydrate } from '@tanstack/react-query';
-import { HydrationBoundary } from '@tanstack/react-query';
 import Highlights from './highlights';
 import { fetcher } from "@/lib/fetchApi";
+import { EventQueryType } from '@/types/dataTypes';
 import { SearchParamsType, normalizeSearchParams, generateEventQueryFromParams } from '@/utils/queryUtil';
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
 async function Page({ searchParams }: { searchParams: Promise<SearchParamsType>}) {
-  
-  const queryClient = getQueryClient();
 
   const rawParams = await searchParams;
   const params = normalizeSearchParams(rawParams);
   const query = generateEventQueryFromParams(params);
 
-  await queryClient.prefetchQuery({
-    queryKey: ['events', query],
-    queryFn: () => fetcher("event", query),
-  });
+  const initialQuery: EventQueryType = {
+    from_date: `2025-01-01T00:00:00.000Z`,
+    to_date: `2026-01-01T00:00:00.000Z`,
+    count: 10,
+    from: 0,
+  };
 
-  const dehydratedState = dehydrate(queryClient);
+  const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
 
-  // console.log("Dehydrated:", JSON.stringify(dehydratedState, null, 2));
+  const eventsData = isInitialQuery ? await fetcher("event", query) : undefined
 
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <Highlights />
-    </HydrationBoundary>
+    <div>
+      <title>Highlights</title>
+      <h2>Highlights</h2>
+      <Highlights eventsData={eventsData}/>
+    </div>
   );
 }
 

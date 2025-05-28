@@ -2,19 +2,23 @@ import { EventQueryType, Tag } from "../types/dataTypes";
 
 export function generateEventQueryFromParams(searchParams: URLSearchParams): EventQueryType {
   
-  const tag = searchParams.get("tag") || undefined;
-  const pageParam = searchParams.get("page");
+  const params = searchParams
+
+  const season = params.get("season") || "2025";
+  const seasonInt = parseInt(season)
+  const tagParam = params.get("tag") || undefined;
+  const pageParam = params.get("page");
   const page = Number(pageParam) || 1;
   const from = Math.min((page - 1) * 10);
 
   const query: EventQueryType = {
-    from_date: "2024-01-01T00:00:00.000Z",
-    to_date: "2025-01-01T00:00:00.000Z",
-    min_rating: 3,
+    from_date: `${seasonInt}-01-01T00:00:00.000Z`,
+    to_date: `${seasonInt + 1}-01-01T00:00:00.000Z`,
     count: 10,
   };
 
-  if (tag) query.tags = { action: tag as Tag };
+  if (tagParam) query.tags = { action: tagParam as Tag };
+
   if (page) query.from = from;
 
   return query;

@@ -19,3 +19,11 @@
     padding: 3px 7px;
     cursor: pointer;
 }
+
+.select-season-btn {
+    margin-right: 7px;
+}
+
+.select-season-btn a {
+    text-decoration: none;
+}

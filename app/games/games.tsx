@@ -1,27 +1,12 @@
-'use client';
 import React from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetcher } from '@/lib/fetchApi';
 import { GameType } from '@/types/dataTypes';
+import Link from 'next/link';
 import Image from 'next/image';
 import "./games.css";
 
-function Games() {
+function Games({games}: {games: GameType[]}) {
 
-    const queryClient = useQueryClient();
-
-    const { data, isLoading, error, refetch } = useQuery({
-        queryKey: ['games'],
-        queryFn: () => fetcher("game", {}),
-        enabled: false, // Do not fetch on mount
-        staleTime: 1000 * 60 * 3, // 3 minutes stale time
-    })
-    
-    const games = data?.games || []
-
-    console.log("Games data:", data);
-
-    const gamesList = games.map((g: GameType) => {
+  const gamesList = games.map((g: GameType) => {
     return (
       <div key={g.id} className='single-game'>
         <div className='single-game-team-logo'>
@@ -39,36 +24,25 @@ function Games() {
     )
   })
 
-  const onClearCache = () => {
-    if (typeof window !== 'undefined') {
-      queryClient.clear();
-    }
-  };
+  const seasons = [2025, 2024, 2023, 2022];
 
-  const renderGames = isLoading ? (
-    <div style={{fontSize: "32px"}}>Loading...</div>
-  ) : (
-    <div>
-      {gamesList}
-      <br />
-      {data && (
-        <div onClick={onClearCache}>Clear cache</div>
-      )}
-    </div>
-  )
+  const seasonsList = seasons.map((s) => {
+    return (
+      <button key={s} className='select-season-btn'>
+        <Link href={`/games?season=${s}`} >
+          {s}
+        </Link>
+      </button>
+      
+    )
+  })
   
   return (
     <div>
-        <br />
-        <h1>Games</h1>
-        <br />
-        <button onClick={() => refetch()} className='fetch-games-btn'>Fetch games</button>
-        <br />
-        <br />
-        {renderGames}
-        {error && (
-          <div style={{color: "red"}}>Error: {error.message}</div>
-        )}
+      {seasonsList}
+      <br />
+      <br />
+      {gamesList}
     </div>
   )
 }
