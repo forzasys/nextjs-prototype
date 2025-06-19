@@ -1,34 +1,48 @@
-import React from 'react'
 import Highlights from './highlights';
-import { fetcher } from "@/lib/fetchApi";
-import { EventQueryType } from '@/types/dataTypes';
-import { SearchParamsType, normalizeSearchParams, generateEventQueryFromParams } from '@/utils/queryUtil';
+import { onFetch } from "@/lib/fetchApi";
+import { SearchParamsType, normalizeSearchParams, generatePlaylistQueryFromParams } from '@/utils/queryUtil';
+import HighlightsFilters from './highlightsFilters';
+import Paging from '@/components/Filter/paging';
+import { initialPlaylistsQuery } from '@/utils/queryUtil';
+
+// function HighlightsClientWrapper({ eventsData }: { eventsData?: EventType[] }) {
+//   return <Highlights eventsData={eventsData || []} />;
+// }
+
+async function getTags () {
+  const tagsData = await onFetch("tag");
+  return tagsData.tags
+}
+
+export async function getTeams () {
+  const data = await onFetch("team", {season: 2025});
+  return data?.teams;
+};
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
-async function Page({ searchParams }: { searchParams: Promise<SearchParamsType>}) {
+async function Page({ searchParams }: { searchParams: Promise<SearchParamsType> }) {
 
   const rawParams = await searchParams;
   const params = normalizeSearchParams(rawParams);
-  const query = generateEventQueryFromParams(params);
+  const query = generatePlaylistQueryFromParams(params);
 
-  const initialQuery: EventQueryType = {
-    from_date: `2025-01-01T00:00:00.000Z`,
-    to_date: `2026-01-01T00:00:00.000Z`,
-    count: 10,
-    from: 0,
-  };
+  const tags = await getTags();
+  const teams = await getTeams()
 
+  const initialQuery = structuredClone(initialPlaylistsQuery)
   const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
-
-  const eventsData = isInitialQuery ? await fetcher("event", query) : undefined
-
+  
+  const playlistsData = isInitialQuery ? await onFetch("playlist", initialQuery) : undefined
+  
   return (
-    <div>
-      <title>Highlights</title>
-      <h2>Highlights</h2>
-      <Highlights eventsData={eventsData}/>
-    </div>
+      <div>
+        <title>Highlights</title>
+        <h2>Highlights</h2>
+        <HighlightsFilters tags={tags} teams={teams}/>
+        <Highlights playlistsData={playlistsData}/>
+        <Paging/>
+      </div>
   );
 }
 

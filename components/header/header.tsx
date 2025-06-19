@@ -1,4 +1,3 @@
-'use client';
 import React from 'react'
 import Link from 'next/link';
 import warnerBrosImg from "@/public/img/WarnerBros.png";
@@ -16,7 +15,7 @@ function Header() {
            
         </Link>
         <Link href="/games" className="header-link">
-            Games
+            Fixtures & Results
         </Link>
     </div>
   )

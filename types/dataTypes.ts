@@ -1,9 +1,13 @@
-export const tags = ["goal", "shot", "yellow card", "red card"] as const;
-export type Tag = typeof tags[number];
+type TagsType = {
+  action: string,
+  team?: {
+    id: number
+  },
+}
 
-export type EventQueryType = {
+export type PlaylistQueryType = {
   all_leagues?: boolean;
-  tags?: { action: Tag };
+  tags?: TagsType[];
   from_date?: string;
   to_date?: string;
   min_rating?: number;
@@ -12,8 +16,16 @@ export type EventQueryType = {
   [key: string]: unknown;
 };
 
+export type GamesQueryType = {
+  team_id?: number,
+  season?: string,
+  from_date?: string,
+  to_date?: string,
+  asc?: boolean
+}
 
 export type PlaylistType = {
+  id: string,
   description: string;
   // other playlist props
 };
@@ -24,8 +36,10 @@ export type EventType = {
 };
 
 export type TeamType = {
+  id: number,
   logo_url: string;
   name: string;
+  short_name: string;
 }
 
 export type GameType = {

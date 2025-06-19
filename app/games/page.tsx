@@ -1,8 +1,9 @@
 import React from 'react'
-import { fetcher } from "../../lib/fetchApi";
-import { generateEventQueryFromParams, normalizeSearchParams } from '@/utils/queryUtil';
-import { SearchParamsType } from '@/utils/queryUtil';
+import { onFetch } from "../../lib/fetchApi";
+import { generateGamesQueryFromParams, normalizeSearchParams, SearchParamsType, initialGamesQuery } from '@/utils/queryUtil';
 import Games from './games';
+import GamesFilters from './gamesFilters';
+import { getTeams } from '../highlights/page';
 
 // Games
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -10,16 +11,22 @@ async function Page({ searchParams }: {searchParams: Promise<SearchParamsType>})
 
   const rawParams = await searchParams;
   const params = normalizeSearchParams(rawParams);
-  const query = generateEventQueryFromParams(params);
+  const query = generateGamesQueryFromParams(params);
 
-  const gamesData = await fetcher("game", query)
-  const games = gamesData?.games || [];
+  const teams = await getTeams()
+  
+  const initialQuery = structuredClone(initialGamesQuery)
+  const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
 
+  const gamesData = isInitialQuery ? await onFetch("game", initialGamesQuery) : undefined
+  
   return (
     <div>
-      <h3>Games</h3>
+      <h3>Fixtures & Results</h3>
       <br />
-      <Games games={games}/>
+      <GamesFilters teams={teams}/>
+      <br />
+      <Games gamesData={gamesData}/>
     </div>
   )
 }

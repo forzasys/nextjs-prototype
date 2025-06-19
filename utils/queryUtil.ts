@@ -1,27 +1,106 @@
-import { EventQueryType, Tag } from "../types/dataTypes";
+import { PlaylistQueryType, GamesQueryType } from "../types/dataTypes";
+import { availableSeasons } from "@/lib/config";
 
-export function generateEventQueryFromParams(searchParams: URLSearchParams): EventQueryType {
+function generateTags(tagParam?: string | null, teamParam?: string | null) {
+  
+  if (!tagParam) return null
+  
+  let tags
+  if (tagParam) tags = [{action: tagParam}];
+
+  if (teamParam && tags) {
+    const updatedTags = tags.map(tag => ({
+      ...tag,
+      team: { id: Number(teamParam) },
+    }));
+    tags = updatedTags
+  }
+  return tags
+}
+
+export const initialPlaylistsQuery = {
+  from_date: `${availableSeasons[0]}-01-01`,
+  to_date: `${availableSeasons[0]}-12-31`,
+  count: 10,
+  from: 0,
+}
+
+const today = new Date();
+const formattedToday = today.toISOString().split('T')[0];
+
+export const initialGamesQuery: GamesQueryType = {
+  season: availableSeasons[0],
+  from_date: formattedToday,
+  asc: true,
+}
+
+export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): PlaylistQueryType {
   
   const params = searchParams
 
-  const season = params.get("season") || "2025";
-  const seasonInt = parseInt(season)
-  const tagParam = params.get("tag") || undefined;
+  const currentSeason = availableSeasons[0]
+
+  const seasonParam = params.get("season");
+  const tagParam = params.get("tag")
+  const teamParam = params.get("team")
   const pageParam = params.get("page");
+
   const page = Number(pageParam) || 1;
   const from = Math.min((page - 1) * 10);
 
-  const query: EventQueryType = {
-    from_date: `${seasonInt}-01-01T00:00:00.000Z`,
-    to_date: `${seasonInt + 1}-01-01T00:00:00.000Z`,
-    count: 10,
-  };
+  const query: PlaylistQueryType = structuredClone(initialPlaylistsQuery)
 
-  if (tagParam) query.tags = { action: tagParam as Tag };
+  const tags = generateTags(tagParam, teamParam)
+
+  if (seasonParam) {
+    const seasonInt = parseInt(seasonParam)
+    query.from_date = `${seasonInt-1}-01-01`
+    query.to_date = `${seasonInt-1}-12-31`
+  }
+
+  if (!seasonParam) {
+    query.from_date = `${currentSeason}-01-01`
+    query.to_date = `${currentSeason}-12-31`
+  }
+
+  if (tags) query.tags = tags
 
   if (page) query.from = from;
-
+  
   return query;
+}
+
+export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
+  const params = searchParams
+
+  const currentSeason = availableSeasons[0]
+
+  const seasonParam = params.get("season");
+  const teamParam = params.get("team");
+  const typeParam = params.get("game_type");
+
+  const query: GamesQueryType = structuredClone(initialGamesQuery)
+
+  if (typeParam === "results") {
+    delete query.from_date;
+    query.asc = false;
+    if (seasonParam) {
+      query.season = seasonParam
+    } else {
+      const today = new Date();
+      const formattedToday = today.toISOString().split('T')[0];
+      query.season = currentSeason
+      query.to_date = formattedToday
+    }
+  }
+
+  if (!typeParam || typeParam === "fixtures") {
+    delete query.to_date;
+  }
+
+  if (teamParam) query.team_id = parseInt(teamParam)
+
+  return query
 }
 
 export type SearchParamsType = Record<string, string | string[] | undefined>;
@@ -35,7 +114,6 @@ export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchPar
     } else if (Array.isArray(value)) {
       cleaned[key] = value[0]; // or join with comma if multiple allowed
     }
-    // skip undefined and any unexpected types
   }
 
   return new URLSearchParams(cleaned);

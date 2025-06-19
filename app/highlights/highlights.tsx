@@ -1,79 +1,46 @@
 'use client';
-import React, {useMemo} from 'react'
+import React from 'react'
 import { useQuery } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { fetcher } from '@/lib/fetchApi';
-import { generateEventQueryFromParams } from '@/utils/queryUtil';
-import { tags } from '@/types/dataTypes';
-import { EventType } from '@/types/dataTypes';
+import { useSearchParams } from 'next/navigation';
+import { onFetch } from '@/lib/fetchApi';
+import { generatePlaylistQueryFromParams } from '@/utils/queryUtil';
+import { PlaylistType } from '@/types/dataTypes';
 
-function Highlights({ eventsData }: { eventsData: EventType[] }) {
+function Highlights({ playlistsData }: { playlistsData: PlaylistType[] }) {
 
-  const router = useRouter();
   const searchParams = useSearchParams();
+  const query = generatePlaylistQueryFromParams(searchParams);
 
   const pageParam = searchParams.get("page");
   const page = pageParam ? parseInt(pageParam) : 1;
-
-  const updateParam = (param: string, value: undefined | string | number) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (value === undefined) {
-      params.delete(param);
-    } else {
-      params.set(param, String(value));
-    }
-
-    router.replace(`?${params.toString()}`);
-  };
-
-  const query = useMemo(() => generateEventQueryFromParams(searchParams), [searchParams]);
 
   const pageStaleTimes: Record<number, number> = {
     1: 1000 * 30 * 1,  // Page 1: 30 secs
     2: 1000 * 60 * 10,  // Page 2: 10 min
   };
-
+  
   const staleTime = pageStaleTimes[page] ?? 0;
-
-  const { data, isLoading, } = useQuery({
-    queryKey: ['events', query],
-    queryFn: () => fetcher("event", query),
-    initialData: eventsData,
+  
+  const { data, isLoading } = useQuery({
+    queryKey: ['playlist', query],
+    queryFn: () => onFetch("playlist", query),
+    initialData: playlistsData,
     staleTime: staleTime,
   });
   
-  const events = data?.events || []
-
-  // console.log(eventsData)
-  // console.log(query);
-
-  const tagsList = (
-    <div style={{display: "flex", gap: "15px"}}>
-      <div onClick={() => updateParam("tag", undefined)}>all</div>
-      {tags.map((t) => {
-        return (
-          <div key={t} onClick={() => updateParam("tag", t)}>{t}</div>
-        )
-      })}
-    </div>
-  )
-
+  const playlists = data?.playlists || []
+  console.log(query);
+  
   const renderEvents = (
     <div>
-      {events.map((e: EventType) => {
+      {playlists.map((p: PlaylistType) => {
         return (
-          <div key={e.id}>
-            {e.playlist.description}
+          <div key={p.id}>
+            {p.description}
           </div>
         )
       })}
       <br />
-      <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-        <button onClick={() => updateParam("page", 1)}>1</button>
-        <button onClick={() => updateParam("page", 2)}>2</button>
-        <button onClick={() => updateParam("page", 3)}>3</button>
-      </div>
     </div>
   ) 
 
@@ -85,8 +52,6 @@ function Highlights({ eventsData }: { eventsData: EventType[] }) {
 
   return (
     <div style={{padding: "10px"}}>
-      {tagsList}
-      <br />
       {render}
     </div>
   )

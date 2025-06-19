@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetcher } from '@/lib/fetchApi';
+import { onFetch } from '@/lib/fetchApi';
 import Home from '@/components/home/home';
 import { EventQueryType } from '@/types/dataTypes';
 
@@ -12,7 +12,7 @@ async function Page() {
         count: 10,
     };
 
-    const latestGoalsData = await fetcher("event", query);
+    const latestGoalsData = await onFetch("event", query);
     const latestGoals = latestGoalsData?.events || [];
 
     return (

@@ -1,13 +1,13 @@
-import { EventQueryType } from "@/types/dataTypes";
+import { PlaylistQueryType } from "@/types/dataTypes";
 import stringify from "fast-json-stable-stringify";
 
 export function getApiPath (
   path: string, 
-  query?: EventQueryType,
+  query?: PlaylistQueryType,
   league?: string
 ) {
   query = query || {}
-  if (league === undefined) query = {all_leagues: true, ...query}
+  // if (league === undefined) query = {all_leagues: true, ...query}
   if (!path.startsWith("/")) path = "/" + path
 
   const apiServerUrl = "https://api.forzify.com/"
@@ -28,7 +28,7 @@ export function getApiPath (
   return url.toString()
 }
 
-export async function fetcher(path: string, query: EventQueryType) {
+export async function onFetch(path: string, query?: PlaylistQueryType) {
   const apiPath = getApiPath(path, query)
   
   if (typeof window === 'undefined') {
@@ -37,9 +37,14 @@ export async function fetcher(path: string, query: EventQueryType) {
     console.log("🔵 Client fetching:", apiPath);
   }
 
-  const res = await fetch(apiPath, {
-    next: { revalidate: 180 }, // 3 minutes
-  });
+  const res = await fetch(apiPath, {mode: "cors", credentials: "include"})
 
-  return res.json();
+  if (res.ok) return await res.json()
+
+  const error = new Error() as Error & { status?: number; message?: string };
+  error.status = res.status;
+  const {message} = await res.json().catch(() => ({message: ""}))
+  error.message = message
+  console.error("Failed request:", apiPath, error.status, error.message)
+  throw error
 }
