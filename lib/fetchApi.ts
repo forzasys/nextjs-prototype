@@ -48,3 +48,13 @@ export async function onFetch(path: string, query?: PlaylistQueryType) {
   console.error("Failed request:", apiPath, error.status, error.message)
   throw error
 }
+
+export async function getTags () {
+  const tagsData = await onFetch("tag");
+  return tagsData?.tags
+}
+
+export async function getTeams () {
+  const data = await onFetch("team", {season: 2025});
+  return data?.teams;
+};

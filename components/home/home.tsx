@@ -1,21 +1,9 @@
 import warnerBrosImg from "@/public/img/WarnerBros.png";
 import Image from 'next/image';
-import { EventType } from '@/types/dataTypes';
+import Collection from "../videosLibrary/collection";
+import HomePageMatches from "./homePageMatches";
 
-function Home({ latestGoals }: { latestGoals: EventType[] }) {
-
-  const renderLatestGoals = (
-    <div>
-      <h4>Latest goals</h4>
-      {latestGoals.map((e: EventType) => {
-        return (
-          <div key={e.id}>
-            {e.playlist.description}
-          </div>
-        )
-      })}
-    </div>
-  )
+function Home() {
 
   return (
     <div>
@@ -23,8 +11,13 @@ function Home({ latestGoals }: { latestGoals: EventType[] }) {
       <br />
       <Image src={warnerBrosImg} alt="Warner Bros Logo" style={{height: "200px", width: "auto"}}/>
       <br />
+      <Collection collection={"latest"}/>
       <br />
-      {renderLatestGoals}
+      <HomePageMatches />
+      <br />
+      <Collection collection={"goals"}/>
+      <br />
+      <Collection collection={"interviews"}/>
     </div>
   );
 }

@@ -12,6 +12,7 @@ export type PlaylistQueryType = {
   to_date?: string;
   min_rating?: number;
   from?: number;
+  filters?: string[];
   count?: number;
   [key: string]: unknown;
 };
@@ -21,6 +22,7 @@ export type GamesQueryType = {
   season?: string,
   from_date?: string,
   to_date?: string,
+  count?: number,
   asc?: boolean
 }
 

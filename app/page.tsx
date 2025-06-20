@@ -1,22 +1,12 @@
 import React from 'react'
-import { onFetch } from '@/lib/fetchApi';
 import Home from '@/components/home/home';
-import { EventQueryType } from '@/types/dataTypes';
 
 // Home page
 // Default home page ("/" route), this page has the same level with the Layout component
 async function Page() {
-    
-    const query: EventQueryType = {
-        tags: { action: "goal" },
-        count: 10,
-    };
-
-    const latestGoalsData = await onFetch("event", query);
-    const latestGoals = latestGoalsData?.events || [];
 
     return (
-        <Home latestGoals={latestGoals}/>
+        <Home/>
     );
 }
 

@@ -10,12 +10,11 @@ function Header() {
         <Link href="/" className="header-link">
             <Image src={warnerBrosImg} alt="Warner Bros Logo"/>
         </Link>
-        <Link href="/highlights" className="header-link">
-          <div className="header-link"> Highlights</div>
-           
-        </Link>
         <Link href="/games" className="header-link">
             Fixtures & Results
+        </Link>
+        <Link href="/videos" className="header-link">
+          Videos
         </Link>
     </div>
   )

@@ -6,7 +6,7 @@ import { onFetch } from '@/lib/fetchApi';
 import { generatePlaylistQueryFromParams } from '@/utils/queryUtil';
 import { PlaylistType } from '@/types/dataTypes';
 
-function Highlights({ playlistsData }: { playlistsData: PlaylistType[] }) {
+function Videos({ playlistsData }: { playlistsData: PlaylistType[] }) {
 
   const searchParams = useSearchParams();
   const query = generatePlaylistQueryFromParams(searchParams);
@@ -57,4 +57,4 @@ function Highlights({ playlistsData }: { playlistsData: PlaylistType[] }) {
   )
 }
 
-export default Highlights
+export default Videos

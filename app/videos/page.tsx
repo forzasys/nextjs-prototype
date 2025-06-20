@@ -1,23 +1,14 @@
-import Highlights from './highlights';
+import Videos from './videos';
 import { onFetch } from "@/lib/fetchApi";
 import { SearchParamsType, normalizeSearchParams, generatePlaylistQueryFromParams } from '@/utils/queryUtil';
-import HighlightsFilters from './highlightsFilters';
-import Paging from '@/components/Filter/paging';
+import { getTags, getTeams } from '@/lib/fetchApi';
 import { initialPlaylistsQuery } from '@/utils/queryUtil';
+import HighlightsFilters from './videosFilters';
+import Paging from '@/components/Filter/paging';
 
 // function HighlightsClientWrapper({ eventsData }: { eventsData?: EventType[] }) {
 //   return <Highlights eventsData={eventsData || []} />;
 // }
-
-async function getTags () {
-  const tagsData = await onFetch("tag");
-  return tagsData.tags
-}
-
-export async function getTeams () {
-  const data = await onFetch("team", {season: 2025});
-  return data?.teams;
-};
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -37,10 +28,10 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParamsType> 
   
   return (
       <div>
-        <title>Highlights</title>
-        <h2>Highlights</h2>
+        <title>Videos</title>
+        <h2>Videos</h2>
         <HighlightsFilters tags={tags} teams={teams}/>
-        <Highlights playlistsData={playlistsData}/>
+        <Videos playlistsData={playlistsData}/>
         <Paging/>
       </div>
   );

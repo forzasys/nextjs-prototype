@@ -3,7 +3,7 @@ import { onFetch } from "../../lib/fetchApi";
 import { generateGamesQueryFromParams, normalizeSearchParams, SearchParamsType, initialGamesQuery } from '@/utils/queryUtil';
 import Games from './games';
 import GamesFilters from './gamesFilters';
-import { getTeams } from '../highlights/page';
+import { getTeams } from '../../lib/fetchApi';
 
 // Games
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)

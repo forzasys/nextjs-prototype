@@ -31,8 +31,6 @@ function Games({gamesData}: {gamesData: GameType[]}) {
   });
   
   const games = data?.games || [];
-
-  console.log(games);
   
   const gamesList = games.map((g: GameType) => {
     return (

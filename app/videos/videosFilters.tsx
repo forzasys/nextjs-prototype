@@ -3,7 +3,7 @@ import TagFilter from '@/components/Filter/tagFilter';
 import TeamFilter from '@/components/Filter/teamFilter';
 import { TeamType } from '@/types/dataTypes';
 
-function HighlightsFilters({ tags, teams }: { tags: string[], teams: TeamType[] }) {
+function VideosFilters({ tags, teams }: { tags: string[], teams: TeamType[] }) {
 
   return (
     <>
@@ -14,4 +14,4 @@ function HighlightsFilters({ tags, teams }: { tags: string[], teams: TeamType[] 
   );
 }
 
-export default HighlightsFilters;
+export default VideosFilters;
