@@ -1,8 +1,7 @@
 import Videos from './videos';
 import { onFetch } from "@/lib/fetchApi";
-import { SearchParamsType, normalizeSearchParams, generatePlaylistQueryFromParams } from '@/utils/queryUtil';
-import { getTags, getTeams } from '@/lib/fetchApi';
-import { initialPlaylistsQuery } from '@/utils/queryUtil';
+import { SearchParamsType, normalizeSearchParams, generatePlaylistQueryFromParams } from '@/utils/queryUtils';
+import { initialPlaylistsQuery } from '@/utils/queryUtils';
 import HighlightsFilters from './videosFilters';
 import Paging from '@/components/Filter/paging';
 
@@ -18,9 +17,6 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParamsType> 
   const params = normalizeSearchParams(rawParams);
   const query = generatePlaylistQueryFromParams(params);
 
-  const tags = await getTags();
-  const teams = await getTeams()
-
   const initialQuery = structuredClone(initialPlaylistsQuery)
   const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
   
@@ -30,7 +26,7 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParamsType> 
       <div>
         <title>Videos</title>
         <h2>Videos</h2>
-        <HighlightsFilters tags={tags} teams={teams}/>
+        <HighlightsFilters/>
         <Videos playlistsData={playlistsData}/>
         <Paging/>
       </div>

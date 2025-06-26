@@ -1,16 +1,16 @@
 'use client';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtil';
+import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
 
-function GamesTypeFilter() {
+function MatchesTypeFilter() {
     
     const updateParam = useUpdateSearchParam();
 
     return (
         <div style={{display: "flex", gap: "15px"}}>
-            <div onClick={() => updateParam("game_type", "fixtures")}>Fixtures</div>
-            <div onClick={() => updateParam("game_type", "results")}>Results</div>
+            <div onClick={() => updateParam("match_type", "fixtures")}>Fixtures</div>
+            <div onClick={() => updateParam("match_type", "results")}>Results</div>
         </div>
     )
 }
 
-export default GamesTypeFilter
+export default MatchesTypeFilter

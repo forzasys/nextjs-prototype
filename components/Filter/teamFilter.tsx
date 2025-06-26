@@ -1,6 +1,6 @@
 'use client';
 import { TeamType } from '@/types/dataTypes';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtil';
+import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
 
 function TeamFilter({ teams }: { teams: TeamType[] }) {
 

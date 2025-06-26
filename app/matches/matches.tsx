@@ -1,22 +1,23 @@
 'use client';
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';
-import { generateGamesQueryFromParams } from '@/utils/queryUtil';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtil';
+import { generateGamesQueryFromParams } from '@/utils/queryUtils';
+import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
 import { useQuery } from '@tanstack/react-query';
 import { onFetch } from '@/lib/fetchApi';
 import { GameType } from '@/types/dataTypes';
+import Link from 'next/link';
 import Image from 'next/image';
-import "./games.css";
+import "./matches.css";
 
-function Games({gamesData}: {gamesData: GameType[]}) {
+function Matches({gamesData}: {gamesData: GameType[]}) {
 
   const searchParams = useSearchParams();
   const updateParam = useUpdateSearchParam();
   const query = generateGamesQueryFromParams(searchParams);
 
   const seasonParam = searchParams.get("season");
-  const typeParam = searchParams.get("game_type");
+  const typeParam = searchParams.get("match_type");
   const isFixtures = !typeParam || typeParam === "fixtures";
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function Games({gamesData}: {gamesData: GameType[]}) {
   
   const gamesList = games.map((g: GameType) => {
     return (
-      <div key={g.id} className='single-game'>
+      <Link href={`match/${g.id}`} key={g.id} className='single-game'>
         <div className='single-game-team-logo'>
           <Image src={g.home_team.logo_url} alt="team logo" fill sizes="30px" className="team-logo-img"/>
         </div>
@@ -46,7 +47,7 @@ function Games({gamesData}: {gamesData: GameType[]}) {
         <div className='single-game-team-logo'>
           <Image src={g.visiting_team.logo_url} alt="team logo" fill sizes="30px" className="team-logo-img"/>
         </div>
-      </div>
+      </Link>
     )
   })
 
@@ -70,4 +71,4 @@ function Games({gamesData}: {gamesData: GameType[]}) {
   )
 }
 
-export default Games
+export default Matches

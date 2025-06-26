@@ -1,5 +1,6 @@
 import { onFetch } from "@/lib/fetchApi";
 import { PlaylistQueryType } from "@/types/dataTypes";
+import { generateVideosCollectionQuery } from "@/utils/queryUtils";
 
 type CollectionQueriesType = {
   [key: string]: PlaylistQueryType
@@ -33,7 +34,8 @@ const collectionTitles: CollectionTitlesType = {
 
 export async function getVideosCollection(collectionName: string) {
 
-    const query = collectionQueries[collectionName];
+    const videosCollectionQuery = collectionQueries[collectionName];
+    const query = generateVideosCollectionQuery(videosCollectionQuery)
     const collectionTitle = collectionTitles[collectionName];
 
     const collectionData = await onFetch("playlist", query);

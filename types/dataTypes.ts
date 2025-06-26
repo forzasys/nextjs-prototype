@@ -1,8 +1,13 @@
-type TagsType = {
+export type TagsType = {
   action: string,
   team?: {
-    id: number
+    id: number;
+    value?: string;
   },
+  scorer?: {
+    id: number;
+    value: string;
+  }
 }
 
 export type PlaylistQueryType = {
@@ -33,8 +38,11 @@ export type PlaylistType = {
 };
 
 export type EventType = {
+  game_phase: string;
+  game_time: number;
   id: string;
   playlist: PlaylistType;
+  tag: TagsType;
 };
 
 export type TeamType = {
@@ -44,6 +52,16 @@ export type TeamType = {
   short_name: string;
 }
 
+export type PlayerType = {
+  first_name: string;
+  id: number;
+  last_name: string;
+  name: string;
+  position: string;
+  position_index_from_back_right: number;
+  shirt_number: string;
+}
+
 export type GameType = {
   id: number;
   home_team: TeamType;
@@ -51,3 +69,19 @@ export type GameType = {
   home_team_goals: number;
   visiting_team_goals: number;
 };
+
+export type TopScorerType = {
+  goals: number;
+  id: number;
+  name: string;
+  shirt_number: number;
+  team_id: number;
+  team_name: string;
+}
+
+export type TopScorerQueryType = {
+  team_id?: number;
+  from_date?: string;
+  to_date?: string;
+  league?: string;
+}

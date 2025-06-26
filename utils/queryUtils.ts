@@ -1,5 +1,5 @@
-import { PlaylistQueryType, GamesQueryType } from "../types/dataTypes";
-import { availableSeasons } from "@/lib/config";
+import { PlaylistQueryType, GamesQueryType, TopScorerQueryType, TagsType } from "../types/dataTypes";
+import Config from "@/lib/config";
 
 function generateTags(tagParam?: string | null, teamParam?: string | null) {
   
@@ -19,8 +19,8 @@ function generateTags(tagParam?: string | null, teamParam?: string | null) {
 }
 
 export const initialPlaylistsQuery = {
-  from_date: `${availableSeasons[0]}-01-01`,
-  to_date: `${availableSeasons[0]}-12-31`,
+  from_date: `${Config.availableSeasons[0]}-01-01`,
+  to_date: `${Config.availableSeasons[0]}-12-31`,
   count: 10,
   from: 0,
 }
@@ -29,7 +29,7 @@ const today = new Date();
 const formattedToday = today.toISOString().split('T')[0];
 
 export const initialGamesQuery: GamesQueryType = {
-  season: availableSeasons[0],
+  season: Config.availableSeasons[0],
   from_date: formattedToday,
   asc: true,
 }
@@ -38,7 +38,7 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
   
   const params = searchParams
 
-  const currentSeason = availableSeasons[0]
+  const currentSeason = Config.availableSeasons[0]
 
   const seasonParam = params.get("season");
   const tagParam = params.get("tag")
@@ -73,11 +73,11 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
 export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
   const params = searchParams
 
-  const currentSeason = availableSeasons[0]
+  const currentSeason = Config.availableSeasons[0]
 
   const seasonParam = params.get("season");
   const teamParam = params.get("team");
-  const typeParam = params.get("game_type");
+  const typeParam = params.get("match_type");
 
   const query: GamesQueryType = structuredClone(initialGamesQuery)
 
@@ -117,4 +117,65 @@ export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchPar
   }
 
   return new URLSearchParams(cleaned);
+}
+
+export function generateVideosCollectionQuery (videosCollectionQuery: PlaylistQueryType) {
+  
+  let query = structuredClone(videosCollectionQuery)
+
+  // Team platform
+  const teamPlatformId = Config.team
+
+  if (teamPlatformId) {
+    query.team_id = teamPlatformId
+    const channelId = Config.channel
+    const queryTags = query?.tags
+    if (queryTags) {
+      const updatedTags = queryTags.map((tag: TagsType) => ({
+          ...tag,
+          team: { id: Number(teamPlatformId) },
+      }));
+      query = {
+          ...query,
+          tags: updatedTags
+      };
+    } else {
+        query = {
+            ...query,
+            channels: channelId
+        };
+    }
+  }
+
+  // VIF
+  if (teamPlatformId === 1) {
+    const fromDate = query.from_date
+    const toDate = query.to_date
+    const teamInOtherLeague = fromDate === "2024-01-01" && toDate === "2024-12-31"
+    if (teamInOtherLeague) query.league = "obosligaen"
+  }
+
+  return query
+}
+
+export function generateTopScorerQuery (topScorerQuery: TopScorerQueryType) {
+  
+  const query = structuredClone(topScorerQuery)
+  
+  // Team platform
+  const teamPlatformId = Config.team
+
+  if (teamPlatformId) {
+      query.team_id = teamPlatformId
+  }
+
+  // VIF
+  if (teamPlatformId === 1) {
+    const fromDate = query.from_date
+    const toDate = query.to_date
+    const teamInOtherLeague = fromDate === "2024-01-01" && toDate === "2024-12-31"
+    if (teamInOtherLeague) query.league = "obosligaen"
+  }
+
+  return query
 }

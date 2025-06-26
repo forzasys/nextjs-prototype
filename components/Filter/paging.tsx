@@ -1,6 +1,6 @@
 'use client';
 import React from 'react'
-import { useUpdateSearchParam } from '@/utils/ClientSideUtil';
+import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
 
 function Paging() {
 

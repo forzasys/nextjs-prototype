@@ -1,17 +1,17 @@
 'use client';
-import { useUpdateSearchParam } from "@/utils/ClientSideUtil";
-import { availableSeasons } from "@/lib/config";
+import { useUpdateSearchParam } from "@/utils/ClientSideUtils";
+import Config from "@/lib/config";
 import { useSearchParams } from 'next/navigation';
 
 function SeasonFilter({games}: {games?: boolean}) {
 
   const updateParam = useUpdateSearchParam();
   const searchParams = useSearchParams();
-  const typeParam = searchParams.get("game_type");
+  const typeParam = searchParams.get("match_type");
 
-  const currentSeason = availableSeasons[0]
+  const currentSeason = Config.availableSeasons[0]
   
-  let seasons = availableSeasons;
+  let seasons = Config.availableSeasons;
   
   const isGameFixtures = games && (typeParam === "fixtures" || !typeParam);
   if (isGameFixtures) seasons = [currentSeason];

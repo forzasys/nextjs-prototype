@@ -3,7 +3,7 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { onFetch } from '@/lib/fetchApi';
-import { generatePlaylistQueryFromParams } from '@/utils/queryUtil';
+import { generatePlaylistQueryFromParams } from '@/utils/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
 
 function Videos({ playlistsData }: { playlistsData: PlaylistType[] }) {

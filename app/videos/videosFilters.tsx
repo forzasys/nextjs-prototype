@@ -1,9 +1,15 @@
 import SeasonFilter from '@/components/Filter/seasonFilter';
 import TagFilter from '@/components/Filter/tagFilter';
 import TeamFilter from '@/components/Filter/teamFilter';
-import { TeamType } from '@/types/dataTypes';
+import { onFetch } from '@/lib/fetchApi';
 
-function VideosFilters({ tags, teams }: { tags: string[], teams: TeamType[] }) {
+async function VideosFilters() {
+
+  const tagsData = await onFetch("tag");
+  const tags = tagsData?.tags
+  
+  const teamsData = await onFetch("team", {season: 2025});
+  const teams = teamsData?.teams || [];
 
   return (
     <>
