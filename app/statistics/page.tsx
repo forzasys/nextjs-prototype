@@ -1,5 +1,9 @@
 import React from 'react'
 import Config from '@/lib/config'
+import Table from './table'
+import TopScorers from './topScorers'
+import Assists from './assists'
+import Cards from './cards'
 
 function Page() {
 
@@ -10,7 +14,17 @@ function Page() {
   )
 
   return (
-    <div>Statistics</div>
+    <div>
+      <div>Statistics</div>
+      <br />
+      <Table/>
+      <br />
+      <TopScorers/>
+      <br />
+      <Assists/>
+      <br />
+      <Cards/>
+    </div>
   )
 }
 

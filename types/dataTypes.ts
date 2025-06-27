@@ -10,26 +10,42 @@ export type TagsType = {
   }
 }
 
-export type PlaylistQueryType = {
+export type QueryType = {
   all_leagues?: boolean;
-  tags?: TagsType[];
-  from_date?: string;
-  to_date?: string;
-  min_rating?: number;
-  from?: number;
-  filters?: string[];
+  asc?: boolean;
   count?: number;
+  filters?: string[];
+  from?: number;
+  from_date?: string;
   [key: string]: unknown;
+  league?: string;
+  min_rating?: number;
+  season?: string | number;
+  tags?: TagsType[];
+  team_id?: number;
+  to_date?: string; 
 };
 
-export type GamesQueryType = {
-  team_id?: number,
-  season?: string,
-  from_date?: string,
-  to_date?: string,
-  count?: number,
-  asc?: boolean
-}
+// export type PlaylistQueryType = {
+//   all_leagues?: boolean;
+//   tags?: TagsType[];
+//   from_date?: string;
+//   to_date?: string;
+//   min_rating?: number;
+//   from?: number;
+//   filters?: string[];
+//   count?: number;
+//   [key: string]: unknown;
+// };
+
+// export type GamesQueryType = {
+//   team_id?: number,
+//   season?: string,
+//   from_date?: string,
+//   to_date?: string,
+//   count?: number,
+//   asc?: boolean,
+// }
 
 export type PlaylistType = {
   id: string,
@@ -52,6 +68,14 @@ export type TeamType = {
   short_name: string;
 }
 
+export type GameType = {
+  id: number;
+  home_team: TeamType;
+  visiting_team: TeamType;
+  home_team_goals: number;
+  visiting_team_goals: number;
+};
+
 export type PlayerType = {
   first_name: string;
   id: number;
@@ -62,21 +86,16 @@ export type PlayerType = {
   shirt_number: string;
 }
 
-export type GameType = {
-  id: number;
-  home_team: TeamType;
-  visiting_team: TeamType;
-  home_team_goals: number;
-  visiting_team_goals: number;
-};
-
-export type TopScorerType = {
-  goals: number;
+export type StatsPlayerType = {
+  assists?: number;
+  goals?: number;
   id: number;
   name: string;
   shirt_number: number;
   team_id: number;
   team_name: string;
+  red_cards?: number;
+  yellow_cards?: number;
 }
 
 export type TopScorerQueryType = {
@@ -84,4 +103,19 @@ export type TopScorerQueryType = {
   from_date?: string;
   to_date?: string;
   league?: string;
+}
+
+export type TableType = {
+  games_played: number;
+  goals_difference: number;
+  goals: number;
+  id: number;
+  losses: number;
+  name: string;
+  points: number;
+  rank: number;
+  red_cards: number;
+  ties: number;
+  wins: number;
+  yellow_cards: number;
 }

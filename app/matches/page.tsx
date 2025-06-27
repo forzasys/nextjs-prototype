@@ -10,6 +10,7 @@ async function Page({ searchParams }: {searchParams: Promise<SearchParamsType>})
 
   const rawParams = await searchParams;
   const params = normalizeSearchParams(rawParams);
+  
   const query = generateGamesQueryFromParams(params);
   
   const initialQuery = structuredClone(initialGamesQuery)

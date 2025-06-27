@@ -1,11 +1,12 @@
 import Config from "@/lib/config";
-import { PlaylistQueryType } from "@/types/dataTypes";
+import { QueryType } from "@/types/dataTypes";
 import stringify from "fast-json-stable-stringify";
 
 export function getApiPath (
   path: string, 
-  query?: PlaylistQueryType,
+  query?: QueryType,
 ) {
+  
   query = query || {}
   // if (league === undefined) query = {all_leagues: true, ...query}
   if (!path.startsWith("/")) path = "/" + path
@@ -20,7 +21,7 @@ export function getApiPath (
   const queryKeys = Object.keys(query).filter(key => query[key] !== undefined && query[key] !== null)
   queryKeys.sort()
   queryKeys.forEach(key => {
-    const value = query[key]
+    const value = query![key]
     if (typeof value === 'object' && value !== null) {
       url.searchParams.set(key, stringify(value));
     } else {
@@ -28,10 +29,13 @@ export function getApiPath (
     }
   })
 
+  const leagueUrlOverride = Config.leagueUrlOverride
+  if (leagueUrlOverride) leagueUrlOverride(url)
+
   return url.toString()
 }
 
-export async function onFetch(path: string, query?: PlaylistQueryType) {
+export async function onFetch(path: string, query?: QueryType) {
   const apiPath = getApiPath(path, query)
   
   if (typeof window === 'undefined') {

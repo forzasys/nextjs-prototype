@@ -2,7 +2,7 @@ import warnerBrosImg from "@/public/img/WarnerBros.png";
 import Image from 'next/image';
 import Collection from "../videosLibrary/collection";
 import HomePageMatches from "./homePageMatches";
-import TopScorer from "../topScorer/topScorer";
+import HomeTopScorer from "./homeTopScorer";
 
 function Home() {
 
@@ -16,7 +16,7 @@ function Home() {
       <br />
       <HomePageMatches />
       <br />
-      <TopScorer/>
+      <HomeTopScorer/>
       <br />
       <Collection collection={"goals"}/>
       <br />

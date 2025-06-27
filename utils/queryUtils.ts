@@ -1,5 +1,11 @@
-import { PlaylistQueryType, GamesQueryType, TopScorerQueryType, TagsType } from "../types/dataTypes";
+import { TagsType, QueryType } from "../types/dataTypes";
 import Config from "@/lib/config";
+
+export function addTeamToQuery(query: QueryType) {
+  const teamPlatformId = Config.team
+  query.team_id = teamPlatformId
+  return query
+}
 
 function generateTags(tagParam?: string | null, teamParam?: string | null) {
   
@@ -28,13 +34,13 @@ export const initialPlaylistsQuery = {
 const today = new Date();
 const formattedToday = today.toISOString().split('T')[0];
 
-export const initialGamesQuery: GamesQueryType = {
+export const initialGamesQuery: QueryType = {
   season: Config.availableSeasons[0],
   from_date: formattedToday,
   asc: true,
 }
 
-export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): PlaylistQueryType {
+export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): QueryType {
   
   const params = searchParams
 
@@ -48,7 +54,7 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
   const page = Number(pageParam) || 1;
   const from = Math.min((page - 1) * 10);
 
-  const query: PlaylistQueryType = structuredClone(initialPlaylistsQuery)
+  const query: QueryType = structuredClone(initialPlaylistsQuery)
 
   const tags = generateTags(tagParam, teamParam)
 
@@ -79,7 +85,7 @@ export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
   const teamParam = params.get("team");
   const typeParam = params.get("match_type");
 
-  const query: GamesQueryType = structuredClone(initialGamesQuery)
+  const query: QueryType = structuredClone(initialGamesQuery)
 
   if (typeParam === "results") {
     delete query.from_date;
@@ -100,6 +106,10 @@ export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
 
   if (teamParam) query.team_id = parseInt(teamParam)
 
+  // Team platform
+  const teamPlatformId = Config.team
+  if (teamPlatformId) query.team_id = teamPlatformId
+
   return query
 }
 
@@ -119,7 +129,7 @@ export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchPar
   return new URLSearchParams(cleaned);
 }
 
-export function generateVideosCollectionQuery (videosCollectionQuery: PlaylistQueryType) {
+export function generateVideosCollectionQuery (videosCollectionQuery: QueryType) {
   
   let query = structuredClone(videosCollectionQuery)
 
@@ -145,28 +155,6 @@ export function generateVideosCollectionQuery (videosCollectionQuery: PlaylistQu
             channels: channelId
         };
     }
-  }
-
-  // VIF
-  if (teamPlatformId === 1) {
-    const fromDate = query.from_date
-    const toDate = query.to_date
-    const teamInOtherLeague = fromDate === "2024-01-01" && toDate === "2024-12-31"
-    if (teamInOtherLeague) query.league = "obosligaen"
-  }
-
-  return query
-}
-
-export function generateTopScorerQuery (topScorerQuery: TopScorerQueryType) {
-  
-  const query = structuredClone(topScorerQuery)
-  
-  // Team platform
-  const teamPlatformId = Config.team
-
-  if (teamPlatformId) {
-      query.team_id = teamPlatformId
   }
 
   // VIF
