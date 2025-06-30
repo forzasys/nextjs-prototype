@@ -7,23 +7,44 @@ export function addTeamToQuery(query: QueryType) {
   return query
 }
 
-function generateTags(tagParam?: string | null, teamParam?: string | null) {
+interface GenerateTagsParams {
+  tagParam?: string | null;
+  teamParam?: string | null;
+  playerParam?: string | null;
+}
+
+function generateTags({tagParam, teamParam, playerParam}: GenerateTagsParams) {
   
   if (!tagParam) return null
   
-  let tags
-  if (tagParam) tags = [{action: tagParam}];
+  let tags = [{action: tagParam}]
 
-  if (teamParam && tags) {
+  if (teamParam) {
     const updatedTags = tags.map(tag => ({
       ...tag,
       team: { id: Number(teamParam) },
     }));
     tags = updatedTags
   }
+
+  if (playerParam) {
+
+    let role = "player"
+    if (tagParam === "goal") role = "scorer"
+    if (tagParam === "assist") role = "assist by"
+    if (tagParam === "penalty") role = "player awarded"
+    
+    const updatedTags = tags.map(tag => ({
+      ...tag,
+      [role]: { id: Number(playerParam) },
+    }));
+    tags = updatedTags
+  }
+  console.log(tags)
   return tags
 }
 
+// TODO handle filters: ["event"]
 export const initialPlaylistsQuery = {
   from_date: `${Config.availableSeasons[0]}-01-01`,
   to_date: `${Config.availableSeasons[0]}-12-31`,
@@ -49,6 +70,7 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
   const seasonParam = params.get("season");
   const tagParam = params.get("tag")
   const teamParam = params.get("team")
+  const playerParam = params.get("player")
   const pageParam = params.get("page");
 
   const page = Number(pageParam) || 1;
@@ -56,12 +78,12 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
 
   const query: QueryType = structuredClone(initialPlaylistsQuery)
 
-  const tags = generateTags(tagParam, teamParam)
+  const tags = generateTags({tagParam, teamParam, playerParam})
 
   if (seasonParam) {
     const seasonInt = parseInt(seasonParam)
-    query.from_date = `${seasonInt-1}-01-01`
-    query.to_date = `${seasonInt-1}-12-31`
+    query.from_date = `${seasonInt}-01-01`
+    query.to_date = `${seasonInt}-12-31`
   }
 
   if (!seasonParam) {

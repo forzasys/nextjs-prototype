@@ -2,16 +2,16 @@ import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
 import { PlayerType } from '@/types/dataTypes'
 
-type Props = {
-    gameId: string, 
+interface MatchLineupProps {
+    gameId: string
     gameEvents: []
 }
 
-async function MatchLineup({ gameId, gameEvents }: Props) {
+async function MatchLineup({ gameId, gameEvents }: MatchLineupProps) {
 
     const matchLineupData = await onFetch(`/game/${gameId}/players`)
 
-    console.log(matchLineupData)
+    console.log(gameEvents)
 
     const homeTeamData = matchLineupData.home_team
     const awayTeamData = matchLineupData.visiting_team

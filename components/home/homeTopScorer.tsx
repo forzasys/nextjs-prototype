@@ -1,7 +1,8 @@
 import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
 import Config from '@/lib/config'
-import { QueryType, TopScorerType } from '@/types/dataTypes'
+import Link from 'next/link'
+import { QueryType, StatsPlayerType } from '@/types/dataTypes'
 
 async function HomeTopScorer() {
 
@@ -23,13 +24,14 @@ async function HomeTopScorer() {
 
     const topScorersList = (
         <div>
-            {topScorers.map((s: TopScorerType) => {
+            {topScorers.map((s: StatsPlayerType) => {
+                const playerLinkToVideos = `videos?tag=goal&team=${s.team_id}&player=${s.id}&season=${currentSeason}`
                 return (
-                    <div key={s.id} style={{display: "flex", gap: "7px"}}>
+                    <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>
                         <div>{s.name}</div>
                         <div>{s.shirt_number}</div>
                         <div>{s.goals}</div>
-                    </div>
+                    </Link>
                 )
             })}
         </div>

@@ -1,16 +1,15 @@
 import React from 'react'
-import { onFetch } from '@/lib/fetchApi';
-import SeasonFilter from '@/components/Filter/seasonFilter';
-import TeamFilter from '@/components/Filter/teamFilter';
-import MatchesTypeFilter from '@/components/Filter/gamesTypeFilter';
-import Config from '@/lib/config';
+import MatchesTypeFilter from '@/components/Filters/gamesTypeFilter';
+import SeasonFilter from '@/components/Filters/seasonFilter';
+import TeamFilter from '@/components/Filters/teamFilter';
+import { TeamType } from '@/types/dataTypes';
+interface MatchesFiltersProps {
+  teams: TeamType[];
+  isTeamPlatform: boolean;
+}
 
-async function MatchesFilters() {
-  
-  const teamsData = await onFetch("team", {season: 2025});
-  const teams = teamsData?.teams || [];
+async function MatchesFilters({ teams, isTeamPlatform }: MatchesFiltersProps) {
 
-  const isTeamPlatform = Config.team
 
   return (
     <div>
@@ -18,7 +17,7 @@ async function MatchesFilters() {
         <br />
         <SeasonFilter games/>
         <br />
-        {!isTeamPlatform && <TeamFilter teams={teams}/>}
+        {!isTeamPlatform && <TeamFilter teams={teams} />}
     </div>
   )
 }

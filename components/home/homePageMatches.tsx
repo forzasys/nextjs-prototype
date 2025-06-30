@@ -3,6 +3,7 @@ import { onFetch } from '@/lib/fetchApi';
 import { initialGamesQuery } from '@/utils/queryUtils';
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
+import Link from 'next/link';
 
 async function HomePageMatches() {
 
@@ -14,7 +15,7 @@ async function HomePageMatches() {
 
     const gamesList = games.map((g: GameType) => {
         return (
-          <div key={g.id} style={{display: "flex"}} className='single-game'>
+          <Link key={g.id} href={`match/${g.id}`} style={{display: "flex"}} className='single-game'>
             <div className='single-game-team-logo'>
               <Image src={g.home_team.logo_url} alt="team logo" width={30} height={30}/>
             </div>
@@ -26,7 +27,7 @@ async function HomePageMatches() {
             <div className='single-game-team-logo'>
               <Image src={g.visiting_team.logo_url} alt="team logo" width={30} height={30}/>
             </div>
-          </div>
+          </Link>
         )
       })
 

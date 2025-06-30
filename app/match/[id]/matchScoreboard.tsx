@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { EventType } from "@/types/dataTypes";
 import { getGameTime } from "@/utils/utils";
 
-type Props = {
+interface MatchScoreboardProps {
     gameId: string, 
     gameEvents: []
 }
 
-async function MatchScoreboard({ gameId, gameEvents }: Props) {
+async function MatchScoreboard({ gameId, gameEvents }: MatchScoreboardProps) {
 
   const gameData = await onFetch("game/" + gameId)
 

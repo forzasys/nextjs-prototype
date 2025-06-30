@@ -5,8 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import { onFetch } from '@/lib/fetchApi';
 import { generatePlaylistQueryFromParams } from '@/utils/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
+import Playlist from '@/components/playlist/playlist';
 
-function Videos({ playlistsData }: { playlistsData: PlaylistType[] }) {
+interface VideosProps {
+  playlistsData: PlaylistType[]
+  isInitialQuery: boolean
+}
+
+function Videos({ playlistsData, isInitialQuery }: VideosProps) {
 
   const searchParams = useSearchParams();
   const query = generatePlaylistQueryFromParams(searchParams);
@@ -25,19 +31,19 @@ function Videos({ playlistsData }: { playlistsData: PlaylistType[] }) {
     queryKey: ['playlist', query],
     queryFn: () => onFetch("playlist", query),
     initialData: playlistsData,
+    enabled: !isInitialQuery,
     staleTime: staleTime,
   });
   
   const playlists = data?.playlists || []
-  console.log(query);
+
+  console.log(playlists)
   
   const renderEvents = (
-    <div>
+    <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
       {playlists.map((p: PlaylistType) => {
         return (
-          <div key={p.id}>
-            {p.description}
-          </div>
+          <Playlist key={p.id} playlist={p} />
         )
       })}
       <br />

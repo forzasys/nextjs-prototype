@@ -1,19 +1,17 @@
-import SeasonFilter from '@/components/Filter/seasonFilter';
-import TagFilter from '@/components/Filter/tagFilter';
-import TeamFilter from '@/components/Filter/teamFilter';
-import Config from '@/lib/config';
-import { onFetch } from '@/lib/fetchApi';
+import SeasonFilter from '@/components/Filters/seasonFilter';
+import TagFilter from '@/components/Filters/tagFilter';
+import TeamFilter from '@/components/Filters/teamFilter';
+import { TeamType } from '@/types/dataTypes';
+import PlayerFilter from '@/components/Filters/playerFilter';
 
-async function VideosFilters() {
+interface VideosFiltersProps {
+  tags: string[];
+  teams: TeamType[];
+  isTeamPlatform: boolean;
+  teamIsSelected: boolean;
+}
 
-  const tagsData = await onFetch("tag");
-  const tags = tagsData?.tags
-  
-  const teamsData = await onFetch("team", {season: 2025});
-  const teams = teamsData?.teams || [];
-
-  const isTeamPlatform = Config.team
-
+function VideosFilters({ tags, teams, isTeamPlatform, teamIsSelected }: VideosFiltersProps) {
   return (
     <div>
       <SeasonFilter />
@@ -21,6 +19,8 @@ async function VideosFilters() {
       <TagFilter tags={tags} />
       <br />
       {!isTeamPlatform && <TeamFilter teams={teams} />}
+      <br />
+      {teamIsSelected && <PlayerFilter />}
     </div>
   );
 }

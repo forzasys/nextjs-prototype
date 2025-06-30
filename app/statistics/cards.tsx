@@ -2,17 +2,30 @@ import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
 import Config from '@/lib/config'
 import { StatsPlayerType, QueryType } from '@/types/dataTypes'
+import Link from 'next/link'
 
 function RenderCards({cards, type}: {cards: StatsPlayerType[], type: "yellow" | "red"}) {
+    const currentSeason = Config.availableSeasons[0]
 
     const cardsList = cards.map((c: StatsPlayerType) => {
+
         const cards = type === "yellow" ? c.yellow_cards : c.red_cards
+        
+        const query = {
+            tag: `${type} card`,
+            team: c.team_id.toString(),
+            player: c.id.toString(),
+            season: currentSeason,
+        }
+        
+        const playerLinkToVideos = `videos?${new URLSearchParams(query).toString()}`
+
         return (
-            <div key={c.id} style={{display: "flex", gap: "10px"}}>
+            <Link key={c.id} href={playerLinkToVideos} style={{display: "flex", gap: "10px"}}>
                 <div>{c.name}</div>
                 <div>{c.shirt_number}</div>
                  <div>{cards}</div>
-            </div>
+            </Link>
         )
     })
 

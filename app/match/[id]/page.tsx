@@ -5,7 +5,7 @@ import MatchLineup from './matchLineup';
 import MatchEvents from './matchEvents';
 import { onFetch } from '@/lib/fetchApi';
 
-type Props = {
+interface MatchPageProps {
   params: {
     id: string;
   };
@@ -14,28 +14,34 @@ type Props = {
   };
 };
 
-async function Page({ params, searchParams }: Props) {
+async function Page({ params, searchParams }: MatchPageProps) {
+
+  // Await params and searchParams before accessing their properties
+  const resolvedParams = await Promise.resolve(params);
+  const resolvedSearchParams = await Promise.resolve(searchParams);
+
+  const gameId = resolvedParams.id;
+  const match_info = resolvedSearchParams.match_info;
+
+  const gameEventsData = await onFetch(`/game/${gameId}/events`, { count: 999 });
+  const gameEvents = gameEventsData?.events || [];
+
+  let matchInfo = <MatchStats gameId={gameId} />;
   
-  const { id } = params;
-
-  const gameEventsData = await onFetch(`/game/${id}/events`, {count: 999})
-  const gameEvents = gameEventsData?.events || []
-
-  const matchInfoType = searchParams.match_info;
-
-  let matchInfo = <MatchStats gameId={id}/>
-  if (matchInfoType === "lineup") matchInfo = <MatchLineup gameId={id} gameEvents={gameEvents}/>
-  if (matchInfoType === "events") matchInfo = <MatchEvents gameEvents={gameEvents}/>
+  if (match_info === "lineup")
+    matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;
+  if (match_info === "events")
+    matchInfo = <MatchEvents gameEvents={gameEvents} />;
 
   return (
     <div>
-      <MatchScoreboard gameId={id} gameEvents={gameEvents}/>
+      <MatchScoreboard gameId={gameId} gameEvents={gameEvents} />
       <br />
-      <MatchInfoTypes/>
+      <MatchInfoTypes />
       <br />
       {matchInfo}
     </div>
   )
 }
 
-export default Page
+export default Page;

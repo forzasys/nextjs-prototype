@@ -10,7 +10,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import "./matches.css";
 
-function Matches({gamesData}: {gamesData: GameType[]}) {
+interface MatchesProps {
+  gamesData: GameType[];
+  isInitialQuery: boolean;
+}
+
+function Matches({ gamesData, isInitialQuery }: MatchesProps) {
 
   const searchParams = useSearchParams();
   const updateParam = useUpdateSearchParam();
@@ -28,6 +33,7 @@ function Matches({gamesData}: {gamesData: GameType[]}) {
     queryKey: ['game', query],
     queryFn: () => onFetch("game", query),
     initialData: gamesData,
+    enabled: !isInitialQuery,
     // staleTime: staleTime,
   });
   
@@ -35,7 +41,7 @@ function Matches({gamesData}: {gamesData: GameType[]}) {
   
   const gamesList = games.map((g: GameType) => {
     return (
-      <Link href={`match/${g.id}`} key={g.id} className='single-game'>
+      <Link key={g.id} href={`match/${g.id}`} className='single-game'>
         <div className='single-game-team-logo'>
           <Image src={g.home_team.logo_url} alt="team logo" fill sizes="30px" className="team-logo-img"/>
         </div>

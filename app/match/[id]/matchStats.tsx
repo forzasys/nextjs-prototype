@@ -1,7 +1,11 @@
 import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
 
-async function MatchStats({ gameId } : {gameId: string}) {
+interface MatchStatsProps { 
+    gameId: string
+}
+
+async function MatchStats({ gameId } : MatchStatsProps) {
 
     const matchStatsData = await onFetch(`/game/${gameId}/stats`)
     const statistics = matchStatsData.statistics
