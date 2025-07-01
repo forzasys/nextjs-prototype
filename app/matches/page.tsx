@@ -1,13 +1,14 @@
 import React from 'react'
-import { onFetch } from "../../lib/fetchApi";
-import { generateGamesQueryFromParams, normalizeSearchParams, SearchParamsType, initialGamesQuery } from '@/utils/queryUtils';
+import { onFetch } from "@/lib/fetchApi";
+import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery } from '@/utils/queryUtils';
+import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
 import MatchesFilters from './matchesFilters';
 import Config from '@/lib/config';
 
 // Matches
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
-async function Page({ searchParams }: {searchParams: SearchParamsType}) {
+async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);

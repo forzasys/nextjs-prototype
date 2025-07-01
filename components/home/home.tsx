@@ -1,6 +1,6 @@
 import warnerBrosImg from "@/public/img/WarnerBros.png";
 import Image from 'next/image';
-import Collection from "../videosLibrary/collection";
+import { VideoCollection } from '@/components/videosLibrary/videoCollection';
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
 
@@ -12,15 +12,15 @@ function Home() {
       <br />
       <Image src={warnerBrosImg} alt="Warner Bros Logo" style={{height: "200px", width: "auto"}}/>
       <br />
-      <Collection collection={"latest"}/>
+      <VideoCollection collectionName={"latest"}/>
       <br />
       <HomePageMatches />
       <br />
       <HomeTopScorer/>
       <br />
-      <Collection collection={"goals"}/>
+      <VideoCollection collectionName={"goal"}/>
       <br />
-      <Collection collection={"interviews"}/>
+      <VideoCollection collectionName={"interviews"}/>
     </div>
   );
 }

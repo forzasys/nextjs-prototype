@@ -119,3 +119,5 @@ export type TableType = {
   wins: number;
   yellow_cards: number;
 }
+
+export type SearchParamsType = Record<string, string | string[] | undefined>;

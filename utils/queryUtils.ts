@@ -1,4 +1,5 @@
-import { TagsType, QueryType } from "../types/dataTypes";
+import { TagsType, QueryType } from "@/types/dataTypes";
+import { SearchParamsType } from "@/types/dataTypes";
 import Config from "@/lib/config";
 
 export function addTeamToQuery(query: QueryType) {
@@ -8,16 +9,16 @@ export function addTeamToQuery(query: QueryType) {
 }
 
 interface GenerateTagsParams {
-  tagParam?: string | null;
+  tag?: string | null;
   teamParam?: string | null;
   playerParam?: string | null;
 }
 
-function generateTags({tagParam, teamParam, playerParam}: GenerateTagsParams) {
+function generateTags({tag, teamParam, playerParam}: GenerateTagsParams) {
   
-  if (!tagParam) return null
+  if (!tag) return null
   
-  let tags = [{action: tagParam}]
+  let tags = [{action: tag}]
 
   if (teamParam) {
     const updatedTags = tags.map(tag => ({
@@ -30,9 +31,9 @@ function generateTags({tagParam, teamParam, playerParam}: GenerateTagsParams) {
   if (playerParam) {
 
     let role = "player"
-    if (tagParam === "goal") role = "scorer"
-    if (tagParam === "assist") role = "assist by"
-    if (tagParam === "penalty") role = "player awarded"
+    if (tag === "goal") role = "scorer"
+    if (tag === "assist") role = "assist by"
+    if (tag === "penalty") role = "player awarded"
     
     const updatedTags = tags.map(tag => ({
       ...tag,
@@ -40,7 +41,7 @@ function generateTags({tagParam, teamParam, playerParam}: GenerateTagsParams) {
     }));
     tags = updatedTags
   }
-  console.log(tags)
+
   return tags
 }
 
@@ -61,24 +62,23 @@ export const initialGamesQuery: QueryType = {
   asc: true,
 }
 
-export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): QueryType {
-  
-  const params = searchParams
+export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, initialQuery: QueryType | undefined) {
+
+  const query: QueryType = structuredClone(initialQuery || {})
 
   const currentSeason = Config.availableSeasons[0]
+  const tagFromInitialQuery = initialQuery?.tags?.[0]?.action
+  
+  const seasonParam = searchParams.get("season");
+  const tag = searchParams.get("tag") || tagFromInitialQuery
+  
+  const teamParam = searchParams.get("team")
+  const playerParam = searchParams.get("player")
+  const pageParam = searchParams.get("page");
 
-  const seasonParam = params.get("season");
-  const tagParam = params.get("tag")
-  const teamParam = params.get("team")
-  const playerParam = params.get("player")
-  const pageParam = params.get("page");
-
-  const page = Number(pageParam) || 1;
-  const from = Math.min((page - 1) * 10);
-
-  const query: QueryType = structuredClone(initialPlaylistsQuery)
-
-  const tags = generateTags({tagParam, teamParam, playerParam})
+  const tags = generateTags({tag, teamParam, playerParam})
+  
+  if (tags) query.tags = tags
 
   if (seasonParam) {
     const seasonInt = parseInt(seasonParam)
@@ -91,9 +91,11 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams): 
     query.to_date = `${currentSeason}-12-31`
   }
 
-  if (tags) query.tags = tags
-
-  if (page) query.from = from;
+  if (pageParam) {
+    const page = Number(pageParam) || 1;
+    const from = Math.min((page - 1) * 10);
+    query.from = from;
+  }
   
   return query;
 }
@@ -134,8 +136,6 @@ export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
 
   return query
 }
-
-export type SearchParamsType = Record<string, string | string[] | undefined>;
 
 export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchParams {
   const cleaned: Record<string, string> = {};
