@@ -1,11 +1,11 @@
 import React from 'react'
 import { QueryType, TableType } from '@/types/dataTypes'
 import { onFetch } from '@/lib/fetchApi'
-import Config from '@/lib/config'
+import config from '@/config';
 
 async function Table() {
 
-    const currentSeason = Config.availableSeasons[0]
+    const currentSeason = config.availableSeasons[0]
 
     const topScorerInitialQuery = {
         season: currentSeason,

@@ -1,5 +1,5 @@
 import React from 'react'
-import Config from '@/lib/config'
+import config from '@/config';
 import Table from './table'
 import TopScorers from './topScorers'
 import Assists from './assists'
@@ -9,7 +9,7 @@ function Page() {
 
   console.log(process.env.NEXT_PUBLIC_TARGET)
 
-  if (!Config.hasStatisticsPage) return (
+  if (!config.hasStatisticsPage) return (
     <div>Statistics page is not available for this league</div>
   )
 

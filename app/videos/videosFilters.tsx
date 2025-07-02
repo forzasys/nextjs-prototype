@@ -8,10 +8,10 @@ interface VideosFiltersProps {
   tags: string[];
   teams: TeamType[];
   isTeamPlatform: boolean;
-  teamIsSelected: boolean;
+  showTeamFilter: boolean;
 }
 
-function VideosFilters({ tags, teams, isTeamPlatform, teamIsSelected }: VideosFiltersProps) {
+function VideosFilters({ tags, teams, isTeamPlatform, showTeamFilter }: VideosFiltersProps) {
   return (
     <div>
       <SeasonFilter />
@@ -20,7 +20,7 @@ function VideosFilters({ tags, teams, isTeamPlatform, teamIsSelected }: VideosFi
       <br />
       {!isTeamPlatform && <TeamFilter teams={teams} />}
       <br />
-      {teamIsSelected && <PlayerFilter />}
+      {showTeamFilter && <PlayerFilter />}
     </div>
   );
 }

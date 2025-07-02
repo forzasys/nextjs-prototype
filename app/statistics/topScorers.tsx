@@ -1,12 +1,12 @@
 import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
-import Config from '@/lib/config'
+import config from '@/config';
 import { QueryType, StatsPlayerType } from '@/types/dataTypes'
 import Link from 'next/link'
 
 async function TopScorers() {
 
-    const currentSeason = Config.availableSeasons[0]
+    const currentSeason = config.availableSeasons[0]
 
     const topScorerInitialQuery = {
         from_date: `${currentSeason}-01-01`,
@@ -17,7 +17,7 @@ async function TopScorers() {
     const query: QueryType = topScorerInitialQuery
 
     // Team platform
-    const teamPlatformId = Config.team
+    const teamPlatformId = config.team
     if (teamPlatformId) query.team_id = teamPlatformId
 
     const topScorersData = await onFetch("stats/top/scorer", query)

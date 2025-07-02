@@ -5,6 +5,7 @@ import { onFetch } from '@/lib/fetchApi';
 import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
 import { PlayerType } from '@/types/dataTypes';
+import config from '@/config';
 
 type ActivePlayerObjectType = {
     player: PlayerType,
@@ -13,19 +14,20 @@ type ActivePlayerObjectType = {
 function PlayerFilter() {
     const searchParams = useSearchParams();
     const updateParam = useUpdateSearchParam();
-    
-    // Get team and season from URL params
-    const teamParam = searchParams.get('team');
-    const seasonParam = searchParams.get('season') || '2025';
 
+    const seasonParam = searchParams.get('season') || '2025';
+    const teamParam = searchParams.get('team');
+    const teamPlatformId = config.team
+    const teamId = teamPlatformId || teamParam
+    
     const playersQuery = {
         season: seasonParam,
     }
 
     const { data, isLoading } = useQuery({
-        queryKey: [`/team/${teamParam}/active_players`, playersQuery],
-        queryFn: () => onFetch(`/team/${teamParam}/active_players`, playersQuery),
-        enabled: !!teamParam && !!seasonParam,
+        queryKey: [`/team/${teamId}/active_players`, playersQuery],
+        queryFn: () => onFetch(`/team/${teamId}/active_players`, playersQuery),
+        enabled: !!teamId && !!seasonParam,
         // staleTime: staleTime,
     });
 

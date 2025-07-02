@@ -1,11 +1,11 @@
 import React from 'react'
 import { onFetch } from '@/lib/fetchApi'
-import Config from '@/lib/config'
+import config from '@/config';
 import { StatsPlayerType, QueryType } from '@/types/dataTypes'
 import Link from 'next/link'
 
 function RenderCards({cards, type}: {cards: StatsPlayerType[], type: "yellow" | "red"}) {
-    const currentSeason = Config.availableSeasons[0]
+    const currentSeason = config.availableSeasons[0]
 
     const cardsList = cards.map((c: StatsPlayerType) => {
 
@@ -39,7 +39,7 @@ function RenderCards({cards, type}: {cards: StatsPlayerType[], type: "yellow" | 
 
 async function Cards() {
 
-    const currentSeason = Config.availableSeasons[0]
+    const currentSeason = config.availableSeasons[0]
 
     const statsCardsInitialQuery = {
         from_date: `${currentSeason}-01-01`,
@@ -50,7 +50,7 @@ async function Cards() {
     const query: QueryType = statsCardsInitialQuery
 
     // Team platform
-    const teamPlatformId = Config.team
+    const teamPlatformId = config.team
     if (teamPlatformId) query.team_id = teamPlatformId
 
     const statsCardsData = await onFetch("stats/top/cards", query)

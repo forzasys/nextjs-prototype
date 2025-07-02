@@ -3,7 +3,7 @@ import { onFetch } from "@/lib/fetchApi";
 import { normalizeSearchParams } from '@/utils/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import VideosFilters from './videosFilters';
-import Config from '@/lib/config';
+import config from '@/config';
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -12,9 +12,10 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
   
-  const isTeamPlatform = !!Config.team;
+  const isTeamPlatform = !!config.team;
   const teamIsSelected = !!params.get("team")
-
+  const showTeamFilter = isTeamPlatform || teamIsSelected
+  
   const tagsData = await onFetch("tag");
   const tags = tagsData?.tags || [];
   
@@ -25,7 +26,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
     <div>
       <title>Videos</title>
       <h2>Videos</h2>
-      <VideosFilters tags={tags} teams={teams} isTeamPlatform={isTeamPlatform} teamIsSelected={teamIsSelected} />
+      <VideosFilters tags={tags} teams={teams} isTeamPlatform={isTeamPlatform} showTeamFilter={showTeamFilter} />
       <Videos params={params} />
     </div>
   )

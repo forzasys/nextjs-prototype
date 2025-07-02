@@ -1,4 +1,4 @@
-import Config from "@/lib/config";
+import config from '@/config';
 import { QueryType } from "@/types/dataTypes";
 import stringify from "fast-json-stable-stringify";
 
@@ -11,9 +11,9 @@ export function getApiPath (
   // if (league === undefined) query = {all_leagues: true, ...query}
   if (!path.startsWith("/")) path = "/" + path
 
-  const apiServerUrl = Config.apiUrl
+  const apiServerUrl = config.apiUrl
   // TODO make the league stricter
-  let league = query.league || Config.league
+  let league = query.league || config.league
   if (Array.isArray(league)) league = league[0]
   const url = new URL(apiServerUrl + league + path)
 
@@ -29,7 +29,7 @@ export function getApiPath (
     }
   })
 
-  const leagueUrlOverride = Config.leagueUrlOverride
+  const leagueUrlOverride = config.leagueUrlOverride
   if (leagueUrlOverride) leagueUrlOverride(url)
 
   return url.toString()

@@ -4,7 +4,7 @@ import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery 
 import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
 import MatchesFilters from './matchesFilters';
-import Config from '@/lib/config';
+import config from '@/config';
 
 // Matches
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -16,7 +16,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   
   const initialQuery = structuredClone(initialGamesQuery)
   const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
-  const isTeamPlatform = !!Config.team
+  const isTeamPlatform = !!config.team
 
   const gamesData = isInitialQuery ? await onFetch("game", initialGamesQuery) : undefined
   const teamsData = !isTeamPlatform ? await onFetch("team", {season: 2025}) : undefined;

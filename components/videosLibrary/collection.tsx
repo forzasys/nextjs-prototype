@@ -29,10 +29,6 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
 
     const collections = data?.playlists || [];
 
-    if (collections.length === 0) {
-        return <div>No data</div>
-    }
-
     const collectionTitle = collectionTitles[collectionName];
 
     const playlist = (
@@ -50,6 +46,10 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
     ) : (
         playlist
     )
+
+    if (!isLoading && collections.length === 0) {
+        return <div>No data</div>
+    }
 
     return (
         <div>

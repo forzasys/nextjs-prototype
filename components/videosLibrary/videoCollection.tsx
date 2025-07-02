@@ -2,13 +2,14 @@ import { onFetch } from "@/lib/fetchApi";
 import { QueryType } from "@/types/dataTypes";
 import { generatePlaylistQueryFromParams } from "@/utils/queryUtils";
 import { Collection } from "./collection";
-import Config from "@/lib/config";
+// import { teamPlatformPlaylistQuery } from "@/utils/queryUtils";
+import config from '@/config';
 
 export function initialCollectionQueries (collectionName: string) {
 
   const initialQuery: QueryType = {
-    from_date: `${Config.availableSeasons[0]}-01-01`,
-    to_date: `${Config.availableSeasons[0]}-12-31`,
+    // from_date: `${config.availableSeasons[0]}-01-01`,
+    // to_date: `${config.availableSeasons[0]}-12-31`,
     count: 8,
   }
 
@@ -16,22 +17,22 @@ export function initialCollectionQueries (collectionName: string) {
 
     case "goal":
       initialQuery.tags = [{ action: "goal" }]
-      initialQuery.filters = ["event"]
+      initialQuery.filters = ["official"]
       break
 
     case "yellow card":
       initialQuery.tags = [{ action: "yellow card" }]
-      initialQuery.filters = ["event"]
+      initialQuery.filters = ["official"]
       break
 
-    case "red card ":
+    case "red card":
       initialQuery.tags = [{ action: "red card" }]
-      initialQuery.filters = ["event"]
+      initialQuery.filters = ["official"]
       break
 
     case "shot":
       initialQuery.tags = [{ action: "shot" }]
-      initialQuery.filters = ["event"]
+      initialQuery.filters = ["official"]
       break
 
     case "latest":
@@ -42,10 +43,17 @@ export function initialCollectionQueries (collectionName: string) {
       initialQuery.tags = [{ action: "interview" }]
       break
 
-
     default:
       break
   }
+
+  // Team platform
+  // const teamPlatformId = config.team
+  // if (teamPlatformId) {
+    // if (initialQuery.filters) {
+      // initialQuery.filters.push("team_vålerenga")
+    // }
+  // }
 
   return initialQuery
 }
@@ -55,7 +63,7 @@ type CollectionTitlesType = {
 }
 
 export const collectionTitles: CollectionTitlesType = {
-    "goal": "All goals",
+    "goal": "Goals",
     "yellow card": "Yellow cards",
     "red card": "Red cards",
     "shot": "Shots",
@@ -74,7 +82,7 @@ export async function VideoCollection({params, collectionName, hideCollection}: 
   if (hideCollection) return null;
   
   const initialCollectionQuery = initialCollectionQueries(collectionName);
-
+  console.log("initialCollectionQuery", initialCollectionQuery) 
   let query: QueryType = {};
 
   if (params) {

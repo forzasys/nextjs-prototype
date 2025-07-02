@@ -2,6 +2,7 @@ import React from 'react'
 import { onFetch } from '@/lib/fetchApi';
 import { initialGamesQuery } from '@/utils/queryUtils';
 import { GameType } from '@/types/dataTypes';
+import config from '@/config';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,6 +10,9 @@ async function HomePageMatches() {
 
     const query = structuredClone(initialGamesQuery)
     query.count = 4
+
+    const teamPlatformId = config.team
+    if (teamPlatformId) query.team_id = teamPlatformId
 
     const gamesData = await onFetch("game", query)
     const games = gamesData?.games || [];

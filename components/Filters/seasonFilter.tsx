@@ -1,6 +1,6 @@
 'use client';
 import { useUpdateSearchParam } from "@/utils/ClientSideUtils";
-import Config from "@/lib/config";
+import config from '@/config';
 import { useSearchParams } from 'next/navigation';
 
 function SeasonFilter({games}: {games?: boolean}) {
@@ -9,20 +9,19 @@ function SeasonFilter({games}: {games?: boolean}) {
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("match_type");
 
-  const currentSeason = Config.availableSeasons[0]
+  const currentSeason = config.availableSeasons[0]
   
-  let seasons = Config.availableSeasons;
+  let seasons = config.availableSeasons;
   
   const isGameFixtures = games && (typeParam === "fixtures" || !typeParam);
   if (isGameFixtures) seasons = [currentSeason];
   
   return (
     <div style={{display: "flex", gap: "15px"}}>
+      <div onClick={() => updateParam("season")}>All</div>
       {seasons.map((s) => {
-        let season: string | undefined = s
-        if (season === currentSeason) season = undefined
         return (
-          <div key={s} onClick={() => updateParam("season", season)}>{s}</div>
+          <div key={s} onClick={() => updateParam("season", s)}>{s}</div>
         )
       })}
     </div>
