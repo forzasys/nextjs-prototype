@@ -1,6 +1,6 @@
 'use client';
 import React from 'react'
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 
 function MatchInfoTypes() {
 

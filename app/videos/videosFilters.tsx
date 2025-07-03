@@ -3,6 +3,7 @@ import TagFilter from '@/components/Filters/tagFilter';
 import TeamFilter from '@/components/Filters/teamFilter';
 import { TeamType } from '@/types/dataTypes';
 import PlayerFilter from '@/components/Filters/playerFilter';
+import './videos.css';
 
 interface VideosFiltersProps {
   tags: string[];
@@ -13,7 +14,7 @@ interface VideosFiltersProps {
 
 function VideosFilters({ tags, teams, isTeamPlatform, showTeamFilter }: VideosFiltersProps) {
   return (
-    <div>
+    <div className="videos-filters">
       <SeasonFilter />
       <br />
       <TagFilter tags={tags} />

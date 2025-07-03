@@ -1,6 +1,6 @@
 import React from 'react'
-import { onFetch } from "@/lib/fetchApi";
-import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery } from '@/utils/queryUtils';
+import { onFetch } from "@/utilities/fetchApi";
+import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
 import MatchesFilters from './matchesFilters';

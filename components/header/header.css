@@ -1,8 +1,8 @@
 .header-main {
     display: flex;
     align-items: center;
-    gap: 15px;
-    background-color: blue;
+    gap: 25px;
+    background-color: var(--primary-color);
     padding: 10px;
 }
 
@@ -15,6 +15,6 @@
 }
 
 .header-link img {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: auto;
 }

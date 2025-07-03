@@ -3,7 +3,7 @@ import MatchInfoTypes from './matchInfoTypes';
 import MatchStats from './matchStats';
 import MatchLineup from './matchLineup';
 import MatchEvents from './matchEvents';
-import { onFetch } from '@/lib/fetchApi';
+import { onFetch } from '@/utilities/fetchApi';
 
 interface MatchPageProps {
   params: {

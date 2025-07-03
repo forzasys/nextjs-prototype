@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { TeamType } from '@/types/dataTypes';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
+import { FilterDropdown } from './filterDropdown';
 
 function TeamFilter({ teams }: { teams: TeamType[] }) {
 
@@ -21,14 +22,14 @@ function TeamFilter({ teams }: { teams: TeamType[] }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamParam])
 
+  const teamOptions = teams.map((t) => ({
+    id: t.id,
+    value: t.name
+  }))
+
   return (
-    <div style={{display: "flex", gap: "15px"}}>
-      <div onClick={() => updateParam("team")}>all</div>
-      {teams.map((t) => {
-        return (
-          <div key={t.id} onClick={() => updateParam("team", t.id)}>{t.name}</div>
-        )
-      })}
+    <div>
+      <FilterDropdown title="team" options={teamOptions} hasAll={true}/>
     </div>
   )
 }

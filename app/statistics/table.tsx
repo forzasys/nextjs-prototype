@@ -1,6 +1,6 @@
 import React from 'react'
 import { QueryType, TableType } from '@/types/dataTypes'
-import { onFetch } from '@/lib/fetchApi'
+import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 
 async function Table() {

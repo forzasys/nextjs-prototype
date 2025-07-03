@@ -66,7 +66,6 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, i
 
   let query: QueryType = structuredClone(initialQuery || {})
 
-  const currentSeason = config.availableSeasons[0]
   const tagFromInitialQuery = initialQuery?.tags?.[0]?.action
   
   const seasonParam = searchParams.get("season");
@@ -85,11 +84,6 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, i
     query.from_date = `${seasonInt}-01-01`
     query.to_date = `${seasonInt}-12-31`
   }
-
-  // if (!seasonParam) {
-    // query.from_date = `${currentSeason}-01-01`
-    // query.to_date = `${currentSeason}-12-31`
-  // }
 
   if (pageParam) {
     const page = Number(pageParam) || 1;

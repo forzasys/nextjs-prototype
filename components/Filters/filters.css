@@ -1,0 +1,29 @@
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+}
+
+.filter-dropdown-options {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    display: none;
+} 
+
+.filter-dropdown-options.open {
+    display: block;
+}
+
+.filter-dropdown-icon {
+    font-size: 20px;
+}

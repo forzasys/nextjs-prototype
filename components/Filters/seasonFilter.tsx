@@ -1,12 +1,12 @@
 'use client';
-import { useUpdateSearchParam } from "@/utils/ClientSideUtils";
 import config from '@/config';
 import { useSearchParams } from 'next/navigation';
+import { FilterDropdown } from './filterDropdown';
 
 function SeasonFilter({games}: {games?: boolean}) {
 
-  const updateParam = useUpdateSearchParam();
   const searchParams = useSearchParams();
+  const seasonParam = searchParams.get("season");
   const typeParam = searchParams.get("match_type");
 
   const currentSeason = config.availableSeasons[0]
@@ -16,14 +16,14 @@ function SeasonFilter({games}: {games?: boolean}) {
   const isGameFixtures = games && (typeParam === "fixtures" || !typeParam);
   if (isGameFixtures) seasons = [currentSeason];
   
+  const seasonsOptions = seasons.map((s) => ({
+    id: s,
+    value: s
+  }))
+
   return (
-    <div style={{display: "flex", gap: "15px"}}>
-      <div onClick={() => updateParam("season")}>All</div>
-      {seasons.map((s) => {
-        return (
-          <div key={s} onClick={() => updateParam("season", s)}>{s}</div>
-        )
-      })}
+    <div>
+      <FilterDropdown title="season" options={seasonsOptions} value={seasonParam} hasAll/>
     </div>
   )
 }

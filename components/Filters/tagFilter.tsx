@@ -1,9 +1,7 @@
 'use client';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { FilterDropdown } from './filterDropdown';
 
 function TagFilter({ tags }: { tags: string[] }) {
-
-  const updateParam = useUpdateSearchParam();
 
   if (tags.length === 0) return null
 
@@ -18,14 +16,14 @@ function TagFilter({ tags }: { tags: string[] }) {
   
   const availableTags = allTags.filter((t) => !uselessTags.includes(t))
 
+  const tagsOptions = availableTags.map((t) => ({
+    id: t,
+    value: t
+  }))
+
   return (
-    <div style={{display: "flex", gap: "15px"}}>
-      <div onClick={() => updateParam("tag", undefined)}>all</div>
-      {availableTags.map((t) => {
-        return (
-          <div key={t} onClick={() => updateParam("tag", t)}>{t}</div>
-        )
-      })}
+    <div>
+      <FilterDropdown title="tag" options={tagsOptions} hasAll/>
     </div>
   )
 }

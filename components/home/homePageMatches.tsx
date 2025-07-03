@@ -1,6 +1,6 @@
 import React from 'react'
-import { onFetch } from '@/lib/fetchApi';
-import { initialGamesQuery } from '@/utils/queryUtils';
+import { onFetch } from '@/utilities/fetchApi';
+import { initialGamesQuery } from '@/utilities/queryUtils';
 import { GameType } from '@/types/dataTypes';
 import config from '@/config';
 import Image from 'next/image';

@@ -1,10 +1,10 @@
 'use client';
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';
-import { generateGamesQueryFromParams } from '@/utils/queryUtils';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { generateGamesQueryFromParams } from '@/utilities/queryUtils';
+import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useQuery } from '@tanstack/react-query';
-import { onFetch } from '@/lib/fetchApi';
+import { onFetch } from '@/utilities/fetchApi';
 import { GameType } from '@/types/dataTypes';
 import Link from 'next/link';
 import Image from 'next/image';

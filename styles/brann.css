@@ -1,0 +1,5 @@
+/* Brann theme specific styles */
+html[data-theme="brann"] * {
+  --primary-color: #de1215;
+  --secondary-color: #eee;
+}

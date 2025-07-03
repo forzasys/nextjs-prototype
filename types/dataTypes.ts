@@ -50,6 +50,7 @@ export type QueryType = {
 export type PlaylistType = {
   id: string,
   description: string;
+  thumbnail_url: string;
   // other playlist props
 };
 

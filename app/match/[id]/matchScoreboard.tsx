@@ -1,7 +1,7 @@
-import { onFetch } from "@/lib/fetchApi"
+import { onFetch } from "@/utilities/fetchApi"
 import Image from 'next/image';
 import { EventType } from "@/types/dataTypes";
-import { getGameTime } from "@/utils/utils";
+import { getGameTime } from "@/utilities/utils";
 
 interface MatchScoreboardProps {
     gameId: string, 

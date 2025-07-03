@@ -1,11 +1,12 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { onFetch } from '@/lib/fetchApi';
+import { onFetch } from '@/utilities/fetchApi';
 import { useSearchParams } from 'next/navigation';
-import { generatePlaylistQueryFromParams } from '@/utils/queryUtils';
+import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
 import Playlist from '@/components/playlist/playlist';
 import { collectionTitles, initialCollectionQueries } from './videoCollection';
+import "./videoCollection.css";
 
 interface VideoCollectionProps {
     playlistData?: PlaylistType[] | undefined
@@ -18,7 +19,7 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
     const searchParams = useSearchParams();
     const initialCollectionQuery = initialCollectionQueries(collectionName);
     const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
-    // console.log("query", query);
+
     const { data, isLoading } = useQuery({
         queryKey: ['playlist', query],
         queryFn: () => onFetch("playlist", query),
@@ -32,7 +33,7 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
     const collectionTitle = collectionTitles[collectionName];
 
     const playlist = (
-        <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+        <div className="collection-playlist-container">
           {collections.map((p: PlaylistType) => {
             return (
               <Playlist key={p.id} playlist={p} />
@@ -41,20 +42,17 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
         </div>
     )
 
-    const render = isLoading ? (
-    <div style={{fontSize: "32px"}}>Loading...</div>
-    ) : (
-        playlist
-    )
+    let render
 
-    if (!isLoading && collections.length === 0) {
-        return <div>No data</div>
-    }
+    if (isLoading) render = <div >Loading...</div>
+
+    if (collections.length === 0) render = <div>0 videos</div>
+
+    else render = playlist
 
     return (
-        <div>
-            <div>{collectionTitle}</div>
-            <br />
+        <div className="collection-container">
+            <div className="collection-title">{collectionTitle}</div>
             {render}
         </div>
     )

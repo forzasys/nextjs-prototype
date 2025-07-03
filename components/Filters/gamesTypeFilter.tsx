@@ -1,5 +1,5 @@
 'use client';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 
 function MatchesTypeFilter() {
     

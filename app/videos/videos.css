@@ -1,0 +1,6 @@
+.videos-filters {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 50px;
+}

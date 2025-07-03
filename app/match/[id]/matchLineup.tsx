@@ -1,5 +1,5 @@
 import React from 'react'
-import { onFetch } from '@/lib/fetchApi'
+import { onFetch } from '@/utilities/fetchApi'
 import { PlayerType } from '@/types/dataTypes'
 
 interface MatchLineupProps {

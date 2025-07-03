@@ -1,17 +1,21 @@
 import React from 'react'
 import Link from 'next/link';
-import warnerBrosImg from "@/public/img/WarnerBros.png";
+import { getHeaderLogo } from '@/utilities/imageUtil';
 import Image from 'next/image';
+import config from "@/config";
 import "./header.css";
 
 function Header() {
+
+  const headerLogo = getHeaderLogo[config.target]
+
   return (
     <div className='header-main'>
         <Link href="/" className="header-link">
-            <Image src={warnerBrosImg} alt="Warner Bros Logo"/>
+          <Image src={headerLogo} alt="team logo"/>
         </Link>
         <Link href="/matches" className="header-link">
-            Fixtures & Results
+          Fixtures & Results
         </Link>
         <Link href="/videos" className="header-link">
           Videos

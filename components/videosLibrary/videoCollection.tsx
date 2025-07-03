@@ -1,13 +1,13 @@
-import { onFetch } from "@/lib/fetchApi";
+import { onFetch } from "@/utilities/fetchApi";
 import { QueryType } from "@/types/dataTypes";
-import { generatePlaylistQueryFromParams } from "@/utils/queryUtils";
+import { generatePlaylistQueryFromParams } from "@/utilities/queryUtils";
 import { Collection } from "./collection";
-// import { teamPlatformPlaylistQuery } from "@/utils/queryUtils";
-import config from '@/config';
+import config from "@/config";
+import { teamPlatformPlaylistQuery } from "@/utilities/queryUtils";
 
 export function initialCollectionQueries (collectionName: string) {
 
-  const initialQuery: QueryType = {
+  let initialQuery: QueryType = {
     // from_date: `${config.availableSeasons[0]}-01-01`,
     // to_date: `${config.availableSeasons[0]}-12-31`,
     count: 8,
@@ -48,12 +48,8 @@ export function initialCollectionQueries (collectionName: string) {
   }
 
   // Team platform
-  // const teamPlatformId = config.team
-  // if (teamPlatformId) {
-    // if (initialQuery.filters) {
-      // initialQuery.filters.push("team_vålerenga")
-    // }
-  // }
+  const teamPlatformId = config.team
+  if (teamPlatformId) initialQuery = teamPlatformPlaylistQuery(initialQuery)
 
   return initialQuery
 }
@@ -82,7 +78,7 @@ export async function VideoCollection({params, collectionName, hideCollection}: 
   if (hideCollection) return null;
   
   const initialCollectionQuery = initialCollectionQueries(collectionName);
-  console.log("initialCollectionQuery", initialCollectionQuery) 
+
   let query: QueryType = {};
 
   if (params) {

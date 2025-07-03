@@ -1,8 +1,8 @@
 'use client';
 import React from 'react'
 import { useQuery } from '@tanstack/react-query';
-import { onFetch } from '@/lib/fetchApi';
-import { useUpdateSearchParam } from '@/utils/ClientSideUtils';
+import { onFetch } from '@/utilities/fetchApi';
+import { PlayerFilterDropdown } from './filterDropdown';
 import { useSearchParams } from 'next/navigation';
 import { PlayerType } from '@/types/dataTypes';
 import config from '@/config';
@@ -12,9 +12,10 @@ type ActivePlayerObjectType = {
 }
 
 function PlayerFilter() {
-    const searchParams = useSearchParams();
-    const updateParam = useUpdateSearchParam();
 
+    const searchParams = useSearchParams();
+
+    const playerParam = searchParams.get('player');
     const seasonParam = searchParams.get('season') || '2025';
     const teamParam = searchParams.get('team');
     const teamPlatformId = config.team
@@ -37,14 +38,17 @@ function PlayerFilter() {
         return <div>Loading...</div>
     }
 
+    const playerOptions = players.map((p: PlayerType) => ({
+        id: p.id,
+        value: {
+            name: p.name,
+            shirt_number: p.shirt_number
+        }
+    }))
+
     return (
         <div>
-            <div>Players</div>
-            {players.map((player: PlayerType) => (
-                <div key={player.id} onClick={() => updateParam("player", player.id)}>
-                    {player.shirt_number} {player.name}
-                </div>
-            ))}
+            <PlayerFilterDropdown title="player" options={playerOptions} value={playerParam} hasAll/>
         </div>
     )
 }

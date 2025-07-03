@@ -1,6 +1,6 @@
 import Videos from './videos';
-import { onFetch } from "@/lib/fetchApi";
-import { normalizeSearchParams } from '@/utils/queryUtils';
+import { onFetch } from "@/utilities/fetchApi";
+import { normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import VideosFilters from './videosFilters';
 import config from '@/config';

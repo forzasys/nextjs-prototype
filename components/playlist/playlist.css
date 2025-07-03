@@ -1,0 +1,27 @@
+.playlist-single {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 1rem;
+}
+
+.playlist-image {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.playlist-thumbnail {
+    object-fit: cover;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .playlist-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+}

@@ -1,0 +1,5 @@
+/* VIF theme specific styles */
+html[data-theme="vif"] * {
+  --primary-color: #024da1;
+  --secondary-color: #ed1b2e;
+}
