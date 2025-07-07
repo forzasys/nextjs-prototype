@@ -1,56 +1,95 @@
-import { TagsType, QueryType } from "@/types/dataTypes";
+import { QueryType } from "@/types/dataTypes";
 import { SearchParamsType } from "@/types/dataTypes";
 import config from '@/config';
 
-export function addTeamToQuery(query: QueryType) {
-  const teamPlatformId = config.team
-  query.team_id = teamPlatformId
-  return query
-}
-
-interface GenerateTagsParams {
-  tag?: string | null;
+export type InitialCollectionParams = {
+  collectionName: string | null;
   teamParam?: string | null;
   playerParam?: string | null;
-}
+  initialQuery?: QueryType;
+};
 
-function generateTags({tag, teamParam, playerParam}: GenerateTagsParams) {
-  
-  if (!tag) return null
-  
-  let tags = [{action: tag}]
+export function videoCollectionQueries ({collectionName, teamParam, playerParam, initialQuery}: InitialCollectionParams) {
 
-  if (teamParam) {
-    const updatedTags = tags.map(tag => ({
-      ...tag,
-      team: { id: Number(teamParam) },
-    }));
-    tags = updatedTags
+  const query: QueryType = structuredClone(initialQuery) || {}
+
+  switch (collectionName) {
+
+    case "assist":
+      query.tags = [{ action: "goal" }]
+      query.filters = ["official"]
+      break
+
+    case "goal":
+      query.tags = [{ action: "goal" }]
+      query.filters = ["official"]
+      break
+
+    case "penalty":
+      query.tags = [
+        {action: "goal", "shot type": {"value": "penalty"}},
+        {action: "shot", "shot type": {"value": "penalty"}}
+      ]
+      query.filters = ["official"]
+      break
+                
+    case "red card":
+      query.tags = [{ action: "red card" }]
+      query.filters = ["official"]
+      break
+
+    case "shot":
+      query.tags = [{ action: "shot" }]
+      query.filters = ["official"]
+      break
+
+    case "yellow card":
+      query.tags = [{ action: "yellow card" }]
+      query.filters = ["official"]
+      break
+
+    case "latest":
+      query.filters = ["~official","~live"]
+      break
+
+    case "interviews":
+      query.tags = [{ action: "interview" }]
+      break
+
+    default:
+      break
   }
 
-  if (playerParam) {
+  const teamPlatformId = config.team
+  const isTeamPlatform = !!teamPlatformId
 
-    let role = "player"
-    if (tag === "goal") role = "scorer"
-    if (tag === "assist") role = "assist by"
-    if (tag === "penalty") role = "player awarded"
+  if (isTeamPlatform) {
+    query.tags = query?.tags?.map(tag => ({
+      ...tag,
+      team: { id: teamPlatformId }
+    }));
+  }
+
+  if (teamParam && !isTeamPlatform) {
+    query.tags = query?.tags?.map(tag => ({
+      ...tag,
+      team: { id: Number(teamParam) }
+    }));
+  }
     
-    const updatedTags = tags.map(tag => ({
+  if (!!playerParam) {
+    let playerType: string = "player"
+    if (collectionName === "goal") playerType = "scorer"
+    if (collectionName === "assist") playerType = "assist by"
+    query.tags = query?.tags?.map(tag => ({
       ...tag,
-      [role]: { id: Number(playerParam) },
+      [playerType]: { id: Number(playerParam) }
     }));
-    tags = updatedTags
   }
 
-  return tags
-}
+  query.count = 8
 
-// TODO handle filters: ["event"]
-export const initialPlaylistsQuery = {
-  from_date: `${config.availableSeasons[0]}-01-01`,
-  to_date: `${config.availableSeasons[0]}-12-31`,
-  count: 10,
-  from: 0,
+  return query
 }
 
 const today = new Date();
@@ -64,20 +103,14 @@ export const initialGamesQuery: QueryType = {
 
 export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, initialQuery: QueryType | undefined) {
 
-  let query: QueryType = structuredClone(initialQuery || {})
-
-  const tagFromInitialQuery = initialQuery?.tags?.[0]?.action
-  
   const seasonParam = searchParams.get("season");
-  const tag = searchParams.get("tag") || tagFromInitialQuery
+  const eventParam = searchParams.get("event")
   
   const teamParam = searchParams.get("team")
   const playerParam = searchParams.get("player")
   const pageParam = searchParams.get("page");
-
-  const tags = generateTags({tag, teamParam, playerParam})
   
-  if (tags) query.tags = tags
+  const query: QueryType = videoCollectionQueries({collectionName: eventParam, teamParam, playerParam, initialQuery})
 
   if (seasonParam) {
     const seasonInt = parseInt(seasonParam)
@@ -91,9 +124,8 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, i
     query.from = from;
   }
 
-  // Team platform
-  const teamPlatformId = config.team
-  if (teamPlatformId) query = teamPlatformPlaylistQuery(query)
+  // Handle filters
+  if (eventParam) query.filters = ["event"]
   
   return query;
 }
@@ -149,32 +181,27 @@ export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchPar
   return new URLSearchParams(cleaned);
 }
 
-export function teamPlatformPlaylistQuery (videosCollectionQuery: QueryType) {
-  
-  let query = structuredClone(videosCollectionQuery)
-
-  // Team platform
-  const teamPlatformId = config.team
-
-  if (teamPlatformId) {
-    query.team_id = teamPlatformId
-    const channelId = config.channel
-    const queryTags = query?.tags
-    if (queryTags) {
-      const updatedTags = queryTags.map((tag: TagsType) => ({
-          ...tag,
-          team: { id: Number(teamPlatformId) },
-      }));
-      query = {
-          ...query,
-          tags: updatedTags
-      };
-    } else {
-        query = {
-            ...query,
-            channels: channelId
-        };
-    }
-  }
-  return query
-}
+// export function teamPlatformPlaylistQuery (videosCollectionQuery: QueryType, teamId: number | string) {
+  // 
+  // let query = structuredClone(videosCollectionQuery)
+  // console.log(query)
+  // query.team_id = Number(teamId)
+  // const channelId = config.channel
+  // const queryTags = query?.tags
+  // if (queryTags) {
+    // const updatedTags = queryTags.map((tag: TagsType) => ({
+        // ...tag,
+        // team: { id: Number(teamId) },
+    // }));
+    // query = {
+        // ...query,
+        // tags: updatedTags
+    // };
+  // } else {
+      // query = {
+          // ...query,
+          // channels: channelId
+      // };
+  // }
+  // return query
+// }

@@ -8,18 +8,15 @@ interface VideoPageProps {
 }
 
 async function Page({ params }: VideoPageProps) {
-
   const { id } = params
 
   const playlistData = await onFetch(`/playlist/${id}`);
   const playlist = playlistData || {};
 
-  console.log(id, playlist)
-  
   return (
     <div>
-        <div>Video</div>
-        {playlist.description}
+      <h2>Video</h2>
+      {playlist.description}
     </div>
   )
 }

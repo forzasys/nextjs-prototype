@@ -23,7 +23,7 @@ function SeasonFilter({games}: {games?: boolean}) {
 
   return (
     <div>
-      <FilterDropdown title="season" options={seasonsOptions} value={seasonParam} hasAll/>
+      <FilterDropdown title="season" options={seasonsOptions} value={seasonParam} defaultValue={currentSeason} hasAll/>
     </div>
   )
 }

@@ -22,15 +22,15 @@ async function TopScorers() {
 
     const topScorersData = await onFetch("stats/top/scorer", query)
     const topScorers = topScorersData?.players || []
-
+    
     const topScorersList = (
         <div>
             {topScorers.map((s: StatsPlayerType) => {
                 const playerLinkToVideos = `videos?tag=goal&team=${s.team_id}&player=${s.id}&season=${currentSeason}`
                 return (
                     <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>
-                        <div>{s.name}</div>
                         <div>{s.shirt_number}</div>
+                        <div>{s.name}</div>
                         <div>{s.goals}</div>
                     </Link>
                 )

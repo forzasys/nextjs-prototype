@@ -2,57 +2,7 @@ import { onFetch } from "@/utilities/fetchApi";
 import { QueryType } from "@/types/dataTypes";
 import { generatePlaylistQueryFromParams } from "@/utilities/queryUtils";
 import { Collection } from "./collection";
-import config from "@/config";
-import { teamPlatformPlaylistQuery } from "@/utilities/queryUtils";
-
-export function initialCollectionQueries (collectionName: string) {
-
-  let initialQuery: QueryType = {
-    // from_date: `${config.availableSeasons[0]}-01-01`,
-    // to_date: `${config.availableSeasons[0]}-12-31`,
-    count: 8,
-  }
-
-  switch (collectionName) {
-
-    case "goal":
-      initialQuery.tags = [{ action: "goal" }]
-      initialQuery.filters = ["official"]
-      break
-
-    case "yellow card":
-      initialQuery.tags = [{ action: "yellow card" }]
-      initialQuery.filters = ["official"]
-      break
-
-    case "red card":
-      initialQuery.tags = [{ action: "red card" }]
-      initialQuery.filters = ["official"]
-      break
-
-    case "shot":
-      initialQuery.tags = [{ action: "shot" }]
-      initialQuery.filters = ["official"]
-      break
-
-    case "latest":
-      initialQuery.filters = ["~official","~live"]
-      break
-
-    case "interviews":
-      initialQuery.tags = [{ action: "interview" }]
-      break
-
-    default:
-      break
-  }
-
-  // Team platform
-  const teamPlatformId = config.team
-  if (teamPlatformId) initialQuery = teamPlatformPlaylistQuery(initialQuery)
-
-  return initialQuery
-}
+import { videoCollectionQueries } from "@/utilities/queryUtils";
 
 type CollectionTitlesType = {
   [key: string]: string
@@ -60,6 +10,7 @@ type CollectionTitlesType = {
 
 export const collectionTitles: CollectionTitlesType = {
     "goal": "Goals",
+    "assist": "Assists",
     "yellow card": "Yellow cards",
     "red card": "Red cards",
     "shot": "Shots",
@@ -70,14 +21,14 @@ export const collectionTitles: CollectionTitlesType = {
 interface VideoCollectionProps {
   params?: URLSearchParams | undefined
   collectionName: string
-  hideCollection?: boolean | false
+  showCollection?: boolean | true
 }
 
-export async function VideoCollection({params, collectionName, hideCollection}: VideoCollectionProps) {
+export async function VideoCollection({collectionName, params, showCollection}: VideoCollectionProps) {
   
-  if (hideCollection) return null;
+  if (!showCollection) return null;
   
-  const initialCollectionQuery = initialCollectionQueries(collectionName);
+  const initialCollectionQuery = videoCollectionQueries({collectionName});
 
   let query: QueryType = {};
 

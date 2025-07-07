@@ -1,30 +1,37 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { PlaylistType } from '@/types/dataTypes'
+import { PlaylistType, QueryType } from '@/types/dataTypes'
+import { saveQueryToSession } from '@/utilities/utils'
 import "./playlist.css";
 
 interface PlaylistProps {
   playlist: PlaylistType
+  query?: QueryType
 }
 
-function Playlist({ playlist }: PlaylistProps) {
+function Playlist({ playlist, query }: PlaylistProps) {
+
+  const onClickVideo = () => {
+    if (query) {
+      console.log("setting query", query)
+      saveQueryToSession(query)
+    }
+  }
 
   return (
-    <div className="playlist-single">
-      <Link href={`/video/${playlist.id}`} style={{ display: 'block' }}>
-        <div className="playlist-image">
-          <Image 
-            src={playlist.thumbnail_url} 
-            alt="playlist thumbnail"
-            fill
-            sizes="(max-width: 768px) 100vw, 200px"
-            className="playlist-thumbnail"
-          />
-        </div>
-        <div>{playlist.description}</div>
-      </Link>
-    </div>
+    <Link href={`/video/${playlist.id}`} className="playlist-single">
+      <div onClick={onClickVideo} className="playlist-image">
+        <Image 
+          src={playlist.thumbnail_url} 
+          alt="playlist thumbnail"
+          fill
+          sizes="(max-width: 768px) 100vw, 200px"
+          className="playlist-thumbnail"
+        />
+      </div>
+      <div>{playlist.description}</div>
+    </Link>
   )
 }
 

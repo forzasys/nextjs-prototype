@@ -4,8 +4,9 @@ import { onFetch } from '@/utilities/fetchApi';
 import { useSearchParams } from 'next/navigation';
 import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
+import { videoCollectionQueries } from '@/utilities/queryUtils';
+import { collectionTitles } from './videoCollection';
 import Playlist from '@/components/playlist/playlist';
-import { collectionTitles, initialCollectionQueries } from './videoCollection';
 import "./videoCollection.css";
 
 interface VideoCollectionProps {
@@ -17,26 +18,26 @@ interface VideoCollectionProps {
 export function Collection({playlistData, isInitialQuery, collectionName}: VideoCollectionProps) {
 
     const searchParams = useSearchParams();
-    const initialCollectionQuery = initialCollectionQueries(collectionName);
+    const initialCollectionQuery = videoCollectionQueries({collectionName});
     const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
 
     const { data, isLoading } = useQuery({
         queryKey: ['playlist', query],
         queryFn: () => onFetch("playlist", query),
         initialData: playlistData,
-        enabled: !isInitialQuery,
+        enabled: !isInitialQuery || !playlistData,
         // staleTime: staleTime,
     });
 
     const collections = data?.playlists || [];
 
-    const collectionTitle = collectionTitles[collectionName];
+    const collectionTitle = collectionTitles[collectionName] || collectionName;
 
     const playlist = (
         <div className="collection-playlist-container">
           {collections.map((p: PlaylistType) => {
             return (
-              <Playlist key={p.id} playlist={p} />
+              <Playlist key={p.id} playlist={p} query={query}/>
             )
           })}
         </div>

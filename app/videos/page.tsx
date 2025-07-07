@@ -12,21 +12,32 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
   
-  const isTeamPlatform = !!config.team;
+  const teamPlatformId = config.team;
   const teamIsSelected = !!params.get("team")
-  const showTeamFilter = isTeamPlatform || teamIsSelected
+  const showTeamFilter = !!teamPlatformId || teamIsSelected
   
   const tagsData = await onFetch("tag");
   const tags = tagsData?.tags || [];
   
-  const teamsData = !isTeamPlatform ? await onFetch("team", {season: 2025}) : undefined;
+  const teamsData = !teamPlatformId ? await onFetch("team", {season: 2025}) : undefined;
   const teams = teamsData?.teams || [];
+
+  const playersQuery = {
+    season: config.availableSeasons[0],
+}
+
+  const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
   
   return (
     <div>
       <title>Videos</title>
       <h2>Videos</h2>
-      <VideosFilters tags={tags} teams={teams} isTeamPlatform={isTeamPlatform} showTeamFilter={showTeamFilter} />
+      <VideosFilters 
+        playersData={playersData}
+        tags={tags} 
+        teams={teams} 
+        showTeamFilter={showTeamFilter} 
+        />
       <Videos params={params} />
     </div>
   )

@@ -25,7 +25,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   return (
     <div>
-      <h3>Fixtures & Results</h3>
+      <h2>Fixtures & Results</h2>
       <br />
       <MatchesFilters teams={teams} isTeamPlatform={isTeamPlatform} />
       <br />

@@ -1,6 +1,18 @@
 .videos-filters {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 25px;
     margin-bottom: 50px;
+}
+
+.videos-filters-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-filter-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

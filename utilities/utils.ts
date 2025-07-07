@@ -1,3 +1,4 @@
+import { QueryType } from "@/types/dataTypes";
 
 export function getGameTime (gameTime: number, phase: string) {
 
@@ -49,3 +50,25 @@ export function getGameTime (gameTime: number, phase: string) {
     
     return [time, isStoppage]
 };
+
+export function getOrCreateTabId() {
+    let tabId = sessionStorage.getItem("tabId");
+    if (!tabId) {
+      tabId = crypto.randomUUID();
+      sessionStorage.setItem("tabId", tabId);
+    }
+    return tabId;
+}
+
+export function saveQueryToSession(query: QueryType) {
+    const tabId = getOrCreateTabId();
+    const key = `query_${tabId}`;
+    sessionStorage.setItem(key, JSON.stringify(query));
+}
+
+export function loadQueryFromSession() {
+    const tabId = getOrCreateTabId();
+    const key = `query_${tabId}`;
+    const query = sessionStorage.getItem(key);
+    return query ? JSON.parse(query) : null;
+  }

@@ -3,29 +3,30 @@ import { VideoCollection } from '@/components/videosLibrary/videoCollection';
 
 function Videos({ params }: {params: URLSearchParams}) {
 
-  const tagParam = params.get("tag")
+  const eventParam = params.get("event")
 
-  const collectionsInVideo = ["goal", "shot", "yellow card", "red card"]
+  const collectionsInVideo = ["goal", "assist", "shot", "yellow card", "red card", "saves"]
 
-  const initialVideos = (
-    <>
-      {collectionsInVideo.map((collectionName) => {
-        const hideCollection = !!tagParam && collectionName !== tagParam
-        return (
-          <VideoCollection 
-            key={collectionName} 
-            params={params} 
-            collectionName={collectionName}
-            hideCollection={hideCollection}
-          />
-        )
-      })}
-    </>
-  )
+  const checkShowCollection = (collectionName: string) => {
+    if (!!eventParam && collectionName !== eventParam) return false
+    if (collectionName === "assist" && eventParam !== "assist") return false
+    if (collectionName === "saves" && eventParam !== "saves") return false
+    return true
+  }
 
   return (
     <div style={{display: "flex", flexDirection: "column", gap: "32px"}}>
-      {initialVideos}
+      {collectionsInVideo.map((collectionName) => {
+        const showCollection = checkShowCollection(collectionName)
+        return (
+          <VideoCollection 
+            key={collectionName} 
+            collectionName={collectionName}
+            params={params} 
+            showCollection={showCollection}
+          />
+        )
+      })}
     </div>
   )
 }

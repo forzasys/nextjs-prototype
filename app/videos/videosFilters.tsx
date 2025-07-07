@@ -1,28 +1,44 @@
 import SeasonFilter from '@/components/Filters/seasonFilter';
-import TagFilter from '@/components/Filters/tagFilter';
+import EventFilter from '@/components/Filters/eventFilter';
 import TeamFilter from '@/components/Filters/teamFilter';
-import { TeamType } from '@/types/dataTypes';
+import { TeamType, PlayerType } from '@/types/dataTypes';
 import PlayerFilter from '@/components/Filters/playerFilter';
+import config from '@/config';
 import './videos.css';
 
 interface VideosFiltersProps {
+  playersData: {
+    active_players: {
+      player: PlayerType
+    }[]
+  };
   tags: string[];
   teams: TeamType[];
-  isTeamPlatform: boolean;
   showTeamFilter: boolean;
 }
 
-function VideosFilters({ tags, teams, isTeamPlatform, showTeamFilter }: VideosFiltersProps) {
+function VideosFilters({ playersData, tags, teams, showTeamFilter }: VideosFiltersProps) {
+
+  const isTeamPlatform = !!config.team;
+
   return (
     <div className="videos-filters">
-      <SeasonFilter />
-      <br />
-      <TagFilter tags={tags} />
-      <br />
-      {!isTeamPlatform && <TeamFilter teams={teams} />}
-      <br />
-      {showTeamFilter && <PlayerFilter />}
+      <div className="videos-filters-inline">
+        <SeasonFilter />
+        <br />
+        {!isTeamPlatform && <TeamFilter teams={teams} />}
+        <br />
+        {showTeamFilter && <PlayerFilter playersData={playersData} />}
+      </div>
+      <EventFilter tags={tags} playersData={playersData} />
     </div>
+    
+    
+    
+    
+    
+    
+    
   );
 }
 

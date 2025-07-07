@@ -15,7 +15,7 @@ function Page() {
 
   return (
     <div>
-      <div>Statistics</div>
+      <h2>Statistics</h2>
       <br />
       <Table/>
       <br />

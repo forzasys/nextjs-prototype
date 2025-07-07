@@ -8,6 +8,9 @@ export type TagsType = {
     id: number;
     value: string;
   }
+  "shot type"?: {
+    value: string;
+  }
 }
 
 export type QueryType = {
@@ -84,6 +87,7 @@ export type PlayerType = {
   name: string;
   position: string;
   position_index_from_back_right: number;
+  role: string;
   shirt_number: string;
 }
 

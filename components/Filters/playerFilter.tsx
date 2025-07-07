@@ -11,7 +11,15 @@ type ActivePlayerObjectType = {
     player: PlayerType,
 }
 
-function PlayerFilter() {
+interface PlayerFilterProps {   
+    playersData: {
+        active_players: {
+            player: PlayerType
+        }[]
+    }
+}
+
+function PlayerFilter({ playersData }: PlayerFilterProps) {
 
     const searchParams = useSearchParams();
 
@@ -28,7 +36,8 @@ function PlayerFilter() {
     const { data, isLoading } = useQuery({
         queryKey: [`/team/${teamId}/active_players`, playersQuery],
         queryFn: () => onFetch(`/team/${teamId}/active_players`, playersQuery),
-        enabled: !!teamId && !!seasonParam,
+        initialData: playersData,
+        enabled: !!teamId && !teamPlatformId,
         // staleTime: staleTime,
     });
 

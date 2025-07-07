@@ -13,10 +13,11 @@ interface FilterDropdownProps {
     title: string
     options: OptionType[]
     value?: string | null
+    defaultValue?: string | null
     hasAll?: boolean
 }
 
-export function FilterDropdown({title, options, value, hasAll}: FilterDropdownProps) {
+export function FilterDropdown({title, options, value, defaultValue, hasAll}: FilterDropdownProps) {
 
     const updateParam = useUpdateSearchParam();
 
@@ -25,7 +26,8 @@ export function FilterDropdown({title, options, value, hasAll}: FilterDropdownPr
     let filterValue = value 
 
     if (!value) {
-        filterValue = hasAll ? "All" : undefined
+        if (hasAll) filterValue = "All"
+        else if (defaultValue) filterValue = defaultValue
     }
 
     const onSelect = (id: string | number | undefined) => {
