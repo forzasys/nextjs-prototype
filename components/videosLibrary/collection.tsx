@@ -7,15 +7,17 @@ import { PlaylistType } from '@/types/dataTypes';
 import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { collectionTitles } from './videoCollection';
 import Playlist from '@/components/playlist/playlist';
+import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
 
 interface VideoCollectionProps {
     playlistData?: PlaylistType[] | undefined
     isInitialQuery: boolean
     collectionName: string
+    visibleCollections: string[]
 }
 
-export function Collection({playlistData, isInitialQuery, collectionName}: VideoCollectionProps) {
+export function Collection({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
 
     const searchParams = useSearchParams();
     const initialCollectionQuery = videoCollectionQueries({collectionName});
@@ -33,6 +35,16 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
 
     const collectionTitle = collectionTitles[collectionName] || collectionName;
 
+    const collectionIndex = visibleCollections.indexOf(collectionName)
+    let collectionGroup = ""
+
+    if (collectionIndex === 0) {
+        collectionGroup = "top-first"
+    }
+    if (collectionIndex === 2 || collectionIndex === 3) {
+        collectionGroup = "primary-color"
+    }
+
     const playlist = (
         <div className="collection-playlist-container">
           {collections.map((p: PlaylistType) => {
@@ -40,6 +52,9 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
               <Playlist key={p.id} playlist={p} query={query}/>
             )
           })}
+          <div className="collection-playlist-slider-button">
+            <MdOutlineArrowForwardIos/>
+          </div>
         </div>
     )
 
@@ -52,9 +67,17 @@ export function Collection({playlistData, isInitialQuery, collectionName}: Video
     else render = playlist
 
     return (
-        <div className="collection-container">
-            <div className="collection-title">{collectionTitle}</div>
+        <div className={`collection-container ${collectionGroup}`}>
+          <div className="collection-single page-container">
+            <div className="collection-title-container">
+              <div className="collection-title">{collectionTitle}</div>
+              <div className="collection-title-more">
+                More
+                <MdOutlineArrowForwardIos/>
+              </div>
+            </div>
             {render}
+          </div>
         </div>
     )
 }

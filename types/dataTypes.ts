@@ -7,7 +7,10 @@ export type TagsType = {
   scorer?: {
     id: number;
     value: string;
-  }
+  },
+  "assist by"?: {
+    id: number | "" | undefined;
+  },
   "shot type"?: {
     value: string;
   }
@@ -53,7 +56,11 @@ export type QueryType = {
 export type PlaylistType = {
   id: string,
   description: string;
+  duration_ms: number;
+  game: GameType;
+  hd_thumbnail_url: string;
   thumbnail_url: string;
+  video_url: string;
   // other playlist props
 };
 

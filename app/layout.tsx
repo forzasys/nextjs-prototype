@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Lato, Exo, Michroma } from 'next/font/google'
 // import { Geist, Geist_Mono } from "next/font/google";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import Main from "./main";
@@ -14,6 +15,21 @@ import "./globals.css";
 //   variable: "--font-geist-mono",
 //   subsets: ["latin"],
 // });
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ["300", "400", "700", "900"],
+})
+
+const exo = Exo({
+  subsets: ['latin'],
+  weight: ['300', '400', '700', '900'],
+})
+
+const michroma = Michroma({
+  subsets: ['latin'],
+  weight: ['400'],
+})
 
 // Import theme overrides 
 // TODO move to other file when it's bigger
@@ -37,7 +53,7 @@ export default function RootLayout({
   // const theme = process.env.NEXT_PUBLIC_TARGET || 'default';
   
   return (
-    <html lang="en">
+    <html lang="en" className={`${lato.className} ${exo.className} ${michroma.className}`}>
       <body>
         <ThemeInitializer />
         <ReactQueryProvider>

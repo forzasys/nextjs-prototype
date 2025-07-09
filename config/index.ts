@@ -8,8 +8,10 @@ import stagingSefConfig from './config.staging-sef';
 type ConfigType = {
   apiUrl: string;
   availableSeasons: string[];
+  clubWebsite?: string;
   hasStatisticsPage: boolean;
   league: string | string[];
+  leagueWebsite?: string;
   target: string;
   team?: number;
   channel?: number;

@@ -19,12 +19,13 @@ export const collectionTitles: CollectionTitlesType = {
 }
 
 interface VideoCollectionProps {
-  params?: URLSearchParams | undefined
   collectionName: string
+  params?: URLSearchParams | undefined
+  visibleCollections: string[]
   showCollection?: boolean | true
 }
 
-export async function VideoCollection({collectionName, params, showCollection}: VideoCollectionProps) {
+export async function VideoCollection({collectionName, params, visibleCollections, showCollection}: VideoCollectionProps) {
   
   if (!showCollection) return null;
   
@@ -41,6 +42,6 @@ export async function VideoCollection({collectionName, params, showCollection}: 
   const playlistData = isInitialQuery ? await onFetch("playlist", initialCollectionQuery) : undefined;
 
   return (
-    <Collection playlistData={playlistData} isInitialQuery={isInitialQuery} collectionName={collectionName} />
+    <Collection playlistData={playlistData} isInitialQuery={isInitialQuery} collectionName={collectionName} visibleCollections={visibleCollections} />
   )
 }

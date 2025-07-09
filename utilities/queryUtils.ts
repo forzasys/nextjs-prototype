@@ -4,19 +4,16 @@ import config from '@/config';
 
 export type InitialCollectionParams = {
   collectionName: string | null;
-  teamParam?: string | null;
-  playerParam?: string | null;
-  initialQuery?: QueryType;
-};
+}
 
-export function videoCollectionQueries ({collectionName, teamParam, playerParam, initialQuery}: InitialCollectionParams) {
+export function videoCollectionQueries ({collectionName}: InitialCollectionParams) {
 
-  const query: QueryType = structuredClone(initialQuery) || {}
+  const query: QueryType = {}
 
   switch (collectionName) {
 
     case "assist":
-      query.tags = [{ action: "goal" }]
+      query.tags = [{ action: "goal", "assist by": {id: ""} }]
       query.filters = ["official"]
       break
 
@@ -70,23 +67,6 @@ export function videoCollectionQueries ({collectionName, teamParam, playerParam,
     }));
   }
 
-  if (teamParam && !isTeamPlatform) {
-    query.tags = query?.tags?.map(tag => ({
-      ...tag,
-      team: { id: Number(teamParam) }
-    }));
-  }
-    
-  if (!!playerParam) {
-    let playerType: string = "player"
-    if (collectionName === "goal") playerType = "scorer"
-    if (collectionName === "assist") playerType = "assist by"
-    query.tags = query?.tags?.map(tag => ({
-      ...tag,
-      [playerType]: { id: Number(playerParam) }
-    }));
-  }
-
   query.count = 8
 
   return query
@@ -102,15 +82,41 @@ export const initialGamesQuery: QueryType = {
 }
 
 export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, initialQuery: QueryType | undefined) {
+  
+  const query: QueryType = structuredClone(initialQuery) || {}
 
   const seasonParam = searchParams.get("season");
-  const eventParam = searchParams.get("event")
-  
-  const teamParam = searchParams.get("team")
-  const playerParam = searchParams.get("player")
+  const eventParam = searchParams.get("event");
+  const teamParam = searchParams.get("team");
+  const playerParam = searchParams.get("player");
   const pageParam = searchParams.get("page");
-  
-  const query: QueryType = videoCollectionQueries({collectionName: eventParam, teamParam, playerParam, initialQuery})
+
+  const teamPlatformId = config.team
+  const isTeamPlatform = !!teamPlatformId
+
+  if (teamParam && !isTeamPlatform) {
+    query.tags = query?.tags?.map(tag => ({
+      ...tag,
+      team: { id: Number(teamParam) }
+    }));
+  }
+    
+  if (playerParam && !!query.tags) {
+
+    let playerType: string = "player"
+
+    if (query.tags[0].action === "goal") {
+      playerType = "scorer"
+      if (query.tags[0]["assist by"]) {
+        playerType = "assist by"
+      }
+    }
+    
+    query.tags = query?.tags?.map(tag => ({
+      ...tag,
+      [playerType]: { id: Number(playerParam) }
+    }));
+  }
 
   if (seasonParam) {
     const seasonInt = parseInt(seasonParam)

@@ -1,20 +1,62 @@
-.header-main {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    background-color: var(--primary-color);
-    padding: 10px;
+.header-container {
+    font-family: 'Lato', sans-serif;
+    /* background-color: var(--primary-color); */
 }
 
-.header-link {
-    color: white;
+.header-top-cont {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 45px;
+    height: 40px;
+    font-size: 14px;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.header-top-languages {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.language-selection-title {
+    margin-right: 5px;
+}
+
+.language-selection-flag {
+    height: 17px;
+    width: auto;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.club-website-link {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
+    color: var(--primary-color);
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.header-link {
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    color: rgb(1, 1, 125);
 }
 
 .header-link img {
-    height: 50px;
+    height: 75px;
     width: auto;
 }

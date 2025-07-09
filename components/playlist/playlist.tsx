@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
-import { saveQueryToSession } from '@/utilities/utils'
+import { saveQueryToSession, formatDuration } from '@/utilities/utils'
+import { IoMdPlay } from "react-icons/io";
 import "./playlist.css";
 
 interface PlaylistProps {
@@ -19,6 +20,12 @@ function Playlist({ playlist, query }: PlaylistProps) {
     }
   }
 
+  console.log("playlist", playlist)
+
+  const game = playlist.game
+
+  const duration = formatDuration(playlist.duration_ms / 1000)
+
   return (
     <Link href={`/video/${playlist.id}`} className="playlist-single">
       <div onClick={onClickVideo} className="playlist-image">
@@ -29,8 +36,29 @@ function Playlist({ playlist, query }: PlaylistProps) {
           sizes="(max-width: 768px) 100vw, 200px"
           className="playlist-thumbnail"
         />
+        <div className="playlist-duration-cont">
+          <div className="playlist-duration-icon">
+            <IoMdPlay />
+          </div>
+          <div className="playlist-duration">
+            {duration}
+          </div>
+        </div>
       </div>
-      <div>{playlist.description}</div>
+      <div className="playlist-description">{playlist.description}</div>
+      <div className="playlist-line"></div>
+      <div className="playlist-info">
+        <div className="playlist-info-type">Event</div>
+        {game && (
+          <div className="playlist-info-match">
+            <Image src={game.home_team.logo_url} alt="home team logo" width={30} height={30} />
+            <div className="playlist-info-match-score">
+              {game.home_team_goals} - {game.visiting_team_goals}
+            </div>
+            <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={30} height={30} />
+          </div>
+        )}
+      </div>
     </Link>
   )
 }

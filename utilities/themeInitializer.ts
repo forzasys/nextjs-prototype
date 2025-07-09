@@ -17,7 +17,7 @@ const themes: Theme = {
     '--secondary-color': '#333333',
   },
   vif: {
-    '--primary-color': '#024da1',
+    '--primary-color': '#022ca1',
     '--secondary-color': '#ed1b2e',
   },
   brann: {

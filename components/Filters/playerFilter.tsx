@@ -56,9 +56,7 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
     }))
 
     return (
-        <div>
-            <PlayerFilterDropdown title="player" options={playerOptions} value={playerParam} hasAll/>
-        </div>
+        <PlayerFilterDropdown title="player" options={playerOptions} value={playerParam} hasAll/>
     )
 }
 

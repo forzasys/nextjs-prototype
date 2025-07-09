@@ -15,9 +15,11 @@ function overrideLeague(url: URL) {
 const vifConfig = {
   apiUrl: 'https://api.forzasys.com/',
   availableSeasons: ["2025", "2024", "2023", "2022", "2021", "2020"],
+  clubWebsite: "https://www.vif-fotball.no",
   channel: 6,
   hasStatisticsPage: true,
   league: 'eliteserien',
+  leagueWebsite: "https://www.eliteserien.no",
   leagueUrlOverride: overrideLeague,
   target: 'vif',
   team: 1,

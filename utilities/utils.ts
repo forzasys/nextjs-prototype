@@ -71,4 +71,16 @@ export function loadQueryFromSession() {
     const key = `query_${tabId}`;
     const query = sessionStorage.getItem(key);
     return query ? JSON.parse(query) : null;
-  }
+}
+
+export function formatDuration (duration: number, withHour: boolean | undefined = undefined) {
+    if (isNaN(duration)) return "00:00";
+    if (withHour === undefined) withHour = duration > 3600;
+    let sec = Math.floor(duration);
+    let min = Math.floor(sec / 60);
+    const hour = Math.floor(min / 60);
+    sec %= 60;
+    min %= 60;
+    if (withHour) return ("0" + hour).slice(-2) + ":" +  ("0" + min).slice(-2) + ":" + ("0" + sec).slice(-2);
+    return ("0" + min).slice(-2) + ":" + ("0" + sec).slice(-2);
+}

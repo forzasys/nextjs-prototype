@@ -29,6 +29,7 @@ function VideosFilters({ playersData, tags, teams, showTeamFilter }: VideosFilte
         {!isTeamPlatform && <TeamFilter teams={teams} />}
         <br />
         {showTeamFilter && <PlayerFilter playersData={playersData} />}
+        <br />
       </div>
       <EventFilter tags={tags} playersData={playersData} />
     </div>

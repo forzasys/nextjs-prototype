@@ -1,5 +1,6 @@
 import React from 'react'
 import { onFetch } from '@/utilities/fetchApi'
+import VideoPlayer from '@/components/videoPlayer/videoPlayer'
 
 interface VideoPageProps {
   params: {
@@ -16,7 +17,7 @@ async function Page({ params }: VideoPageProps) {
   return (
     <div>
       <h2>Video</h2>
-      {playlist.description}
+      <VideoPlayer playlist={playlist} />
     </div>
   )
 }

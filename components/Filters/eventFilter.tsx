@@ -3,6 +3,7 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
 import { PlayerType } from '@/types/dataTypes';
 import config from '@/config';
+import classNames from 'classnames';
 import './filters.css';
 
 interface EventFilterProps {
@@ -17,10 +18,11 @@ interface EventFilterProps {
 interface SingleEventProps {
   event: string;
   playerSelected: boolean;
+  eventParam: string | null;
   isGoalkeeper: boolean;
 }
 
-function SingleEvent({ event, playerSelected, isGoalkeeper }: SingleEventProps) {
+function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: SingleEventProps) {
 
   const updateParam = useUpdateSearchParam();
 
@@ -47,9 +49,9 @@ function SingleEvent({ event, playerSelected, isGoalkeeper }: SingleEventProps) 
   }
 
   return (
-    <div className="single-event" onClick={onSelectEvent}>
+    <div className={classNames("single-event", {"selected": eventParam === event})} onClick={onSelectEvent}>
       <div>{event}</div>
-      {condition && <div>{condition}</div>}
+      {/* {condition && <div>{condition}</div>} */}
     </div>
   )
 }
@@ -59,6 +61,7 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const searchParams = useSearchParams();
   const playerParam = searchParams.get("player");
   const teamParam = searchParams.get("team");
+  const eventParam = searchParams.get("event");
 
   const updateParam = useUpdateSearchParam();
 
@@ -86,12 +89,18 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
 
   const eventsOptions = (
     <div className="event-filter-options">
-      <div onClick={() => updateParam("event", undefined)}>All</div>
+      <div 
+        onClick={() => updateParam("event", undefined)} 
+        className={classNames("single-event", {"selected": !eventParam})}
+        >
+          All
+        </div>
       {availableTags.map((t) => {
         return (
           <SingleEvent
             key={t}
             event={t}
+            eventParam={eventParam}
             playerSelected={!!playerParam}
             isGoalkeeper={selectedPlayerIsGoalkeeper}
           />
@@ -100,11 +109,7 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
     </div>
   )
 
-  return (
-    <div className="event-filter-cont">
-      {eventsOptions}
-    </div>
-  )
+  return eventsOptions
 }
 
 export default EventFilter

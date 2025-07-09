@@ -1,28 +1,44 @@
 import { VideoCollection } from '@/components/videosLibrary/videoCollection';
+import config from '@/config';
 // import { PlaylistType } from '@/types/dataTypes';
 
 function Videos({ params }: {params: URLSearchParams}) {
 
   const eventParam = params.get("event")
+  const playerParam = params.get("player")
+  const teamPlatformId = config.team
+  const isTeamPlatform = !!teamPlatformId
 
   const collectionsInVideo = ["goal", "assist", "shot", "yellow card", "red card", "saves"]
 
   const checkShowCollection = (collectionName: string) => {
     if (!!eventParam && collectionName !== eventParam) return false
-    if (collectionName === "assist" && eventParam !== "assist") return false
+    if (collectionName === "assist") {
+      if (isTeamPlatform) {
+        if (!playerParam) return false
+      } else {
+        if (eventParam !== "assist") return false
+      }
+    }
     if (collectionName === "saves" && eventParam !== "saves") return false
     return true
   }
 
+  // Filter collections that will be shown
+  const visibleCollections = collectionsInVideo.filter(collectionName => 
+    checkShowCollection(collectionName)
+  );
+
   return (
-    <div style={{display: "flex", flexDirection: "column", gap: "32px"}}>
+    <div className="videos-collections">
       {collectionsInVideo.map((collectionName) => {
-        const showCollection = checkShowCollection(collectionName)
+        const showCollection = visibleCollections.includes(collectionName)
         return (
           <VideoCollection 
             key={collectionName} 
             collectionName={collectionName}
             params={params} 
+            visibleCollections={visibleCollections}
             showCollection={showCollection}
           />
         )

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import classNames from 'classnames';
-import './filters.css';
 import { IoMdArrowDropdown } from "react-icons/io";
+import './filters.css';
 
 type OptionType = {
     id: number | string
@@ -36,17 +36,27 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
     }
 
     return (
-        <div className="filter-dropdown">
-            <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
-                <div className="filter-title">{title} :</div>
-                <div>{filterValue}</div>
-                <IoMdArrowDropdown className="filter-dropdown-icon"/>
-            </div>
-            <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
-                {hasAll && <div onClick={() => onSelect(undefined)}>All</div>}
-                {options.map((option: OptionType) => (
-                    <div key={option.id} onClick={() => onSelect(option.id)}>{option.value}</div>
-                ))}
+        <div className="filter-dropdown narrow">
+            <div className="filter-title">{title}</div>
+            <div className="filter-dropdown-box">
+                <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
+                    <div>{filterValue}</div>
+                    <IoMdArrowDropdown className="filter-dropdown-icon"/>
+                </div>
+                <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
+                    {hasAll && (
+                        <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">All</div>
+                    )}
+                    {options.map((option: OptionType) => (
+                        <div 
+                            key={option.id} 
+                            onClick={() => onSelect(option.id)}
+                            className="filter-dropdown-option"
+                            >
+                            {option.value}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
@@ -91,19 +101,27 @@ export function PlayerFilterDropdown({title, options, value, hasAll}: PlayerFilt
     }
 
     return (
-        <div className="filter-dropdown">
-            <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
-                <div className="filter-title">{title} :</div>
-                <div>{filterValue}</div>
-                <IoMdArrowDropdown className="filter-dropdown-icon"/>
-            </div>
-            <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
-                {hasAll && <div onClick={() => onSelect(undefined)}>All</div>}
-                {options.map((option: PlayerOptionType) => (
-                    <div key={option.id} onClick={() => onSelect(option.id)}>
-                        {option.value.shirt_number} {option.value.name}
-                    </div>
-                ))}
+        <div className="filter-dropdown wide">
+            <div className="filter-title">{title}</div>
+            <div className="filter-dropdown-box">
+                <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
+                    <div>{filterValue}</div>
+                    <IoMdArrowDropdown className="filter-dropdown-icon"/>
+                </div>
+                <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
+                    {hasAll && (
+                        <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">All</div>
+                    )}
+                    {options.map((option: PlayerOptionType) => (
+                        <div 
+                            key={option.id} 
+                            onClick={() => onSelect(option.id)}
+                            className="filter-dropdown-option"
+                            >
+                            {option.value.shirt_number} {option.value.name}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

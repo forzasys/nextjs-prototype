@@ -4,6 +4,7 @@ import { normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import VideosFilters from './videosFilters';
 import config from '@/config';
+import "./videos.css";
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -24,21 +25,26 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const playersQuery = {
     season: config.availableSeasons[0],
-}
+  }
 
   const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
-  
+
   return (
-    <div>
-      <title>Videos</title>
-      <h2>Videos</h2>
-      <VideosFilters 
-        playersData={playersData}
-        tags={tags} 
-        teams={teams} 
-        showTeamFilter={showTeamFilter} 
-        />
-      <Videos params={params} />
+    <div className="videos-page">
+      <div className="page-header">
+        <div className="page-container">
+          <div className="page-header-title">Videos</div>
+          <VideosFilters 
+            playersData={playersData}
+            tags={tags} 
+            teams={teams} 
+            showTeamFilter={showTeamFilter} 
+            />
+        </div>  
+      </div>
+      <div className="videos-main">
+        <Videos params={params} />
+      </div>
     </div>
   )
 }

@@ -1,3 +1,7 @@
+
+.videos-main {
+}
+
 .videos-filters {
     display: flex;
     flex-direction: column;
@@ -7,12 +11,14 @@
 
 .videos-filters-inline {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: end;
+    gap: 30px;
 }
 
-.event-filter-options {
+.videos-collections {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 75px;
+    width: 100%;
+    margin-top: -140px;
 }
