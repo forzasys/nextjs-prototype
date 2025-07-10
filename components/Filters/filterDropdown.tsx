@@ -23,7 +23,7 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
 
     const [isOpen, setIsOpen] = useState(false)
 
-    let filterValue = value 
+    let filterValue = options.find((option: OptionType) => option.id.toString() === value?.toString())?.value
 
     if (!value) {
         if (hasAll) filterValue = "All"
@@ -36,27 +36,35 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
     }
 
     return (
-        <div className="filter-dropdown narrow">
+        <div 
+            onClick={() => setIsOpen(!isOpen)} 
+            className={classNames("filter-dropdown", {"narrow": title === "season"})}
+        >
             <div className="filter-title">{title}</div>
             <div className="filter-dropdown-box">
-                <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
-                    <div>{filterValue}</div>
+                <div className="filter-dropdown-header">
+                    <div className="filter-dropdown-value">{filterValue}</div>
                     <IoMdArrowDropdown className="filter-dropdown-icon"/>
                 </div>
-                <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
-                    {hasAll && (
-                        <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">All</div>
-                    )}
-                    {options.map((option: OptionType) => (
-                        <div 
-                            key={option.id} 
-                            onClick={() => onSelect(option.id)}
-                            className="filter-dropdown-option"
-                            >
-                            {option.value}
-                        </div>
-                    ))}
-                </div>
+            </div>
+            <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
+                {hasAll && (
+                    <div 
+                        onClick={() => onSelect(undefined)} 
+                        className={classNames("filter-dropdown-option no-border", {"selected": !value})}
+                        >
+                        <div className="filter-dropdown-option-value">All</div>
+                    </div>
+                )}
+                {options.map((option: OptionType) => (
+                    <div 
+                        key={option.id} 
+                        onClick={() => onSelect(option.id)}
+                        className={classNames("filter-dropdown-option", {"selected": option.id.toString() === value?.toString()})}
+                        >
+                        <div className="filter-dropdown-option-value">{option.value}</div>
+                    </div>
+                ))}
             </div>
         </div>
     )
@@ -75,9 +83,18 @@ interface PlayerFilterDropdownProps {
     options: PlayerOptionType[]
     value: React.ReactNode | string | null
     hasAll?: boolean
+    disabled?: string | undefined
+    isLoading?: boolean
 }
 
-export function PlayerFilterDropdown({title, options, value, hasAll}: PlayerFilterDropdownProps) {
+export function PlayerFilterDropdown({
+    title, 
+    options, 
+    value, 
+    hasAll, 
+    disabled,
+    isLoading,
+}: PlayerFilterDropdownProps) {
 
     const updateParam = useUpdateSearchParam();
 
@@ -85,14 +102,28 @@ export function PlayerFilterDropdown({title, options, value, hasAll}: PlayerFilt
     
     let filterValue: React.ReactNode = hasAll ? "All" : undefined
 
+    if (disabled) {
+        filterValue = disabled
+    }
+
+    if (isLoading) {
+        filterValue = "Loading..."
+    }
+
     if (value) {
         const selectedPlayerId = Number(value)
         const selectedPlayerValue = options.find((option: PlayerOptionType) => option.id === selectedPlayerId)?.value
         filterValue = (
-            <div>
-                {selectedPlayerValue?.shirt_number} {selectedPlayerValue?.name}
+            <div className="filter-dropdown-value player">
+                <div className="filter-dropdown-player-number">{selectedPlayerValue?.shirt_number}</div>
+                <div className="filter-dropdown-player-name">{selectedPlayerValue?.name}</div>
             </div>
         )
+    }
+
+    const onOpenList = () => {
+        if (disabled) return
+        setIsOpen(!isOpen)
     }
 
     const onSelect = (id: number | undefined) => {
@@ -101,27 +132,32 @@ export function PlayerFilterDropdown({title, options, value, hasAll}: PlayerFilt
     }
 
     return (
-        <div className="filter-dropdown wide">
+        <div onClick={onOpenList} className={classNames("filter-dropdown wide", {"disabled": disabled})}>
             <div className="filter-title">{title}</div>
             <div className="filter-dropdown-box">
-                <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-header">
-                    <div>{filterValue}</div>
+                <div className="filter-dropdown-header">
+                    <div className="filter-dropdown-value">{filterValue}</div>
                     <IoMdArrowDropdown className="filter-dropdown-icon"/>
                 </div>
-                <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
-                    {hasAll && (
-                        <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">All</div>
-                    )}
-                    {options.map((option: PlayerOptionType) => (
-                        <div 
-                            key={option.id} 
-                            onClick={() => onSelect(option.id)}
-                            className="filter-dropdown-option"
-                            >
-                            {option.value.shirt_number} {option.value.name}
+            </div>
+            <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
+                {hasAll && (
+                    <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">
+                        <div className="filter-dropdown-option-value">All</div>
+                    </div>
+                )}
+                {options.map((option: PlayerOptionType) => (
+                    <div 
+                        key={option.id} 
+                        onClick={() => onSelect(option.id)}
+                        className={classNames("filter-dropdown-option", {"selected": option.id.toString() === value?.toString()})}
+                        >
+                        <div className="filter-dropdown-option-value">
+                            <div className="filter-dropdown-player-number">{option.value.shirt_number}</div>
+                            <div className="filter-dropdown-player-name">{option.value.name}</div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     )

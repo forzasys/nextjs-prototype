@@ -8,7 +8,6 @@
     /* border: 1px solid red; */
 }
 
-
 .playlist-image {
     position: relative;
     width: 100%;
@@ -16,10 +15,12 @@
     height: auto;
     overflow: hidden;
     margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .playlist-thumbnail {
     object-fit: cover;
+    transition: transform 0.3s linear;
 }
 
 .playlist-duration-cont {
@@ -30,29 +31,50 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    height: 32px;
+    height: 27px;
 }
 
-.playlist-duration-icon {
+.playlist-duration-play-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
+    width: 27px;
     height: 100%;
     font-size: 15px;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
 }
 
 .playlist-duration {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 45px;
     font-size: 12px;
     font-weight: 600;
-    padding: 0 10px;
+}
+
+.playlist-duration-text {
+    position: relative;
+    z-index: 1;
+}
+
+.playlist-duration-hover {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: var(--accent-color);
+    z-index: 0;
+    transition: width 0.2s linear;
 }
 
 .playlist-description {
     height: 50px;
     font-size: 17px;
-    color: black;
+    color: var(--secondary-text-color);
     padding: 0 1px;
 }
 
@@ -81,11 +103,31 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.1s linear;
 }
 
 .playlist-info-match-score {
     font-size: 12px;
+    font-weight: 600;
     color: black;
+}
+
+/* HOVER */
+.playlist-single:not(.game-hovered):hover .playlist-duration-hover {
+    width: 100%;
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.playlist-single:not(.game-hovered):hover .playlist-thumbnail {
+    transform: scale(1.1);
+}
+
+.playlist-info-match:hover {
+    transform: scale(1.1);
 }
 
 /* Responsive styles */

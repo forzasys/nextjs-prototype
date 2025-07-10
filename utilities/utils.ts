@@ -1,4 +1,5 @@
 import { QueryType } from "@/types/dataTypes";
+import config from "@/config";
 
 export function getGameTime (gameTime: number, phase: string) {
 
@@ -84,3 +85,7 @@ export function formatDuration (duration: number, withHour: boolean | undefined 
     if (withHour) return ("0" + hour).slice(-2) + ":" +  ("0" + min).slice(-2) + ":" + ("0" + sec).slice(-2);
     return ("0" + min).slice(-2) + ":" + ("0" + sec).slice(-2);
 }
+
+const footballCollectionsToShow = ["goal", "assist", "shot", "penalty", "yellow card", "red card", "save"]
+const hockeyCollectionsToShow = ["goal", "assist", "goalkeeperevent", "penalty", "shootoutpenaltyshot", "shot", "save"]
+export const collectionsToShow = config.target === "shl" ? hockeyCollectionsToShow : footballCollectionsToShow

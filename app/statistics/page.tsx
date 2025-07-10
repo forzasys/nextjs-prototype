@@ -14,16 +14,18 @@ function Page() {
   )
 
   return (
-    <div>
-      <h2>Statistics</h2>
-      <br />
-      <Table/>
-      <br />
-      <TopScorers/>
-      <br />
-      <Assists/>
-      <br />
-      <Cards/>
+    <div className="statistics-main main-page">
+      <div className="page-header short"></div>
+      <div className="in-page-header page-container">
+        <div className="page-header-title">Statistics</div>
+        <Table/>
+        <br />
+        <TopScorers/>
+        <br />
+        <Assists/>
+        <br />
+        <Cards/>
+      </div>
     </div>
   )
 }

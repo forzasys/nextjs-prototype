@@ -1,5 +1,6 @@
 import vifLogo from "@/public/img/vif-logo.png";
 import brannLogo from "@/public/img/brann-logo.png";
+import shlLogo from "@/public/img/shl-logo.png";
 import { StaticImageData } from "next/image";
 
 interface HeaderLogo {
@@ -9,4 +10,5 @@ interface HeaderLogo {
 export const getHeaderLogo: HeaderLogo = {
     "brann": brannLogo,
     "vif": vifLogo,
+    "shl": shlLogo,
 }

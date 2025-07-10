@@ -14,22 +14,18 @@ interface VideosFiltersProps {
   };
   tags: string[];
   teams: TeamType[];
-  showTeamFilter: boolean;
 }
 
-function VideosFilters({ playersData, tags, teams, showTeamFilter }: VideosFiltersProps) {
+function VideosFilters({ playersData, tags, teams }: VideosFiltersProps) {
 
   const isTeamPlatform = !!config.team;
 
   return (
-    <div className="videos-filters">
+    <div className="videos-filters middle-container">
       <div className="videos-filters-inline">
         <SeasonFilter />
-        <br />
         {!isTeamPlatform && <TeamFilter teams={teams} />}
-        <br />
-        {showTeamFilter && <PlayerFilter playersData={playersData} />}
-        <br />
+        {<PlayerFilter playersData={playersData} />}
       </div>
       <EventFilter tags={tags} playersData={playersData} />
     </div>

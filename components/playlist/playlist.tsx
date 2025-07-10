@@ -1,6 +1,8 @@
-import React from 'react'
+"use client"
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { saveQueryToSession, formatDuration } from '@/utilities/utils'
 import { IoMdPlay } from "react-icons/io";
@@ -13,6 +15,10 @@ interface PlaylistProps {
 
 function Playlist({ playlist, query }: PlaylistProps) {
 
+  const router = useRouter()
+
+  const [isGameHovered, setIsGameHovered] = useState(false);
+
   const onClickVideo = () => {
     if (query) {
       console.log("setting query", query)
@@ -20,14 +26,20 @@ function Playlist({ playlist, query }: PlaylistProps) {
     }
   }
 
-  console.log("playlist", playlist)
+  const onGameClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(`/match/${game.id}`)
+  }
+
+  // console.log("playlist", playlist)
 
   const game = playlist.game
 
   const duration = formatDuration(playlist.duration_ms / 1000)
 
   return (
-    <Link href={`/video/${playlist.id}`} className="playlist-single">
+    <Link href={`/video/${playlist.id}`} className={`playlist-single ${isGameHovered ? 'game-hovered' : ''}`}>
       <div onClick={onClickVideo} className="playlist-image">
         <Image 
           src={playlist.thumbnail_url} 
@@ -37,11 +49,12 @@ function Playlist({ playlist, query }: PlaylistProps) {
           className="playlist-thumbnail"
         />
         <div className="playlist-duration-cont">
-          <div className="playlist-duration-icon">
+          <div className="playlist-duration-play-icon">
             <IoMdPlay />
           </div>
           <div className="playlist-duration">
-            {duration}
+            <div className="playlist-duration-text">{duration}</div>
+            <div className="playlist-duration-hover"></div>
           </div>
         </div>
       </div>
@@ -50,7 +63,12 @@ function Playlist({ playlist, query }: PlaylistProps) {
       <div className="playlist-info">
         <div className="playlist-info-type">Event</div>
         {game && (
-          <div className="playlist-info-match">
+          <div 
+            className="playlist-info-match" 
+            onClick={onGameClick}
+            onMouseEnter={() => setIsGameHovered(true)}
+            onMouseLeave={() => setIsGameHovered(false)}
+          >
             <Image src={game.home_team.logo_url} alt="home team logo" width={30} height={30} />
             <div className="playlist-info-match-score">
               {game.home_team_goals} - {game.visiting_team_goals}

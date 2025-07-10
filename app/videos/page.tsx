@@ -14,13 +14,12 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const params = normalizeSearchParams(rawParams);
   
   const teamPlatformId = config.team;
-  const teamIsSelected = !!params.get("team")
-  const showTeamFilter = !!teamPlatformId || teamIsSelected
+  const currentSeason = config.availableSeasons[0]
   
   const tagsData = await onFetch("tag");
   const tags = tagsData?.tags || [];
   
-  const teamsData = !teamPlatformId ? await onFetch("team", {season: 2025}) : undefined;
+  const teamsData = !teamPlatformId ? await onFetch("team", {season: currentSeason}) : undefined;
   const teams = teamsData?.teams || [];
 
   const playersQuery = {
@@ -30,19 +29,15 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
 
   return (
-    <div className="videos-page">
-      <div className="page-header">
-        <div className="page-container">
-          <div className="page-header-title">Videos</div>
-          <VideosFilters 
-            playersData={playersData}
-            tags={tags} 
-            teams={teams} 
-            showTeamFilter={showTeamFilter} 
-            />
-        </div>  
-      </div>
-      <div className="videos-main">
+    <div className="videos-main main-page">
+      <div className="page-header"></div>
+      <div className="in-page-header">
+        <div className="page-header-title">Videos</div>
+        <VideosFilters 
+          playersData={playersData}
+          tags={tags} 
+          teams={teams} 
+        />
         <Videos params={params} />
       </div>
     </div>

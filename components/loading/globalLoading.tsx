@@ -4,7 +4,7 @@ import React from 'react'
 // TODO rename
 function GlobalLoading() {
   return (
-    <div>GlobalLoading...</div>
+    <div className="middle-container">GlobalLoading...</div>
   )
 }
 

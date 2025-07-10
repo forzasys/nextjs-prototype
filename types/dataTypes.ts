@@ -11,6 +11,9 @@ export type TagsType = {
   "assist by"?: {
     id: number | "" | undefined;
   },
+  "shot result"?: {
+    value: string;
+  },
   "shot type"?: {
     value: string;
   }

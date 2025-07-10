@@ -11,7 +11,8 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
   const query: QueryType = {}
 
   switch (collectionName) {
-
+    
+    // Football
     case "assist":
       query.tags = [{ action: "goal", "assist by": {id: ""} }]
       query.filters = ["official"]
@@ -21,17 +22,27 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
       query.tags = [{ action: "goal" }]
       query.filters = ["official"]
       break
-
+    
     case "penalty":
+      query.tags = [{ action: "penalty" }]
+      query.filters = ["official"]
+      break
+
+    case "penalty goal":
       query.tags = [
         {action: "goal", "shot type": {"value": "penalty"}},
         {action: "shot", "shot type": {"value": "penalty"}}
       ]
-      query.filters = ["official"]
+      query.filters = ["event"]
       break
                 
     case "red card":
       query.tags = [{ action: "red card" }]
+      query.filters = ["official"]
+      break
+    
+    case "save":
+      query.tags = [{"action":"shot", "shot result":{"value":"saved"}}]
       query.filters = ["official"]
       break
 
@@ -45,12 +56,21 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
       query.filters = ["official"]
       break
 
-    case "latest":
-      query.filters = ["~official","~live"]
+    // case "latest":
+      // query.filters = ["~official","~live"]
+      // break
+
+    // case "interviews":
+      // query.tags = [{ action: "interview" }]
+      // break
+
+    // Hockey
+    case "goalkeeperevent":
+      query.tags = [{ action: "goalkeeperevent" }]
       break
 
-    case "interviews":
-      query.tags = [{ action: "interview" }]
+    case "shootoutpenaltyshot":
+      query.tags = [{ action: "shootoutpenaltyshot" }]
       break
 
     default:

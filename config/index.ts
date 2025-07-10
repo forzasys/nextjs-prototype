@@ -1,6 +1,7 @@
-import { default as brannConfig } from './config.brann';
-import { default as vifConfig } from './config.vif';
-import { default as defaultConfig } from './config.default';
+import brannConfig from './config.brann';
+import vifConfig from './config.vif';
+import shlConfig from './config.shl';
+import defaultConfig from './config.default';
 import prodSefConfig from './config.prod-sef';
 import stagingSefConfig from './config.staging-sef';
 
@@ -33,6 +34,9 @@ switch (process.env.NEXT_PUBLIC_TARGET) {
         break;
     case 'brann':
         config = brannConfig;
+        break;
+    case 'shl':
+        config = shlConfig;
         break;
     default:
         config = defaultConfig;

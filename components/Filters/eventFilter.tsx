@@ -36,7 +36,7 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
     }
   }
 
-  if (event === "saves") {
+  if (event === "save") {
     disabled = !isGoalkeeper
     if (disabled) {
       condition = "select a goalkeeper to enable saves"
@@ -49,7 +49,7 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
   }
 
   return (
-    <div className={classNames("single-event", {"selected": eventParam === event})} onClick={onSelectEvent}>
+    <div className={classNames("single-option", {"selected": eventParam === event})} onClick={onSelectEvent}>
       <div>{event}</div>
       {/* {condition && <div>{condition}</div>} */}
     </div>
@@ -77,36 +77,39 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const uselessTags = ["end phase", "corner", "free kick", "medical treatment", "misc", "offside", "start phase", "substitution", "throw-in"]
   
   const availableTags = allTags.filter((t) => !uselessTags.includes(t))
-
+  
   if (config.target !== "shl") {
-    availableTags.push("assist", "saves")
+    availableTags.push("assist", "save")
   }
 
-  const allPlayers = playersData.active_players.map((p) => p.player)
+  const allPlayers = playersData?.active_players.map((p) => p.player)
 
-  const selectedPlayer: PlayerType | null = !!teamParam && allPlayers.find(t => t.id === Number(teamParam)) || null
+  const selectedPlayer: PlayerType | null = !!teamParam && allPlayers?.find(t => t.id === Number(teamParam)) || null
   const selectedPlayerIsGoalkeeper = !!selectedPlayer && selectedPlayer.role === "goalkeeper"
 
   const eventsOptions = (
-    <div className="event-filter-options">
-      <div 
-        onClick={() => updateParam("event", undefined)} 
-        className={classNames("single-event", {"selected": !eventParam})}
-        >
-          All
-        </div>
-      {availableTags.map((t) => {
-        return (
-          <SingleEvent
-            key={t}
-            event={t}
-            eventParam={eventParam}
-            playerSelected={!!playerParam}
-            isGoalkeeper={selectedPlayerIsGoalkeeper}
-          />
-        )
-      })}
-    </div>
+    <div className="inline-filter-options-cont">
+      <div className="inline-filter-options">
+        <div 
+          onClick={() => updateParam("event", undefined)} 
+          className={classNames("single-option", {"selected": !eventParam})}
+          >
+            All
+          </div>
+        {availableTags.map((t) => {
+          return (
+            <SingleEvent
+              key={t}
+              event={t}
+              eventParam={eventParam}
+              playerSelected={!!playerParam}
+              isGoalkeeper={selectedPlayerIsGoalkeeper}
+            />
+          )
+        })}
+      </div>
+      <div className="inline-filter-options-line"></div>
+    </div> 
   )
 
   return eventsOptions

@@ -23,8 +23,9 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
 
     const searchParams = useSearchParams();
 
+    const currentSeason = config.availableSeasons[0]
     const playerParam = searchParams.get('player');
-    const seasonParam = searchParams.get('season') || '2025';
+    const seasonParam = searchParams.get('season') || currentSeason;
     const teamParam = searchParams.get('team');
     const teamPlatformId = config.team
     const teamId = teamPlatformId || teamParam
@@ -43,10 +44,6 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
 
     const players = data?.active_players.map((p: ActivePlayerObjectType) => p.player) || [];
 
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
-
     const playerOptions = players.map((p: PlayerType) => ({
         id: p.id,
         value: {
@@ -55,8 +52,17 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
         }
     }))
 
+    const disableTeamFilter = !teamPlatformId && !teamParam ? "Select team to enable player selection" : undefined
+
     return (
-        <PlayerFilterDropdown title="player" options={playerOptions} value={playerParam} hasAll/>
+        <PlayerFilterDropdown 
+            title="player" 
+            options={playerOptions} 
+            value={playerParam} 
+            hasAll
+            isLoading={isLoading}
+            disabled={disableTeamFilter}
+        />
     )
 }
 

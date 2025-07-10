@@ -1,3 +1,5 @@
+.videos-page {
+}
 
 .videos-main {
 }
@@ -6,19 +8,18 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .videos-filters-inline {
     display: flex;
     align-items: end;
-    gap: 30px;
+    gap: 25px;
 }
 
 .videos-collections {
     display: flex;
     flex-direction: column;
-    gap: 75px;
+    gap: 40px;
     width: 100%;
-    margin-top: -140px;
 }

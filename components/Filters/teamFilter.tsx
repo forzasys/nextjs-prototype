@@ -29,7 +29,7 @@ function TeamFilter({ teams }: { teams: TeamType[] }) {
 
   return (
     <div>
-      <FilterDropdown title="team" options={teamOptions} hasAll={true}/>
+      <FilterDropdown title="team" options={teamOptions} value={teamParam} hasAll={true}/>
     </div>
   )
 }

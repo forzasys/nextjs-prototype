@@ -7,6 +7,7 @@ import { PlaylistType } from '@/types/dataTypes';
 import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { collectionTitles } from './videoCollection';
 import Playlist from '@/components/playlist/playlist';
+import classNames from 'classnames';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
 
@@ -52,8 +53,10 @@ export function Collection({playlistData, isInitialQuery, collectionName, visibl
               <Playlist key={p.id} playlist={p} query={query}/>
             )
           })}
-          <div className="collection-playlist-slider-button">
-            <MdOutlineArrowForwardIos/>
+          <div className="collection-playlist-slider">
+            <div className="collection-playlist-slider-button">
+              <MdOutlineArrowForwardIos/>
+            </div>
           </div>
         </div>
     )
@@ -67,8 +70,8 @@ export function Collection({playlistData, isInitialQuery, collectionName, visibl
     else render = playlist
 
     return (
-        <div className={`collection-container ${collectionGroup}`}>
-          <div className="collection-single page-container">
+        <div className={classNames("collection-container", collectionGroup)}>
+          <div className="collection-single middle-container">
             <div className="collection-title-container">
               <div className="collection-title">{collectionTitle}</div>
               <div className="collection-title-more">

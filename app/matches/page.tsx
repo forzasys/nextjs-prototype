@@ -17,19 +17,22 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const initialQuery = structuredClone(initialGamesQuery)
   const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
   const isTeamPlatform = !!config.team
+  const currentSeason = config.availableSeasons[0]
 
   const gamesData = isInitialQuery ? await onFetch("game", initialGamesQuery) : undefined
-  const teamsData = !isTeamPlatform ? await onFetch("team", {season: 2025}) : undefined;
+  const teamsData = !isTeamPlatform ? await onFetch("team", {season: currentSeason}) : undefined;
   
   const teams = teamsData?.teams || [];
 
   return (
-    <div>
-      <h2>Fixtures & Results</h2>
-      <br />
-      <MatchesFilters teams={teams} isTeamPlatform={isTeamPlatform} />
-      <br />
-      <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
+    <div className="matches-main main-page">
+      <div className="page-header"></div>
+      <div className="in-page-header middle-container">
+        <div className="page-header-title">Fixtures & Results</div>
+        <MatchesFilters teams={teams} isTeamPlatform={isTeamPlatform} />
+        <br />
+        <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
+      </div>
     </div>
   )
 }

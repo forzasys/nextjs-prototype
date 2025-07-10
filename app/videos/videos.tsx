@@ -1,5 +1,6 @@
 import { VideoCollection } from '@/components/videosLibrary/videoCollection';
 import config from '@/config';
+import { collectionsToShow } from '@/utilities/utils';
 // import { PlaylistType } from '@/types/dataTypes';
 
 function Videos({ params }: {params: URLSearchParams}) {
@@ -9,7 +10,7 @@ function Videos({ params }: {params: URLSearchParams}) {
   const teamPlatformId = config.team
   const isTeamPlatform = !!teamPlatformId
 
-  const collectionsInVideo = ["goal", "assist", "shot", "yellow card", "red card", "saves"]
+  const collectionsInVideo = collectionsToShow
 
   const checkShowCollection = (collectionName: string) => {
     if (!!eventParam && collectionName !== eventParam) return false
@@ -20,7 +21,9 @@ function Videos({ params }: {params: URLSearchParams}) {
         if (eventParam !== "assist") return false
       }
     }
-    if (collectionName === "saves" && eventParam !== "saves") return false
+    if (collectionName === "save" && eventParam !== "save") {
+      return false
+    }
     return true
   }
 

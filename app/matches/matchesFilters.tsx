@@ -13,11 +13,11 @@ async function MatchesFilters({ teams, isTeamPlatform }: MatchesFiltersProps) {
 
   return (
     <div>
-        <MatchesTypeFilter/>
-        <br />
-        <SeasonFilter games/>
-        <br />
-        {!isTeamPlatform && <TeamFilter teams={teams} />}
+      <SeasonFilter games/>
+      <br />
+      <MatchesTypeFilter/>
+      <br />
+      {!isTeamPlatform && <TeamFilter teams={teams} />}
     </div>
   )
 }
