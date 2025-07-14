@@ -119,7 +119,6 @@
 /* HOVER */
 .playlist-single:not(.game-hovered):hover .playlist-duration-hover {
     width: 100%;
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .playlist-single:not(.game-hovered):hover .playlist-thumbnail {

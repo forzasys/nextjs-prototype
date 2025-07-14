@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export const useUpdateSearchParam = () => {
@@ -19,3 +20,36 @@ export const useUpdateSearchParam = () => {
 
   return updateParam;
 };
+
+export function calculateRemainingTime (time: string) {
+  if (!time) return null
+  const remaining = new Date(time).getTime() - new Date().getTime()
+  if (remaining < 0) return 0
+  else return remaining
+}
+
+export function useCountDown (time: string) {
+    
+  const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(time))
+
+  useEffect(() => {
+      setRemainingTime(calculateRemainingTime(time))
+      const countdown = setInterval(() => {
+          const timeLeft = calculateRemainingTime(time)
+          setRemainingTime(timeLeft)
+          if (timeLeft && timeLeft <= 0){
+              clearInterval(countdown)
+          } 
+      }, 1000)
+      return () => clearInterval(countdown)
+  }, [time])
+
+  if (!remainingTime) return {}
+
+  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)))
+  const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
+
+  return {days, hours, minutes, seconds}
+}

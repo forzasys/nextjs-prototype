@@ -1,24 +1,21 @@
-import { onFetch } from "@/utilities/fetchApi"
 import Image from 'next/image';
-import { EventType } from "@/types/dataTypes";
+import { EventType, GameType } from "@/types/dataTypes";
 import { getGameTime } from "@/utilities/utils";
 
 interface MatchScoreboardProps {
-    gameId: string, 
+    game: GameType, 
     gameEvents: []
 }
 
-async function MatchScoreboard({ gameId, gameEvents }: MatchScoreboardProps) {
+async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
 
-  const gameData = await onFetch("game/" + gameId)
-
-  const homeTeam = gameData?.home_team?.id
-  const awayTeam = gameData?.visiting_team?.id
+  const homeTeam = game?.home_team?.id
+  const awayTeam = game?.visiting_team?.id
   const filteredEvents = gameEvents.filter((e: EventType) => e.tag.action === "goal")
   const homeFilteredEvents = filteredEvents.filter((e: EventType) => e.tag.team?.id === homeTeam)
   const awayFilteredEvents = filteredEvents.filter((e: EventType) => e.tag.team?.id === awayTeam)
 
-  const {home_team, visiting_team, home_team_goals, visiting_team_goals} = gameData
+  const {home_team, visiting_team, home_team_goals, visiting_team_goals} = game
 
   const homeEventsRecap = (
         <div className="scoreboard-scorer-cont">

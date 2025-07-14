@@ -24,6 +24,8 @@ const themes: Theme = {
   vif: {
     '--primary-color': '#022ca1',
     '--secondary-color': '#00007d',
+    // '--primary-color': '#022ca1',
+    // '--secondary-color': '#171791',
     '--header-color': "#FFFFFF",
     '--accent-color': '#da1828',
     '--text-color': '#FFFFFF',

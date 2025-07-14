@@ -1,0 +1,52 @@
+.headline-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.headline-slider-container {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid purple;
+    overflow: hidden;
+}
+
+.headline-single {
+    min-width: 100%;
+    border: 1px solid green;
+    transition: transform 0.2s linear;
+}
+
+.headline-items {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+.headline-item {
+    width: 30%;
+    padding: 12px 0;
+}
+
+.headline-item-bar {
+    height: 4px;
+    width: 100%;
+    background-color: grey;
+    border-radius: 5px;
+}
+
+.headline-timing-bar {
+    height: 100%;
+    width: 0%;
+    background-color: white;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.active .headline-timing-bar {
+    visibility: visible;
+}

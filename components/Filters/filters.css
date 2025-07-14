@@ -6,11 +6,11 @@
 }
 
 .filter-dropdown.narrow {
-    width: 120px;
+    width: 125px;
 }
 
 .filter-dropdown.wide {
-    width: 275px;
+    width: 300px;
 }
 
 .filter-title {
@@ -57,7 +57,31 @@
     background-color: var(--secondary-color);
     z-index: 10;
     display: none;
+    max-height: 550px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* scrollbar-width: none; */
+    /* -ms-overflow-style: none; */
 } 
+
+/* Custom scrollbar for webkit browsers */
+.filter-dropdown-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-dropdown-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.filter-dropdown-options::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.filter-dropdown-options::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
 .filter-dropdown-option {
     display: flex;
@@ -116,25 +140,26 @@
 }
 
 
-
-
-
 .inline-filter-options {
-    width: 100%;
+    position: relative;
+    width: fit-content;
     display: flex;
-    gap: 35px;
+    gap: 25px;
     color: white;
 }
 
 .inline-filter-options-line {
-    width: 100%;
+    position: absolute;
+    bottom: -5px;
+    width: calc(100% + (120px + 30%));
     height: 4px;
     background: linear-gradient(
         to right,
         var(--secondary-color) 0%,
-        var(--secondary-color) 40%,
-        transparent 85%
+        var(--secondary-color) 50%,
+        transparent 100%
     );
+    z-index: 0;
 }
 
 .single-option {
@@ -152,7 +177,7 @@
 }
 
 .single-option:before {
-    bottom: -4px;
+    bottom: -5px;
     content: "";
     height: 4px;
     left: 0;
@@ -160,16 +185,18 @@
     width: 0%;
     background-color: var(--accent-color);
     transition: width 0.2s linear;
+    z-index: 1;
 }
 
 .single-option.selected:after {
-    bottom: -4px;
+    bottom: -5px;
     content: "";
     height: 4px;
     left: 0;
     position: absolute;
     width: 100%;
     background-color: var(--accent-color);
+    z-index: 1;
 }
 
 /* HOVER */

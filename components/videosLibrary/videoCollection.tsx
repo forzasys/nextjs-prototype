@@ -21,7 +21,7 @@ export const collectionTitles: CollectionTitlesType = {
 interface VideoCollectionProps {
   collectionName: string
   params?: URLSearchParams | undefined
-  visibleCollections: string[]
+  visibleCollections?: string[]
   showCollection?: boolean | true
 }
 

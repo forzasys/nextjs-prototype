@@ -83,10 +83,12 @@ export type TeamType = {
 }
 
 export type GameType = {
+  date: string;
   id: number;
   home_team: TeamType;
-  visiting_team: TeamType;
   home_team_goals: number;
+  start_time: string;
+  visiting_team: TeamType;
   visiting_team_goals: number;
 };
 
@@ -122,8 +124,9 @@ export type TopScorerQueryType = {
 
 export type TableType = {
   games_played: number;
-  goals_difference: number;
-  goals: number;
+  goal_difference: number;
+  goals_conceded: number;
+  goals_scored: number;
   id: number;
   losses: number;
   name: string;

@@ -1,0 +1,222 @@
+import React from 'react'
+import { onFetch } from "@/utilities/fetchApi"
+import { GameType, TableType } from '@/types/dataTypes'
+import Image from 'next/image'
+import Link from 'next/link'
+import config from '@/config'
+
+interface H2HTableProps {
+    table: TableType[]
+    homeTeamId: number
+    awayTeamId: number
+}
+
+async function HeadToHeadTable({ table, homeTeamId, awayTeamId }: H2HTableProps) {
+        
+    const tableList = (
+        <div>
+            <div style={{display: "flex", gap: "7px"}}>
+                <div>Rank</div>
+                <div style={{width: "175px"}}>Team</div>
+                <div>Played</div>  
+                <div>Wins</div>
+                <div>Ties</div>
+                <div>Losses</div>
+                <div>GS</div>
+                <div>GC</div>
+                <div>GD</div>
+                <div>Points</div>
+            </div>
+            {table.map((t: TableType) => {
+                return (
+                    <div key={t.id} style={{display: "flex", gap: "7px", border: (t.id === homeTeamId || t.id === awayTeamId) ? "1px solid black" : "none"}}>
+                        <div>{t.rank}</div>
+                        <div style={{width: "175px"}}>{t.name}</div>
+                        <div>{t.games_played}</div>  
+                        <div>{t.wins}</div>
+                        <div>{t.ties}</div>
+                        <div>{t.losses}</div>
+                        <div>{t.goals_scored}</div>
+                        <div>{t.goals_conceded}</div>
+                        <div>{t.goal_difference}</div>
+                        <div>{t.points}</div>
+                    </div>
+                )
+            })}
+        </div>
+    )
+
+    return (
+        <div>
+            <div>H2H Table</div>
+            {tableList}
+        </div>
+    )
+}
+
+interface RecentIndividualMatchesProps {
+    homeTeamGames: GameType[]
+    awayTeamGames: GameType[]
+}
+
+function RecentIndividualMatches({ homeTeamGames, awayTeamGames }: RecentIndividualMatchesProps) {
+
+    const lastFiveHomeTeamGames = homeTeamGames.slice(0, 5)
+    const lastFiveAwayTeamGames = awayTeamGames.slice(0, 5)
+
+    const homeTeamGamesList = (
+        <div>
+            {lastFiveHomeTeamGames.map((game) => {
+                return (
+                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.home_team.name}</div>
+                        <div>{game.home_team_goals}</div>
+                        <div>-</div>
+                        <div>{game.visiting_team_goals}</div>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.visiting_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.date}</div>
+                    </Link>
+                )
+            })}
+        </div>
+    )
+
+    const awayTeamGamesList = (
+        <div>
+            {lastFiveAwayTeamGames.map((game) => {
+                return (
+                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.home_team.name}</div>
+                        <div>{game.home_team_goals}</div>
+                        <div>-</div>
+                        <div>{game.visiting_team_goals}</div>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.visiting_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.date}</div>
+                    </Link>
+                )
+            })}
+        </div>
+    )
+
+    return (
+        <div>
+            <div>Recent individual matches</div>
+            <br />
+            <div style={{display: "flex", gap: "10px"}}>
+                {homeTeamGamesList}
+                {awayTeamGamesList}
+            </div>
+        </div>
+    )
+}
+interface RecentMeetingsProps {
+    games: GameType[]
+}
+
+function RecentMeetings({ games }: RecentMeetingsProps) {
+
+    const lastMeetings = games.slice(0, 3)
+
+    const headToHeadGames = (
+        <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+            {lastMeetings.map((game) => {
+                return (
+                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.home_team.name}</div>
+                        <div>{game.home_team_goals}</div>
+                        <div>-</div>
+                        <div>{game.visiting_team_goals}</div>
+                        <div>{game.visiting_team.name}</div>
+                        <div className='single-game-team-logo'>
+                            <Image src={game.visiting_team.logo_url} alt="team logo" width={30} height={30}/>
+                        </div>
+                        <div>{game.date}</div>
+                    </Link>
+                )
+            })}
+        </div>
+    )
+
+    return (
+        <div>
+            <div>Most recent meetings</div>
+            <br />
+            {headToHeadGames}
+        </div>
+    )
+}
+
+interface MatchHeadToHeadProps {
+    game: GameType
+}
+
+async function MatchHeadToHead({ game }: MatchHeadToHeadProps) {
+
+    const hasStatisticsPage = config.hasStatisticsPage
+
+    const homeTeamId = game.home_team.id
+    const awayTeamId = game.visiting_team.id
+
+    const today = new Date();
+    const formattedToday = today.toISOString().split('T')[0];
+
+    const allHomeTeamGamesQuery = {
+        to_date: formattedToday,
+        asc: false,
+        count: 99,
+        team_id: homeTeamId
+    }
+
+    const allAwayTeamGamesQuery = {
+        to_date: formattedToday,
+        asc: false,
+        count: 99,
+        team_id: awayTeamId
+    }
+
+    const currentSeason = config.availableSeasons[0]
+
+    const tableInitialQuery = {
+        season: currentSeason,
+        to_date: `${currentSeason}-12-31`,
+    }
+    
+    const allHomeTeamGamesData = await onFetch("game", allHomeTeamGamesQuery)
+    const allAwayTeamGamesData = await onFetch("game", allAwayTeamGamesQuery)
+    const tableData = hasStatisticsPage ? await onFetch("stats/table", tableInitialQuery) : []
+
+    const homeTeamGames = allHomeTeamGamesData?.games || []
+    const awayTeamGames = allAwayTeamGamesData?.games || []
+    const table = tableData?.teams || []
+    
+    const headToHeadGames = homeTeamGames.filter((game: GameType) => awayTeamGames.some((g: GameType) => g.id === game.id))
+    
+    console.log(headToHeadGames)
+
+    return (
+      <div>
+        <RecentMeetings games={headToHeadGames} />
+        <br />
+        <RecentIndividualMatches homeTeamGames={homeTeamGames} awayTeamGames={awayTeamGames} />
+        <br />
+        {hasStatisticsPage && (
+            <HeadToHeadTable table={table} homeTeamId={homeTeamId} awayTeamId={awayTeamId} />
+        )}
+      </div>
+    )
+}
+
+export default MatchHeadToHead

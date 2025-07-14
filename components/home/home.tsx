@@ -1,18 +1,31 @@
-import { VideoCollection } from '@/components/videosLibrary/videoCollection';
+import Headlines from "../headline/headlines";
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
+import { VideoCollection } from '@/components/videosLibrary/videoCollection';
+import { onFetch } from "@/utilities/fetchApi";
+import { initialGamesQuery } from "@/utilities/queryUtils";
+import config from "@/config";
 
-function Home() {
+async function Home() {
+
+  const query = structuredClone(initialGamesQuery)
+  query.count = 4
+
+  const gamesData = await onFetch("game", query)
+  const games = gamesData?.games || [];
+
+  const hasStatisticsPage = config.hasStatisticsPage
 
   return (
-    <div>
-      <h3>Home</h3>
+    <div className="">
+      <h3 className='middle-container'>Home</h3>
       <br />
-      <HomePageMatches />
+      <Headlines game={games[0]}/>
       <br />
-      <HomeTopScorer/>
+      <VideoCollection collectionName={"goal"} showCollection={true}/>
+      <HomePageMatches games={games} />
       <br />
-      <VideoCollection collectionName={"goal"}/>
+      {hasStatisticsPage && <HomeTopScorer/>}
       <br />
     </div>
   );

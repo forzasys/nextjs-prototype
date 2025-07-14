@@ -12,11 +12,14 @@ function MatchInfoTypes() {
 
     return (
         <div style={{display: "flex", gap: "10px"}}>
-            <div onClick={() => onUpdateType("lineup")}>
-                Lineup
+            <div onClick={() => onUpdateType("headtohead")}>
+                Head to head
             </div>
             <div onClick={() => onUpdateType("stats")}>
                 Stats
+            </div>
+            <div onClick={() => onUpdateType("lineup")}>
+                Lineup
             </div>
             <div onClick={() => onUpdateType("events")}>
                 Events

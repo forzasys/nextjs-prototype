@@ -15,7 +15,7 @@ interface VideoCollectionProps {
     playlistData?: PlaylistType[] | undefined
     isInitialQuery: boolean
     collectionName: string
-    visibleCollections: string[]
+    visibleCollections?: string[]
 }
 
 export function Collection({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
@@ -36,7 +36,7 @@ export function Collection({playlistData, isInitialQuery, collectionName, visibl
 
     const collectionTitle = collectionTitles[collectionName] || collectionName;
 
-    const collectionIndex = visibleCollections.indexOf(collectionName)
+    const collectionIndex = visibleCollections?.indexOf(collectionName)
     let collectionGroup = ""
 
     if (collectionIndex === 0) {

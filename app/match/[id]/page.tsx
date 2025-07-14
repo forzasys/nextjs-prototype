@@ -1,5 +1,7 @@
 import MatchScoreboard from './matchScoreboard';
+import MatchCountdown from './matchCountdown';
 import MatchInfoTypes from './matchInfoTypes';
+import MatchHeadToHead from './matchHeadToHead';
 import MatchStats from './matchStats';
 import MatchLineup from './matchLineup';
 import MatchEvents from './matchEvents';
@@ -23,19 +25,33 @@ async function Page({ params, searchParams }: MatchPageProps) {
   const gameId = resolvedParams.id;
   const match_info = resolvedSearchParams.match_info;
 
-  const gameEventsData = await onFetch(`/game/${gameId}/events`, { count: 999 });
+  const gameData = await onFetch("game/" + gameId)
+  const gameEventsData = await onFetch(`/game/${gameId}/events`, { count: 999 })
+
   const gameEvents = gameEventsData?.events || [];
 
-  let matchInfo = <MatchStats gameId={gameId} />;
-  
-  if (match_info === "lineup")
+  const isUpcomingMatch = gameData.phase === "not started" && gameData.start_time > new Date().toISOString()
+
+  let matchInfo = isUpcomingMatch ? <MatchHeadToHead game={gameData} /> :  <MatchStats gameId={gameId} /> 
+
+  if (match_info === "headtohead") {
+    matchInfo = <MatchHeadToHead game={gameData} />;
+  }
+  if (match_info === "stats") {
+    matchInfo = <MatchStats gameId={gameId} />;
+  }
+  if (match_info === "lineup") {
     matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;
-  if (match_info === "events")
+  }
+  if (match_info === "events") {
     matchInfo = <MatchEvents gameEvents={gameEvents} />;
+  }
 
   return (
-    <div>
-      <MatchScoreboard gameId={gameId} gameEvents={gameEvents} />
+    <div className="middle-container">
+      <MatchScoreboard game={gameData} gameEvents={gameEvents} />
+      <br />
+      {isUpcomingMatch && <MatchCountdown game={gameData} />}
       <br />
       <MatchInfoTypes />
       <br />

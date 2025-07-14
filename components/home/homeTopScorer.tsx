@@ -38,7 +38,7 @@ async function HomeTopScorer() {
     )
 
     return (
-        <div>
+        <div className='middle-container'>
             <div>TopScorers</div>
             <br />
             {topScorersList}

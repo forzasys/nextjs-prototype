@@ -88,28 +88,26 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const selectedPlayerIsGoalkeeper = !!selectedPlayer && selectedPlayer.role === "goalkeeper"
 
   const eventsOptions = (
-    <div className="inline-filter-options-cont">
-      <div className="inline-filter-options">
-        <div 
-          onClick={() => updateParam("event", undefined)} 
-          className={classNames("single-option", {"selected": !eventParam})}
-          >
-            All
-          </div>
-        {availableTags.map((t) => {
-          return (
-            <SingleEvent
-              key={t}
-              event={t}
-              eventParam={eventParam}
-              playerSelected={!!playerParam}
-              isGoalkeeper={selectedPlayerIsGoalkeeper}
-            />
-          )
-        })}
-      </div>
+    <div className="inline-filter-options">
+      <div 
+        onClick={() => updateParam("event", undefined)} 
+        className={classNames("single-option", {"selected": !eventParam})}
+        >
+          All
+        </div>
+      {availableTags.map((t) => {
+        return (
+          <SingleEvent
+            key={t}
+            event={t}
+            eventParam={eventParam}
+            playerSelected={!!playerParam}
+            isGoalkeeper={selectedPlayerIsGoalkeeper}
+          />
+        )
+      })}
       <div className="inline-filter-options-line"></div>
-    </div> 
+    </div>
   )
 
   return eventsOptions

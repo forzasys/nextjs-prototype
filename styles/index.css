@@ -1,5 +1,12 @@
 .main-page {
     position: relative;
+    height: 100%;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
+}
+
+.main-content {
+    min-height: calc(100vh - 400px);
 }
 
 .middle-container {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { EventType } from '@/types/dataTypes';
-import Playlist from '@/components/playlist/playlist';
 
 async function MatchEvents({ gameEvents } : { gameEvents: [] }) {
 
@@ -16,7 +15,9 @@ async function MatchEvents({ gameEvents } : { gameEvents: [] }) {
                     if (!e.playlist) {
                         return <div key={e.id}>{e.tag.action}</div>
                     } else return (
-                        <Playlist key={e.id} playlist={e.playlist} />
+                        <div key={e.id}>
+                            {e.playlist?.description}
+                        </div>
                     )
                 })}
             </div>
