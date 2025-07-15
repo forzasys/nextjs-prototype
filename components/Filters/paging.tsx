@@ -4,7 +4,7 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 
 function Paging() {
 
-    const updateParam = useUpdateSearchParam();
+    const {updateParam} = useUpdateSearchParam();
 
     return (
         <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>

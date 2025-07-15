@@ -87,8 +87,6 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
     }));
   }
 
-  query.count = 8
-
   return query
 }
 
@@ -146,7 +144,7 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, i
 
   if (pageParam) {
     const page = Number(pageParam) || 1;
-    const from = Math.min((page - 1) * 10);
+    const from = Math.min((page - 1) * 12);
     query.from = from;
   }
 
@@ -206,28 +204,3 @@ export function normalizeSearchParams(rawParams: SearchParamsType): URLSearchPar
 
   return new URLSearchParams(cleaned);
 }
-
-// export function teamPlatformPlaylistQuery (videosCollectionQuery: QueryType, teamId: number | string) {
-  // 
-  // let query = structuredClone(videosCollectionQuery)
-  // console.log(query)
-  // query.team_id = Number(teamId)
-  // const channelId = config.channel
-  // const queryTags = query?.tags
-  // if (queryTags) {
-    // const updatedTags = queryTags.map((tag: TagsType) => ({
-        // ...tag,
-        // team: { id: Number(teamId) },
-    // }));
-    // query = {
-        // ...query,
-        // tags: updatedTags
-    // };
-  // } else {
-      // query = {
-          // ...query,
-          // channels: channelId
-      // };
-  // }
-  // return query
-// }

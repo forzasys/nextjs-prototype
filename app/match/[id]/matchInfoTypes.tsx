@@ -4,7 +4,7 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 
 function MatchInfoTypes() {
 
-    const updateParam = useUpdateSearchParam();
+    const {updateParam} = useUpdateSearchParam();
 
     const onUpdateType = (type: string | undefined) => {
         updateParam("match_info", type)

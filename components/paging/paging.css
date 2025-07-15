@@ -1,0 +1,85 @@
+.paging-cont {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    gap: 2px;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, .2);
+}
+
+.paging-cont button {
+    padding: 7px 12px;
+    font-size: 14px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+}
+
+.page-btn {
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.page-btn.active-page {
+   background-color: var(--primary-color);
+   color: var(--text-color);
+}
+
+.page-number-dots {
+    display: flex;
+    align-items: end;
+    padding-bottom: 5px;
+}
+
+button.page-next-previous {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    font-size: 13px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* HOVER */
+.page-btn:hover,
+.page-next-previous:hover {
+    border: 1px solid var(--accent-color);
+}
+
+button.page-next-previous:hover {
+    filter: brightness(110%);
+}
+
+button[disabled].page-next-previous {
+    filter: brightness(80%);
+    cursor: unset;
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 768px) {
+    .paging-cont button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    button.page-next-previous {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .paging-cont {
+        padding: 3px 0;
+        gap: 1px;
+    }
+    .paging-cont button {
+        padding: 7px;
+        font-size: 11px;
+    }
+    button.page-next-previous {
+        width: 55px;
+        gap: 2px;
+    }
+}

@@ -7,7 +7,7 @@ import { FilterDropdown } from './filterDropdown';
 
 function TeamFilter({ teams }: { teams: TeamType[] }) {
 
-  const updateParam = useUpdateSearchParam();
+  const {updateParam} = useUpdateSearchParam();
   const searchParams = useSearchParams();
   const teamParam = searchParams.get("team");
   const playerParam = searchParams.get("player");

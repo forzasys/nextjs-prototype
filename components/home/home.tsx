@@ -1,7 +1,7 @@
 import Headlines from "../headline/headlines";
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
-import { VideoCollection } from '@/components/videosLibrary/videoCollection';
+import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";
 import { initialGamesQuery } from "@/utilities/queryUtils";
 import config from "@/config";
@@ -22,7 +22,7 @@ async function Home() {
       <br />
       <Headlines game={games[0]}/>
       <br />
-      <VideoCollection collectionName={"goal"} showCollection={true}/>
+      <VideoCollectionSlide collectionName={"goal"} showCollection={true}/>
       <HomePageMatches games={games} />
       <br />
       {hasStatisticsPage && <HomeTopScorer/>}

@@ -5,9 +5,11 @@ import { onFetch } from '@/utilities/fetchApi';
 import Playlist from '@/components/playlist/playlist';
 import { PlaylistType } from '@/types/dataTypes';
 import { QueryType } from '@/types/dataTypes';
-import { useParams } from 'next/navigation'
-import { loadQueryFromSession } from '@/utilities/utils';
-import "@/components/videosLibrary/videoCollection.css"
+import { useParams } from 'next/navigation';
+import { generateTitleFromQuery, loadQueryFromSession } from '@/utilities/utils';
+import { MdOutlineArrowForwardIos } from 'react-icons/md';
+import "@/components/videosLibrary/videoCollection.css";
+import "./videoPlayer.css";
 
 function VideoSuggestions() {
 
@@ -32,15 +34,24 @@ function VideoSuggestions() {
 
   const collections = data?.playlists || [];
 
+  const videoSuggestionTitle = collections.length !== 0 && generateTitleFromQuery(query, collections[0]) || "Video suggestions"
+
   let render
 
   const playlist = (
-    <div className="collection-playlist-container">
+    <div className="collection-slide-playlist-container">
       {collections.map((p: PlaylistType) => {
         return (
-          <Playlist key={p.id} playlist={p} query={query}/>
+          <div key={p.id} className="collection-slide-playlist-single">
+            <Playlist playlist={p} query={query}/>
+          </div>
         )
       })}
+      <div className="collection-playlist-slider">
+        <div className="collection-playlist-slider-button">
+          <MdOutlineArrowForwardIos/>
+        </div>
+      </div>
     </div>
   )
 
@@ -49,10 +60,11 @@ function VideoSuggestions() {
   else render = playlist
 
   return (
-    <div>
-      <h2>Video Suggestions</h2>
-      <div className="collection-container">
-        <div className="collection-title">Video Suggestions</div>
+    <div className="collection-slide-container">
+      <div className="collection-single middle-container">
+        <div className="collection-title-container">
+          <div className="video-suggestions-title">{videoSuggestionTitle}</div>
+        </div>
         {render}
       </div>
     </div>

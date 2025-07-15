@@ -8,18 +8,18 @@ interface VideoPageProps {
   }
 }
 
-async function Page({ params }: VideoPageProps) {
-  const { id } = params
+export default async function Page({ params }: VideoPageProps) {
 
-  const playlistData = await onFetch(`/playlist/${id}`);
+  const resolvedParams = await Promise.resolve(params);
+  const playlistId = resolvedParams.id;
+
+  const playlistData = await onFetch(`/playlist/${playlistId}`);
   const playlist = playlistData || {};
 
   return (
-    <div>
+    <div className="middle-container">
       <h2>Video</h2>
       <VideoPlayer playlist={playlist} />
     </div>
   )
 }
-
-export default Page

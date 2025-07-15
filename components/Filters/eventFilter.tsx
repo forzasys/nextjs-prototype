@@ -24,7 +24,7 @@ interface SingleEventProps {
 
 function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: SingleEventProps) {
 
-  const updateParam = useUpdateSearchParam();
+  const { updateParam } = useUpdateSearchParam();
 
   let disabled = false
   let condition = ""
@@ -63,7 +63,7 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const teamParam = searchParams.get("team");
   const eventParam = searchParams.get("event");
 
-  const updateParam = useUpdateSearchParam();
+  const { updateMultipleParams } = useUpdateSearchParam();
 
   if (tags.length === 0) return null
 
@@ -87,10 +87,17 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const selectedPlayer: PlayerType | null = !!teamParam && allPlayers?.find(t => t.id === Number(teamParam)) || null
   const selectedPlayerIsGoalkeeper = !!selectedPlayer && selectedPlayer.role === "goalkeeper"
 
+  const onSelectAllTag = () => {
+    updateMultipleParams([
+      { param: "event", value: undefined },
+      { param: "page", value: undefined }
+    ]);
+  }
+
   const eventsOptions = (
     <div className="inline-filter-options">
       <div 
-        onClick={() => updateParam("event", undefined)} 
+        onClick={onSelectAllTag} 
         className={classNames("single-option", {"selected": !eventParam})}
         >
           All

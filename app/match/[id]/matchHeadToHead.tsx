@@ -4,6 +4,7 @@ import { GameType, TableType } from '@/types/dataTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import config from '@/config'
+import { checkMultipleMatchesResult } from '@/utilities/utils'
 
 interface H2HTableProps {
     table: TableType[]
@@ -48,24 +49,39 @@ async function HeadToHeadTable({ table, homeTeamId, awayTeamId }: H2HTableProps)
 
     return (
         <div>
-            <div>H2H Table</div>
             {tableList}
         </div>
     )
 }
 
 interface RecentIndividualMatchesProps {
+    homeTeamId: number
+    awayTeamId: number
     homeTeamGames: GameType[]
     awayTeamGames: GameType[]
 }
 
-function RecentIndividualMatches({ homeTeamGames, awayTeamGames }: RecentIndividualMatchesProps) {
+function RecentIndividualMatches({ homeTeamId, awayTeamId, homeTeamGames, awayTeamGames }: RecentIndividualMatchesProps) {
 
     const lastFiveHomeTeamGames = homeTeamGames.slice(0, 5)
     const lastFiveAwayTeamGames = awayTeamGames.slice(0, 5)
 
+    const homeTeamResults = checkMultipleMatchesResult(homeTeamId, lastFiveHomeTeamGames)
+    const awayTeamResults = checkMultipleMatchesResult(awayTeamId, lastFiveAwayTeamGames)
+
     const homeTeamGamesList = (
         <div>
+            <div style={{display: "flex", gap: "10px"}}>
+                {homeTeamResults.map((result, idx) => {
+                    if (result === "won") result = "W"
+                    if (result === "lost") result = "L"
+                    if (result === "draw") result = "D"
+                    return (
+                        <div key={idx} style={{width: "20px", textAlign: "center"}}>{result}</div>
+                    )
+                })}
+            </div>
+            <br />
             {lastFiveHomeTeamGames.map((game) => {
                 return (
                     <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
@@ -88,6 +104,17 @@ function RecentIndividualMatches({ homeTeamGames, awayTeamGames }: RecentIndivid
 
     const awayTeamGamesList = (
         <div>
+            <div style={{display: "flex", gap: "10px"}}>
+                {awayTeamResults.map((result, idx) => {
+                    if (result === "won") result = "W"
+                    if (result === "lost") result = "L"
+                    if (result === "draw") result = "D"
+                    return (
+                        <div key={idx} style={{width: "20px", textAlign: "center"}}>{result}</div>
+                    )
+                })}
+            </div>
+            <br />
             {lastFiveAwayTeamGames.map((game) => {
                 return (
                     <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
@@ -112,7 +139,7 @@ function RecentIndividualMatches({ homeTeamGames, awayTeamGames }: RecentIndivid
         <div>
             <div>Recent individual matches</div>
             <br />
-            <div style={{display: "flex", gap: "10px"}}>
+            <div style={{display: "flex", gap: "100px"}}>
                 {homeTeamGamesList}
                 {awayTeamGamesList}
             </div>
@@ -210,7 +237,7 @@ async function MatchHeadToHead({ game }: MatchHeadToHeadProps) {
       <div>
         <RecentMeetings games={headToHeadGames} />
         <br />
-        <RecentIndividualMatches homeTeamGames={homeTeamGames} awayTeamGames={awayTeamGames} />
+        <RecentIndividualMatches homeTeamId={homeTeamId} awayTeamId={awayTeamId} homeTeamGames={homeTeamGames} awayTeamGames={awayTeamGames} />
         <br />
         {hasStatisticsPage && (
             <HeadToHeadTable table={table} homeTeamId={homeTeamId} awayTeamId={awayTeamId} />

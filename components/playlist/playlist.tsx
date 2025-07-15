@@ -5,15 +5,17 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { saveQueryToSession, formatDuration } from '@/utilities/utils'
+import classNames from 'classnames'
 import { IoMdPlay } from "react-icons/io";
 import "./playlist.css";
 
 interface PlaylistProps {
   playlist: PlaylistType
   query?: QueryType
+  smaller?: boolean
 }
 
-function Playlist({ playlist, query }: PlaylistProps) {
+function Playlist({ playlist, query, smaller }: PlaylistProps) {
 
   const router = useRouter()
 
@@ -39,7 +41,12 @@ function Playlist({ playlist, query }: PlaylistProps) {
   const duration = formatDuration(playlist.duration_ms / 1000)
 
   return (
-    <Link href={`/video/${playlist.id}`} className={`playlist-single ${isGameHovered ? 'game-hovered' : ''}`}>
+    <Link 
+      href={`/video/${playlist.id}`} 
+      className={classNames("playlist-single", {
+        "game-hovered": isGameHovered,
+        "smaller": smaller,
+      })}>
       <div onClick={onClickVideo} className="playlist-image">
         <Image 
           src={playlist.thumbnail_url} 

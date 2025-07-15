@@ -18,7 +18,7 @@ interface MatchesProps {
 function Matches({ gamesData, isInitialQuery }: MatchesProps) {
 
   const searchParams = useSearchParams();
-  const updateParam = useUpdateSearchParam();
+  const {updateParam} = useUpdateSearchParam();
   const query = generateGamesQueryFromParams(searchParams);
 
   const seasonParam = searchParams.get("season");

@@ -1,4 +1,4 @@
-import { QueryType } from "@/types/dataTypes";
+import { GameType, PlaylistType, QueryType } from "@/types/dataTypes";
 import config from "@/config";
 
 export function getGameTime (gameTime: number, phase: string) {
@@ -89,3 +89,77 @@ export function formatDuration (duration: number, withHour: boolean | undefined 
 const footballCollectionsToShow = ["goal", "assist", "shot", "penalty", "yellow card", "red card", "save"]
 const hockeyCollectionsToShow = ["goal", "assist", "goalkeeperevent", "penalty", "shootoutpenaltyshot", "shot", "save"]
 export const collectionsToShow = config.target === "shl" ? hockeyCollectionsToShow : footballCollectionsToShow
+
+export const checkMatchResult = (teamId: number, game: GameType) => {
+    let result = "draw";
+    if (game.home_team.id === teamId) {
+        if (game.home_team_goals > game.visiting_team_goals) {
+          result = "won";
+        } else if (game.home_team_goals < game.visiting_team_goals) {
+          result = "lost";
+        } else {
+          result = "draw";
+        }
+    }   else if (game.visiting_team.id === teamId) {
+        if (game.visiting_team_goals > game.home_team_goals) {
+          result = "won";
+        } else if (game.visiting_team_goals < game.home_team_goals) {
+          result = "lost";
+        } else {
+          result = "draw";
+        }
+    }
+    return result;
+}
+
+export const checkMultipleMatchesResult = (teamId: number, games: GameType[]) => {
+    const results: string[] = []
+    games.forEach((game) => {
+        const gameResult = checkMatchResult(teamId, game);
+        results.push(gameResult);
+    })
+    return results;
+}
+
+export const generateTitleFromQuery = (query: QueryType, playlist: PlaylistType) => {
+
+    console.log(query);
+    console.log(playlist);
+
+    const isTeamPlatform = !!config.team
+    const playlistTags = playlist.events[0].tags[0]
+
+    let title = ""
+    
+    const queryTag = query?.tags?.[0]
+
+    if (queryTag?.action) {
+        title = queryTag.action
+    }
+
+    if (queryTag?.player) {
+        if (playlistTags?.player) {
+            title += `, ${playlistTags.player.value}`
+        }
+    }
+    
+    if (queryTag?.scorer) {
+        if (playlistTags?.scorer) {
+            title += `, ${playlistTags.scorer.value}`
+        }
+    }
+
+    if (queryTag?.["assist by"]) {
+        if (playlistTags?.["assist by"]) {
+            title += `, ${playlistTags["assist by"].value}`
+        }
+    }
+
+    if (!isTeamPlatform) {
+        if (queryTag?.team) {
+            title += `, ${queryTag.team.value}`
+        }
+    }
+    
+    return title
+}

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
 import { videoCollectionQueries } from '@/utilities/queryUtils';
-import { collectionTitles } from './videoCollection';
+import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
 import classNames from 'classnames';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
@@ -18,11 +18,14 @@ interface VideoCollectionProps {
     visibleCollections?: string[]
 }
 
-export function Collection({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
+export function CollectionSlide({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
 
     const searchParams = useSearchParams();
     const initialCollectionQuery = videoCollectionQueries({collectionName});
     const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
+
+    // collection slide doesn't need all the videos
+    query.count = 9
 
     const { data, isLoading } = useQuery({
         queryKey: ['playlist', query],
@@ -47,18 +50,20 @@ export function Collection({playlistData, isInitialQuery, collectionName, visibl
     }
 
     const playlist = (
-        <div className="collection-playlist-container">
-          {collections.map((p: PlaylistType) => {
-            return (
-              <Playlist key={p.id} playlist={p} query={query}/>
-            )
-          })}
-          <div className="collection-playlist-slider">
-            <div className="collection-playlist-slider-button">
-              <MdOutlineArrowForwardIos/>
+      <div className="collection-slide-playlist-container">
+        {collections.map((p: PlaylistType) => {
+          return (
+            <div key={p.id} className="collection-slide-playlist-single">
+              <Playlist playlist={p} query={query}/>
             </div>
+          )
+        })}
+        <div className="collection-playlist-slider">
+          <div className="collection-playlist-slider-button">
+            <MdOutlineArrowForwardIos/>
           </div>
         </div>
+      </div>
     )
 
     let render
@@ -70,19 +75,19 @@ export function Collection({playlistData, isInitialQuery, collectionName, visibl
     else render = playlist
 
     return (
-        <div className={classNames("collection-container", collectionGroup)}>
-          <div className="collection-single middle-container">
-            <div className="collection-title-container">
-              <div className="collection-title">{collectionTitle}</div>
-              <div className="collection-title-more">
-                More
-                <MdOutlineArrowForwardIos/>
-              </div>
+      <div className={classNames("collection-slide-container", collectionGroup)}>
+        <div className="collection-single middle-container">
+          <div className="collection-title-container">
+            <div className="collection-title">{collectionTitle}</div>
+            <div className="collection-title-more">
+              More
+              <MdOutlineArrowForwardIos/>
             </div>
-            {render}
           </div>
+          {render}
         </div>
+      </div>
     )
 }
 
-export default Collection
+export default CollectionSlide

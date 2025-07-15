@@ -19,7 +19,7 @@ interface FilterDropdownProps {
 
 export function FilterDropdown({title, options, value, defaultValue, hasAll}: FilterDropdownProps) {
 
-    const updateParam = useUpdateSearchParam();
+    const {updateParam} = useUpdateSearchParam();
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -108,7 +108,7 @@ export function PlayerFilterDropdown({
     isLoading,
 }: PlayerFilterDropdownProps) {
 
-    const updateParam = useUpdateSearchParam();
+    const {updateParam} = useUpdateSearchParam();
 
     const [isOpen, setIsOpen] = useState(false)
 

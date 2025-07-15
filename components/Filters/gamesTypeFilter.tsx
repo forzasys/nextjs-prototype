@@ -6,7 +6,7 @@ import "./filters.css";
 
 function MatchesTypeFilter() {
     
-    const updateParam = useUpdateSearchParam();
+    const {updateParam} = useUpdateSearchParam();
     const searchParams = useSearchParams();
     const matchTypeParam = searchParams.get("match_type");
 

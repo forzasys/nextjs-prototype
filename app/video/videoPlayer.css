@@ -1,0 +1,6 @@
+.video-suggestions-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-transform: capitalize;
+}

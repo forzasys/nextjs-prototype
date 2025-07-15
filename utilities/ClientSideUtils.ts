@@ -6,6 +6,7 @@ export const useUpdateSearchParam = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Single parameter update 
   const updateParam = (param: string, value?: string | number | undefined) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -18,7 +19,25 @@ export const useUpdateSearchParam = () => {
     router.push(`?${params.toString()}`);
   };
 
-  return updateParam;
+  // Handles multiple parameter updates
+  const updateMultipleParams = (updates: { param: string; value?: string | number | undefined }[]) => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    updates.forEach(({ param, value }) => {
+      if (value === undefined) {
+        params.delete(param);
+      } else {
+        params.set(param, String(value));
+      }
+    });
+
+    router.push(`?${params.toString()}`);
+  };
+
+  return {
+    updateParam,
+    updateMultipleParams
+  };
 };
 
 export function calculateRemainingTime (time: string) {

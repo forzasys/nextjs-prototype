@@ -1,47 +1,67 @@
-import { onFetch } from "@/utilities/fetchApi";
-import { QueryType } from "@/types/dataTypes";
-import { generatePlaylistQueryFromParams } from "@/utilities/queryUtils";
-import { Collection } from "./collection";
-import { videoCollectionQueries } from "@/utilities/queryUtils";
+"use client"
+import { onFetch } from '@/utilities/fetchApi';
+import { videoCollectionQueries } from '@/utilities/queryUtils';
+import { useSearchParams } from 'next/navigation';
+import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
+import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
+import { useQuery } from '@tanstack/react-query';
+import { Paging } from '../paging/paging';
+import { PlaylistType, QueryType } from '@/types/dataTypes';
+import Playlist from '../playlist/playlist';
 
-type CollectionTitlesType = {
-  [key: string]: string
+interface CollectionProps {
+    playlists: PlaylistType[]
+    query: QueryType
 }
 
-export const collectionTitles: CollectionTitlesType = {
-    "goal": "Goals",
-    "assist": "Assists",
-    "yellow card": "Yellow cards",
-    "red card": "Red cards",
-    "shot": "Shots",
-    "latest": "Latest",
-    "interviews": "Interviews",
+function Collection ({playlists, query}: CollectionProps) {
+
+    return (
+        <div className="collection-playlist-container">
+            {playlists.map((playlist: PlaylistType) => (
+                <div key={playlist.id} className="collection-playlist-single">
+                    <Playlist playlist={playlist} query={query} />
+                </div>
+            ))}
+        </div>
+    )
 }
 
-interface VideoCollectionProps {
-  collectionName: string
-  params?: URLSearchParams | undefined
-  visibleCollections?: string[]
-  showCollection?: boolean | true
+function VideoCollection({collectionName}: {collectionName: string}) {
+    
+    const {updateParam} = useUpdateSearchParam();
+    const searchParams = useSearchParams();
+    const pageParam = searchParams.get("page") || 1
+    const initialCollectionQuery = videoCollectionQueries({collectionName});
+    const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
+
+    // 16 results per page
+    const resultsPerPage = 12
+    query.count = resultsPerPage
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['playlist', query],
+        queryFn: () => onFetch("playlist", query),
+        // staleTime: staleTime,
+    });
+
+    const onUpdatePage = (page: number) => {
+        updateParam("page", page.toString())
+    }
+
+    const playlists = data?.playlists || []
+
+    const totalPage = Math.ceil(data?.total / resultsPerPage) || 0
+
+    if (isLoading) return <div className="middle-container">Loading...</div>
+    
+    return (
+        <div className="collection-container middle-container">
+            <div className="collection-total-results">Showing {data?.total} results</div>
+            <Collection playlists={playlists} query={query}/>
+            <Paging page={Number(pageParam)} pageCount={totalPage} onChange={onUpdatePage}/>
+        </div>
+    )
 }
 
-export async function VideoCollection({collectionName, params, visibleCollections, showCollection}: VideoCollectionProps) {
-  
-  if (!showCollection) return null;
-  
-  const initialCollectionQuery = videoCollectionQueries({collectionName});
-
-  let query: QueryType = {};
-
-  if (params) {
-    query = generatePlaylistQueryFromParams(params, initialCollectionQuery);
-  }
-
-  const isInitialQuery = !params || (JSON.stringify(query) === JSON.stringify(initialCollectionQuery))
-
-  const playlistData = isInitialQuery ? await onFetch("playlist", initialCollectionQuery) : undefined;
-
-  return (
-    <Collection playlistData={playlistData} isInitialQuery={isInitialQuery} collectionName={collectionName} visibleCollections={visibleCollections} />
-  )
-}
+export default VideoCollection

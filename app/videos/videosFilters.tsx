@@ -29,13 +29,6 @@ function VideosFilters({ playersData, tags, teams }: VideosFiltersProps) {
       </div>
       <EventFilter tags={tags} playersData={playersData} />
     </div>
-    
-    
-    
-    
-    
-    
-    
   );
 }
 

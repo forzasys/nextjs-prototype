@@ -4,12 +4,17 @@ export type TagsType = {
     id: number;
     value?: string;
   },
+  player?: {
+    id: number;
+    value?: string;
+  },
   scorer?: {
     id: number;
     value: string;
   },
   "assist by"?: {
     id: number | "" | undefined;
+    value?: string;
   },
   "shot result"?: {
     value: string;
@@ -57,11 +62,12 @@ export type QueryType = {
 // }
 
 export type PlaylistType = {
-  id: string,
   description: string;
   duration_ms: number;
+  events: EventType[];
   game: GameType;
   hd_thumbnail_url: string;
+  id: string,
   thumbnail_url: string;
   video_url: string;
   // other playlist props
@@ -73,6 +79,7 @@ export type EventType = {
   id: string;
   playlist: PlaylistType;
   tag: TagsType;
+  tags: TagsType[];
 };
 
 export type TeamType = {

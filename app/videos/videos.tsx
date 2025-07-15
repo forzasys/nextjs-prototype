@@ -1,7 +1,7 @@
-import { VideoCollection } from '@/components/videosLibrary/videoCollection';
+import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import config from '@/config';
 import { collectionsToShow } from '@/utilities/utils';
-// import { PlaylistType } from '@/types/dataTypes';
+import VideoCollection from '@/components/videosLibrary/videoCollection';
 
 function Videos({ params }: {params: URLSearchParams}) {
 
@@ -13,7 +13,6 @@ function Videos({ params }: {params: URLSearchParams}) {
   const collectionsInVideo = collectionsToShow
 
   const checkShowCollection = (collectionName: string) => {
-    if (!!eventParam && collectionName !== eventParam) return false
     if (collectionName === "assist") {
       if (isTeamPlatform) {
         if (!playerParam) return false
@@ -32,20 +31,24 @@ function Videos({ params }: {params: URLSearchParams}) {
     checkShowCollection(collectionName)
   );
 
+  const allCollections = collectionsInVideo.map((collectionName) => {
+    const showCollection = visibleCollections.includes(collectionName)
+    return (
+      <VideoCollectionSlide 
+        key={collectionName} 
+        collectionName={collectionName}
+        params={params} 
+        visibleCollections={visibleCollections}
+        showCollection={showCollection}
+      />
+    )
+  })
+
+  const hasEventParam = !!eventParam
+
   return (
     <div className="videos-collections">
-      {collectionsInVideo.map((collectionName) => {
-        const showCollection = visibleCollections.includes(collectionName)
-        return (
-          <VideoCollection 
-            key={collectionName} 
-            collectionName={collectionName}
-            params={params} 
-            visibleCollections={visibleCollections}
-            showCollection={showCollection}
-          />
-        )
-      })}
+      {hasEventParam ? <VideoCollection collectionName={eventParam} /> : allCollections}
     </div>
   )
 }
