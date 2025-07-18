@@ -1,7 +1,7 @@
 .filter-dropdown {
     position: relative;
     font-family: 'Exo', sans-serif;
-    color: white;
+    color: var(--text-color);
     width: 200px;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .filter-dropdown-option.selected {
-    color: white;
+    color: var(--text-color);
     font-weight: 700;
 }
 
@@ -145,7 +145,7 @@
     width: fit-content;
     display: flex;
     gap: 25px;
-    color: white;
+    color: var(--text-color);
 }
 
 .inline-filter-options-line {
@@ -185,7 +185,7 @@
     width: 0%;
     background-color: var(--accent-color);
     transition: width 0.2s linear;
-    z-index: 1;
+    z-index: 5;
 }
 
 .single-option.selected:after {
@@ -196,7 +196,7 @@
     position: absolute;
     width: 100%;
     background-color: var(--accent-color);
-    z-index: 1;
+    z-index: 5;
 }
 
 /* HOVER */

@@ -70,5 +70,10 @@ export function useCountDown (time: string) {
   const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
 
-  return {days, hours, minutes, seconds}
+  const daysStr = days.toString().length === 1 ? `0${days}` : days.toString()
+  const hoursStr = hours.toString().length === 1 ? `0${hours}` : hours.toString()
+  const minutesStr = minutes.toString().length === 1 ? `0${minutes}` : minutes.toString()
+  const secondsStr = seconds.toString().length === 1 ? `0${seconds}` : seconds.toString()
+
+  return {days: daysStr, hours: hoursStr, minutes: minutesStr, seconds: secondsStr}
 }

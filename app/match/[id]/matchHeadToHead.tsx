@@ -187,28 +187,32 @@ function RecentMeetings({ games }: RecentMeetingsProps) {
 }
 
 interface MatchHeadToHeadProps {
-    game: GameType
+    game?: GameType
 }
 
 async function MatchHeadToHead({ game }: MatchHeadToHeadProps) {
 
-    const hasStatisticsPage = config.hasStatisticsPage
+    console.log(game)
 
+    if (!game) return null
+
+    const hasStatisticsPage = config.hasStatisticsPage
     const homeTeamId = game.home_team.id
     const awayTeamId = game.visiting_team.id
 
-    const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0];
+    const dayBeforeGameDate = new Date(game.date)
+    dayBeforeGameDate.setDate(dayBeforeGameDate.getDate() - 1)
+    const dayBeforeGameDateString = dayBeforeGameDate.toISOString().split('T')[0]
 
     const allHomeTeamGamesQuery = {
-        to_date: formattedToday,
+        to_date: dayBeforeGameDateString,
         asc: false,
         count: 99,
         team_id: homeTeamId
     }
 
     const allAwayTeamGamesQuery = {
-        to_date: formattedToday,
+        to_date: dayBeforeGameDateString,
         asc: false,
         count: 99,
         team_id: awayTeamId

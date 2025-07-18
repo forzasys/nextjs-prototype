@@ -1,0 +1,94 @@
+.statistics-main {
+    /* background-color: #f1f3f6; */
+}
+
+.table-cont {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(245, 245, 245);
+    padding: 0 10px;
+    /* box-shadow: -2px 0 15px 0 rgba(0, 0, 0, 0.2); */
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table-item {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table-position {
+    text-align: center;
+    width: 75px;
+}   
+
+.table-team {
+    width: 250px;
+    flex-grow: 1;
+}
+
+.table-team.item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.table-statistic {
+    text-align: center;
+    width: 75px;
+}
+
+.table-league {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.table-league-name {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.statistics-filters {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.statistics-filters .single-filter {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    width: 33.33%;
+    background-color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.single-filter.selected {
+    position: relative;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+.statistics-filters .single-filter.selected::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 10%;
+    height: 3px;
+    background-color: var(--accent-color);
+}

@@ -1,5 +1,10 @@
 /* Brann theme specific styles */
 html[data-theme="brann"] * {
   --primary-color: #de1215;
-  --secondary-color: #eee;
+  --secondary-color: #b00c0f;
+  --header-color: #FFFFFF;
+  --accent-color: #ffb300;
+  --text-color: #FFFFFF;
+  --header-text-color: #000000;
+  --secondary-text-color: #000000;
 }

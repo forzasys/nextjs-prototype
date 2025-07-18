@@ -62,6 +62,7 @@ export type QueryType = {
 // }
 
 export type PlaylistType = {
+  date: string;
   description: string;
   duration_ms: number;
   events: EventType[];
@@ -133,7 +134,7 @@ export type TableType = {
   games_played: number;
   goal_difference: number;
   goals_conceded: number;
-  goals_scored: number;
+  goals: number;
   id: number;
   losses: number;
   name: string;

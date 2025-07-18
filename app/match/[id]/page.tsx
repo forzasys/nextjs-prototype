@@ -28,14 +28,17 @@ async function Page({ params, searchParams }: MatchPageProps) {
   const gameData = await onFetch("game/" + gameId)
   const gameEventsData = await onFetch(`/game/${gameId}/events`, { count: 999 })
 
+  const game = gameData || null
   const gameEvents = gameEventsData?.events || [];
 
-  const isUpcomingMatch = gameData.phase === "not started" && gameData.start_time > new Date().toISOString()
+  if (!game) return null
 
-  let matchInfo = isUpcomingMatch ? <MatchHeadToHead game={gameData} /> :  <MatchStats gameId={gameId} /> 
+  const isUpcomingMatch = game.phase === "not started" && game.start_time > new Date().toISOString()
+
+  let matchInfo = isUpcomingMatch ? <MatchHeadToHead game={game} /> :  <MatchStats gameId={gameId} /> 
 
   if (match_info === "headtohead") {
-    matchInfo = <MatchHeadToHead game={gameData} />;
+    matchInfo = <MatchHeadToHead game={game} />;
   }
   if (match_info === "stats") {
     matchInfo = <MatchStats gameId={gameId} />;
@@ -49,9 +52,9 @@ async function Page({ params, searchParams }: MatchPageProps) {
 
   return (
     <div className="middle-container">
-      <MatchScoreboard game={gameData} gameEvents={gameEvents} />
+      <MatchScoreboard game={game} gameEvents={gameEvents} />
       <br />
-      {isUpcomingMatch && <MatchCountdown game={gameData} />}
+      {isUpcomingMatch && <MatchCountdown game={game} />}
       <br />
       <MatchInfoTypes />
       <br />

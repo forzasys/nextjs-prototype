@@ -1,0 +1,9 @@
+html[data-theme="shl"] * {
+  --primary-color: #000000;
+  --secondary-color: #1b1f26;
+  --header-color: #1b1f26;
+  --accent-color: #67a4ff;
+  --text-color: #FFFFFF;
+  --header-text-color: #FFFFFF;
+  --secondary-text-color: #000000;
+}

@@ -7,6 +7,7 @@ import { PlaylistType } from '@/types/dataTypes';
 import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
@@ -20,6 +21,7 @@ interface VideoCollectionProps {
 
 export function CollectionSlide({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
 
+    const router = useRouter();
     const searchParams = useSearchParams();
     const initialCollectionQuery = videoCollectionQueries({collectionName});
     const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
@@ -36,6 +38,10 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
     });
 
     const collections = data?.playlists || [];
+
+    const onClickMore = () => {
+      router.push(`/videos?event=${collectionName}`);
+    }
 
     const collectionTitle = collectionTitles[collectionName] || collectionName;
 
@@ -79,10 +85,10 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
         <div className="collection-single middle-container">
           <div className="collection-title-container">
             <div className="collection-title">{collectionTitle}</div>
-            <div className="collection-title-more">
+            <button onClick={onClickMore} className="collection-title-more">
               More
               <MdOutlineArrowForwardIos/>
-            </div>
+            </button>
           </div>
           {render}
         </div>

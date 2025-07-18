@@ -56,6 +56,16 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
       query.filters = ["official"]
       break
 
+    case "highlights":
+      query.filters = ["playlist"]
+      query.orderby = "created"
+      query.all_leagues = true
+      query.include_channels = true
+      query.include_featured_flag = true
+      query.from = 0
+      query.to_date = "2025-07-17T12:30:00.000Z"
+      break
+
     // case "latest":
       // query.filters = ["~official","~live"]
       // break

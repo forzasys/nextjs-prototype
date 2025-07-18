@@ -22,23 +22,25 @@
 }
 
 .top-first .collection-title {
-    color: white;
+    color: var(--text-color);
 }
 
 .collection-title-more {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
     padding: 7px;
     padding-right: 1px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-color);
 }
 
 .collection-title-more svg {
-    margin-top: 1px;
     font-size: 15px;
     transition: transform 0.1s linear;
 }

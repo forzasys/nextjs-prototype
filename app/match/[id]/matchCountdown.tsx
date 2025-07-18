@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { GameType } from '@/types/dataTypes'
 import { useCountDown } from '@/utilities/ClientSideUtils'
 
@@ -9,9 +9,14 @@ interface MatchCountdownProps {
 
 function MatchCountdown({game}: MatchCountdownProps) {
 
+    const [isMounted, setIsMounted] = useState(false)
     const countdown = useCountDown(game.start_time)
 
-    if (!countdown) return null
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if (!isMounted) return null
 
     const {days, hours, minutes, seconds} = countdown
 

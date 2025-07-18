@@ -1,7 +1,9 @@
 import React from 'react'
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
-import Link from 'next/link';
+import config from '@/config';
+import { format, parseISO } from 'date-fns';
+import "./home.css"
 
 interface HomePageMatchesProps {
     games: GameType[]
@@ -9,31 +11,43 @@ interface HomePageMatchesProps {
 
 async function HomePageMatches({games}: HomePageMatchesProps) {
 
-    const gamesList = games.map((g: GameType) => {
-      return (
-        <Link key={g.id} href={`match/${g.id}`} style={{display: "flex"}} className='single-game'>
-          <div>
-            <Image src={g.home_team.logo_url} alt="team logo" width={30} height={30}/>
-          </div>
-          <div>{g.home_team.name}</div>
-          <div>{g.home_team_goals}</div>
-          <div>-</div>
-          <div>{g.visiting_team_goals}</div>
-          <div>{g.visiting_team.name}</div>
-          <div>
-            <Image src={g.visiting_team.logo_url} alt="team logo" width={30} height={30}/>
-          </div>
-        </Link>
-      )
-    })
-
+  const gamesList = games.map((game: GameType) => {
+    const {home_team, visiting_team} = game
+    const gameDate = format(game.date, 'EEE, dd MMM yyyy');
+    const gameTime = format(parseISO(game.start_time), 'HH:mm')
     return (
-      <div className='middle-container'>
-          <div>Next matches</div>
-          <br />
-          {gamesList}
+      <div className="home-match-single" key={game.id}>
+        <div className="home-match-date">{gameDate}</div>
+        <div className="home-match-league">
+          {config.league}
+        </div>
+        
+        <div className="home-match-teams">
+            <div className="home-match-team">
+                <Image src={home_team.logo_url} alt="team logo" width={75} height={75}/>
+                <div className="home-match-team-name">{home_team.short_name}</div>
+            </div>
+            <div className="home-match-time">{gameTime}</div>
+            <div className="home-match-team away">
+                <Image src={visiting_team.logo_url} alt="team logo" width={75} height={75}/>
+                <div className="home-match-team-name">{visiting_team.short_name}</div>
+            </div>
+        </div>
+        <div className="home-match-center">
+            Match center
+        </div>
       </div>
     )
+  })
+
+  return (
+    <div className='middle-container'>
+        <div className="section-title">Next matches</div>
+        <div className="next-matches-list">
+          {gamesList}
+        </div>
+    </div>
+  )
 }
 
 export default HomePageMatches

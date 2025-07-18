@@ -1,5 +1,6 @@
 import { GameType, PlaylistType, QueryType } from "@/types/dataTypes";
 import config from "@/config";
+import { format, formatDistanceToNow, isToday, differenceInCalendarDays } from 'date-fns';
 
 export function getGameTime (gameTime: number, phase: string) {
 
@@ -123,9 +124,6 @@ export const checkMultipleMatchesResult = (teamId: number, games: GameType[]) =>
 
 export const generateTitleFromQuery = (query: QueryType, playlist: PlaylistType) => {
 
-    console.log(query);
-    console.log(playlist);
-
     const isTeamPlatform = !!config.team
     const playlistTags = playlist.events[0].tags[0]
 
@@ -163,3 +161,19 @@ export const generateTitleFromQuery = (query: QueryType, playlist: PlaylistType)
     
     return title
 }
+
+export function formatReadableDate(dateString: string): string {
+    const date = new Date(dateString);
+  
+    if (isToday(date)) {
+      return 'Today';
+    }
+  
+    const diff = differenceInCalendarDays(new Date(), date);
+  
+    if (diff >= 1 && diff <= 7) {
+        return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
+      }
+  
+    return format(date, 'dd-MM-yyyy');
+  }

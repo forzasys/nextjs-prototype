@@ -11,13 +11,18 @@ function HeadlineLatestGoal({translate, latestGoal}: HeadlineLatestGoalProps) {
 
     return (
         <div style={{transform: `translate(${translate})`}} className="headline-single">
-            <div>Latest goal</div>
-            <div>
-                <Image src={latestGoal.thumbnail_url} alt="latest goal" width={200} height={120} />
-            </div>
-            <div>
+            <Image 
+                src={latestGoal.thumbnail_url} 
+                alt="latest goal" 
+                fill
+                className="headline-single-img"
+                priority
+            />
+            <div className="headline-single-content">
                 {latestGoal.description}
             </div>
+            <div className="headline-img-mask-left"></div>
+            <div className="headline-img-mask-right"></div>
         </div>
     )
 }

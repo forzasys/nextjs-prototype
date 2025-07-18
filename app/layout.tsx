@@ -3,7 +3,7 @@ import { Lato, Exo, Michroma } from 'next/font/google'
 // import { Geist, Geist_Mono } from "next/font/google";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import Main from "./main";
-import ThemeInitializer from "@/utilities/themeInitializer";
+// import ThemeInitializer from "@/utilities/themeInitializer";
 import "./globals.css";
 
 // const geistSans = Geist({
@@ -33,9 +33,9 @@ const michroma = Michroma({
 
 // Import theme overrides 
 // TODO move to other file when it's bigger
-// import "@/styles/default.css";
-// import "@/styles/brann.css";
-// import "@/styles/vif.css";
+import "@/styles/default.css";
+import "@/styles/brann.css";
+import "@/styles/vif.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -50,12 +50,12 @@ export default function RootLayout({
 
   // Get target theme from environment variable
   // TODO move to other file when it's bigger
-  // const theme = process.env.NEXT_PUBLIC_TARGET || 'default';
+  const theme = process.env.NEXT_PUBLIC_TARGET || 'default';
   
   return (
-    <html lang="en" className={`${lato.className} ${exo.className} ${michroma.className}`}>
+    <html data-theme={theme} lang="en" className={`${lato.className} ${exo.className} ${michroma.className}`}>
       <body>
-        <ThemeInitializer />
+        {/* <ThemeInitializer /> */}
         <ReactQueryProvider>
           <Main>
             {children}
