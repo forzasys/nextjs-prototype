@@ -11,23 +11,22 @@ function MatchesTypeFilter() {
     const matchTypeParam = searchParams.get("match_type");
 
     return (
-        <div className="inline-filter-options">
+        <div className="page-tab-options">
             <div 
                 onClick={() => updateParam("match_type", "fixtures")} 
-                className={classNames("single-option", {
+                className={classNames("page-tab", {
                     "selected": matchTypeParam === "fixtures" || !matchTypeParam
                 })}>
-                Fixtures
+                <div className="page-tab-title">Fixtures</div>
             </div>
             <div 
                 onClick={() => updateParam("match_type", "results")} 
-                className={classNames("single-option", {
+                className={classNames("page-tab", {
                     "selected": matchTypeParam === "results",
                     "disabled": !matchTypeParam
                 })}>
-                Results
+                <div className="page-tab-title">Results</div>
             </div>
-            <div className="inline-filter-options-line"></div>
         </div>
     )
 }

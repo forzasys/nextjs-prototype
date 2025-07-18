@@ -21,9 +21,9 @@
     font-weight: 700;
 }
 
-.top-first .collection-title {
+/* .top-first .collection-title {
     color: var(--text-color);
-}
+} */
 
 .collection-title-more {
     display: flex;
@@ -45,9 +45,9 @@
     transition: transform 0.1s linear;
 }
 
-.top-first .collection-title-more {
+/* .top-first .collection-title-more {
     color: white;
-}
+} */
 
 .collection-slide-playlist-container {
     position: relative;
@@ -111,7 +111,7 @@
 
 .collection-total-results {
     font-size: 14px;
-    color: var(--text-color);
+    color: var(--secondary-text-color);
     margin-bottom: 32px;
 }
 

@@ -6,13 +6,14 @@ import { useCountDown } from "@/utilities/ClientSideUtils"
 import { useEffect, useState } from "react"
 import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
+import Link from "next/link"
 
 interface HeadlineNextMatchProps {  
     game: GameType
-    translate: string
+    headlinePosition: string
 }
 
-function HeadlineNextMatch({translate, game}: HeadlineNextMatchProps) {
+function HeadlineNextMatch({headlinePosition, game}: HeadlineNextMatchProps) {
 
     const [isMounted, setIsMounted] = useState(false)
     const countdown = useCountDown(game.start_time)
@@ -72,14 +73,20 @@ function HeadlineNextMatch({translate, game}: HeadlineNextMatchProps) {
             </div>
         </div>
         {nextMatchCountdown}
-        <div className="headline-match-center">
+        <Link href={`/match/${game.id}`} className="headline-match-center">
             Match center
-        </div>
+        </Link>
       </div>
     )
 
+    const nextMatchTitle = (
+        <div className="headline-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </div>
+    )
+
     return (
-        <div style={{transform: `translate(${translate})`}} className="headline-single">
+        <div style={{transform: `translate(${headlinePosition})`}} className="headline-single">
             <Image 
                 src={nextMatchStadium} 
                 alt="stadium" 
@@ -87,8 +94,9 @@ function HeadlineNextMatch({translate, game}: HeadlineNextMatchProps) {
                 className="headline-single-img"
                 priority
             />
-            <div className="headline-game-info middle-container">
+            <div className="headline-content middle-container">
                 {nextMatch}
+                {nextMatchTitle}
             </div>
             <div className="headline-img-mask-left"></div>
             <div className="headline-img-mask-right"></div>

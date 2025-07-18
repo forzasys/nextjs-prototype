@@ -113,7 +113,6 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
           />
         )
       })}
-      <div className="inline-filter-options-line"></div>
     </div>
   )
 

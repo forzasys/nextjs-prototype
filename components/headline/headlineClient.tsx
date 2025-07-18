@@ -1,7 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import HeadlineNextMatch from './headlineNextMatch'
-import HeadlineLatestGoal from './headlineLatestGoal'
+import HeadlineClubSite from './headlineClubSite'
+// import HeadlineLatestGoal from './headlineLatestGoal'
 import { GameType, PlaylistType } from '@/types/dataTypes'
 import classNames from 'classnames'
 
@@ -35,40 +36,42 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
         setIndex(idx)
     }
 
-    const timingStyle = {width: timing + "%"}
+    const headlineTimeBar = {width: timing + "%"}
+    const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`
 
-    // console.log(timingStyle)
-
-    const translate = index === 0 ? "0%" : `${-index * 100}%`
-
-    // console.log(translate)
+    const headlineItems = (
+        <div className="headline-items middle-container">
+            <div onClick={() => onSelectHeadline(0)} className={classNames("headline-item", {active: index === 0})}>
+                <div className="headline-item-bar">
+                    <div style={headlineTimeBar} className="headline-timing-bar"/>
+                </div>
+                <div className="headline-item-text">
+                    <div>Next match</div>
+                    <div>Vålerenga IF - FK Haugesund</div>
+                    <div>20.07.2025 14:30</div>
+                </div>
+            </div>
+            <div onClick={() => onSelectHeadline(1)} className={classNames("headline-item", {active: index === 1})}>
+                <div className="headline-item-bar">
+                    <div style={headlineTimeBar} className="headline-timing-bar"/>
+                </div>
+                <div className="headline-item-text">
+                    <div>Latest news</div>
+                    <div>Find out the latest news from the club</div>
+                    <div>Visit www.vif-fotball.no</div>
+                </div>
+            </div>
+        </div>
+    )
 
     return (
         <div className="headline-main">
             <div className="headline-container">
                 <div className="headline-slider-container">
-                    <HeadlineNextMatch translate={translate} game={game} />
-                    <HeadlineLatestGoal translate={translate} latestGoal={latestGoal} />
-                    <div className="headline-items middle-container">
-                        <div onClick={() => onSelectHeadline(0)} className={classNames("headline-item", {active: index === 0})}>
-                            <div className="headline-item-bar">
-                                <div style={timingStyle} className="headline-timing-bar"/>
-                            </div>
-                            <div className="headline-item-text">
-                                <div>Next match</div>
-                                <div>Vålerenga IF - FK Haugesund</div>
-                                <div>20.07.2025 14:30</div>
-                            </div>
-                        </div>
-                        <div onClick={() => onSelectHeadline(1)} className={classNames("headline-item", {active: index === 1})}>
-                            <div className="headline-item-bar">
-                                <div style={timingStyle} className="headline-timing-bar"/>
-                            </div>
-                            <div className="headline-item-text">
-                                <div>Latest goal</div>
-                            </div>
-                        </div>
-                    </div>
+                    <HeadlineNextMatch headlinePosition={headlinePosition} game={game} />
+                    <HeadlineClubSite headlinePosition={headlinePosition}/>
+                    {/* <HeadlineLatestGoal translate={translate} latestGoal={latestGoal} /> */}
+                    {headlineItems}
                     {/* <div className="headline-img-mask-right"></div> */}
                     {/* <div className="headline-img-mask-left"></div> */}
                 </div>

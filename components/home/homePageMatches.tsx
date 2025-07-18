@@ -1,4 +1,4 @@
-import React from 'react'
+import Link from 'next/link';
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
 import config from '@/config';
@@ -24,18 +24,18 @@ async function HomePageMatches({games}: HomePageMatchesProps) {
         
         <div className="home-match-teams">
             <div className="home-match-team">
-                <Image src={home_team.logo_url} alt="team logo" width={75} height={75}/>
+                <Image src={home_team.logo_url} alt="team logo" width={70} height={70}/>
                 <div className="home-match-team-name">{home_team.short_name}</div>
             </div>
             <div className="home-match-time">{gameTime}</div>
             <div className="home-match-team away">
-                <Image src={visiting_team.logo_url} alt="team logo" width={75} height={75}/>
+                <Image src={visiting_team.logo_url} alt="team logo" width={70} height={70}/>
                 <div className="home-match-team-name">{visiting_team.short_name}</div>
             </div>
         </div>
-        <div className="home-match-center">
+        <Link href={`/match/${game.id}`} className="home-match-center">
             Match center
-        </div>
+        </Link>
       </div>
     )
   })

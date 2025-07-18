@@ -26,13 +26,11 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   return (
     <div className="matches-main main-page">
-      <div className="page-header"></div>
-      <div className="in-page-header middle-container">
+      <div className="page-header">
         <div className="page-header-title">Fixtures & Results</div>
         <MatchesFilters teams={teams} isTeamPlatform={isTeamPlatform} />
-        <br />
-        <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
       </div>
+      <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
     </div>
   )
 }

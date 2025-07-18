@@ -1,5 +1,5 @@
 import React from 'react'
-import MatchesTypeFilter from '@/components/Filters/gamesTypeFilter';
+import MatchesTypeFilter from '@/components/Filters/matchesTypeFilter';
 import SeasonFilter from '@/components/Filters/seasonFilter';
 import TeamFilter from '@/components/Filters/teamFilter';
 import { TeamType } from '@/types/dataTypes';
@@ -12,11 +12,11 @@ async function MatchesFilters({ teams, isTeamPlatform }: MatchesFiltersProps) {
 
 
   return (
-    <div>
+    <div className="middle-container">
       <SeasonFilter games/>
       <br />
-      <MatchesTypeFilter/>
       <br />
+      <MatchesTypeFilter/>
       {!isTeamPlatform && <TeamFilter teams={teams} />}
     </div>
   )

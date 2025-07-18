@@ -70,7 +70,11 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
   )
   
   return (
-    <div>
+    <div className="middle-container">
+      <br />
+      <br />
+      <br />
+      <br />
       {render}
       {noFixturesInfo}
     </div>

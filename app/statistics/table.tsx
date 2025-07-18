@@ -31,8 +31,8 @@ async function Table() {
     const tableList = (
         <div className="table-cont">
             <div className="table-header">
-                <div className="table-position">Position</div>
-                <div className="table-team">Team</div>
+                <div className="table-statistic position">Pos</div>
+                <div className="table-statistic team">Team</div>
                 <div className="table-statistic">P</div>  
                 <div className="table-statistic">W</div>
                 <div className="table-statistic">D</div>
@@ -46,7 +46,7 @@ async function Table() {
                 return (
                     <div key={t.id} className="table-item">
                         <div className="table-position">{t.rank}</div>
-                        <div className="table-team item">
+                        <div className="table-statistic team item">
                             <Image src={getTeamLogo(t.id)} alt={t.name} width={50} height={50} />
                             {t.name}
                         </div>
@@ -65,9 +65,9 @@ async function Table() {
     )
 
     return (
-        <div className="middle-container">
-            <div className="table-league">
-                <Image src={leagueLogo} alt="League logo" width={100} height={50} />
+        <div className="league-table">
+            <div className="league-table-logo">
+                <Image src={leagueLogo} alt="League logo" width={120} height={60} />
             </div>
             {tableList}
         </div>

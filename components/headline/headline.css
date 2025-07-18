@@ -71,7 +71,8 @@
 .headline-item-bar {
     height: 3px;
     width: 100%;
-    background-color: grey;
+    background-color: rgba(200, 200, 200, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     margin-bottom: 10px;
 }
@@ -91,6 +92,7 @@
     font-size: 12px;
     letter-spacing: .5px;
     font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
 .active .headline-timing-bar {
@@ -134,7 +136,7 @@
     z-index: 1;
 }
 
-.headline-game-info {
+.headline-content {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -146,6 +148,30 @@
     justify-content: flex-end;
     align-items: center;
     z-index: 10;
+}
+
+.headline-text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    max-width: 395px;
+    margin: auto;
+    height: fit-content;
+    font-size: 37px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+    font-family: 'Exo', sans-serif;
+}
+
+.headline-text-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 .headline-next-match {
@@ -256,6 +282,8 @@
 
 .headline-match-center {
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     background-color: var(--primary-color);
     color: var(--text-color);
     padding: 12px 0;
@@ -263,8 +291,10 @@
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 1px;
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s linear;
+    display: block;
 }
 
 /* HOVER */

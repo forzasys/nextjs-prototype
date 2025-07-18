@@ -21,9 +21,11 @@ async function HomeLatestVideos() {
     const latestGoalsList = (
         <div className="latest-videos-list">
             {latestGoals.map((video: PlaylistType, index: number) => {
-                const shortBox = [1,3,6,7].includes(index)
+                const shortBox = [4,6,7].includes(index)
                 return (
                     <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-single", {
+                        "first": index === 0,
+                        "second": index === 1,
                         "short-box": shortBox
                     })}>
                         <div className="latest-video-img-container">
@@ -47,7 +49,20 @@ async function HomeLatestVideos() {
     return (
         <div className="">
            <div className="latest-videos-container middle-container">
-                <div className="section-title">Latest videos</div>
+                <div className="latest-videos-title">
+                    Latest <br />videos
+                    <br />
+                    <br />
+                    <div className="latest-videos-subtitle">
+                        Lorem ipsum dolor, sit amet 
+                        <br />
+                        consectetur adipisicing elit. Mollitia 
+                        <br />
+                        quas eos voluptatibus nostrum sapiente. 
+                        <br />
+                        Doloribus animi eum aliquid 
+                    </div>
+                </div>
                 {latestGoalsList}
            </div>
         </div>
