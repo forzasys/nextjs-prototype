@@ -21,7 +21,6 @@ async function HomePageMatches({games}: HomePageMatchesProps) {
         <div className="home-match-league">
           {config.league}
         </div>
-        
         <div className="home-match-teams">
             <div className="home-match-team">
                 <Image src={home_team.logo_url} alt="team logo" width={70} height={70}/>
@@ -41,11 +40,15 @@ async function HomePageMatches({games}: HomePageMatchesProps) {
   })
 
   return (
-    <div className='middle-container'>
-        <div className="section-title">Next matches</div>
+    <div className="home-page-matches-cont">
+      {/* <div className="home-page-matches-bg"></div> */}
+      <div className= "home-page-matches middle-container">
+        {/* <div className="home-page-matches-title">Next <br /> matches</div> */}
         <div className="next-matches-list">
-          {gamesList}
+        {gamesList}
         </div>
+      </div>
+        
     </div>
   )
 }

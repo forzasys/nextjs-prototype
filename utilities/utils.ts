@@ -176,4 +176,13 @@ export function formatReadableDate(dateString: string): string {
       }
   
     return format(date, 'dd-MM-yyyy');
-  }
+}
+
+export const getTeamBaseColor = {
+    "VIF": "#022ca1",
+    "FFK": "#FFFFFF",
+    "FKH": "#FFFFFF",
+    "BRFK": "rgb(206, 58, 58)",
+    "B/G": "#FBDD00",
+    "SIF": "rgb(0, 33, 69)"
+}

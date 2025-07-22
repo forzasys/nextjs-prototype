@@ -10,10 +10,10 @@ import "./home.css"
 async function HomeLatestVideos() {
 
     const goalCollectionQuery = videoCollectionQueries({collectionName: "goal"})
-    goalCollectionQuery.count = 9
+    goalCollectionQuery.count = 6
 
     const highlightCollectionQuery = videoCollectionQueries({collectionName: "highlights"})
-    highlightCollectionQuery.count = 9
+    highlightCollectionQuery.count = 6
 
     const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
     const latestGoals = latestGoalsData?.playlists || []
@@ -21,12 +21,12 @@ async function HomeLatestVideos() {
     const latestGoalsList = (
         <div className="latest-videos-list">
             {latestGoals.map((video: PlaylistType, index: number) => {
-                const shortBox = [4,6,7].includes(index)
                 return (
                     <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-single", {
                         "first": index === 0,
                         "second": index === 1,
-                        "short-box": shortBox
+                        "fifth": index === 4,
+                        "sixth": index === 5,
                     })}>
                         <div className="latest-video-img-container">
                             <Image 

@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       "norkring-ntf-od.telenorcdn.net",
       "video-shl.forzify.com",
       "video-shl.s3.eu-north-1.amazonaws.com",
+      "www.hent.no",
+      "g.acdn.no",
+      "www.brynefk.no",
     ],
   },
 };
