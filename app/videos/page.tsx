@@ -31,7 +31,14 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   return (
     <div className="videos-main main-page">
       <div className="page-header">
-        <div className="page-header-title">Videos</div>
+        <div className="page-header-title">
+          <div className="page-header-main-title">
+            Videos
+          </div>
+          <div className="page-header-subtitle">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+          </div>
+        </div>
         <VideosFilters 
           playersData={playersData}
           tags={tags} 

@@ -11,6 +11,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.76.1",
     "@tanstack/react-query-devtools": "^5.76.1",
+    "aos": "^3.0.0-beta.6",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "next": "15.3.2",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

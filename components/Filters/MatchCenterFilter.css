@@ -1,0 +1,47 @@
+.match-center-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    height: 100%;
+}
+
+.match-center-filter-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 3px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+}
+
+.match-center-filter-item:after {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    content: "";
+    display: block;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent-color);
+    
+}
+
+.match-center-filter-item.selected {
+    font-weight: 600;
+    color: var(--background-text-color);
+}
+
+.match-center-filter-item.selected:after {
+    transition: width 0.2s linear;
+    width: 100%;
+}
+
+.match-center-filter-item:hover {
+    color: var(--background-text-color);
+}

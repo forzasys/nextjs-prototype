@@ -43,46 +43,48 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
   return (
     <Link 
       href={`/video/${playlist.id}`} 
-      className={classNames("playlist-single", {
+      className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
         "smaller": smaller,
       })}>
-      <div onClick={onClickVideo} className="playlist-image">
-        <Image 
-          src={playlist.thumbnail_url} 
-          alt="playlist thumbnail"
-          fill
-          sizes="(max-width: 768px) 100vw, 200px"
-          className="playlist-thumbnail"
-        />
-        <div className="playlist-duration-cont">
-          <div className="playlist-duration-play-icon">
-            <IoMdPlay />
-          </div>
-          <div className="playlist-duration">
-            <div className="playlist-duration-text">{duration}</div>
-            <div className="playlist-duration-hover"></div>
+      <div onClick={onClickVideo} className="playlist-single">
+        <div className="playlist-image">
+          <Image 
+            src={playlist.thumbnail_url} 
+            alt="playlist thumbnail"
+            fill
+            sizes="(max-width: 768px) 100vw, 200px"
+            className="playlist-thumbnail"
+          />
+          <div className="playlist-duration-cont">
+            <div className="playlist-duration-play-icon">
+              <IoMdPlay />
+            </div>
+            <div className="playlist-duration">
+              <div className="playlist-duration-text">{duration}</div>
+              <div className="playlist-duration-hover"></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="playlist-description">{playlist.description}</div>
-      <div className="playlist-line"></div>
-      <div className="playlist-info">
-        <div className="playlist-info-type">Event</div>
-        {game && (
-          <div 
-            className="playlist-info-match" 
-            onClick={onGameClick}
-            onMouseEnter={() => setIsGameHovered(true)}
-            onMouseLeave={() => setIsGameHovered(false)}
-          >
-            <Image src={game.home_team.logo_url} alt="home team logo" width={30} height={30} />
-            <div className="playlist-info-match-score">
-              {game.home_team_goals} - {game.visiting_team_goals}
+        <div className="playlist-description">{playlist.description}</div>
+        <div className="playlist-line"></div>
+        <div className="playlist-info">
+          <div className="playlist-info-type">Event</div>
+          {game && (
+            <div 
+              className="playlist-info-match" 
+              onClick={onGameClick}
+              onMouseEnter={() => setIsGameHovered(true)}
+              onMouseLeave={() => setIsGameHovered(false)}
+            >
+              <Image src={game.home_team.logo_url} alt="home team logo" width={30} height={30} />
+              <div className="playlist-info-match-score">
+                {game.home_team_goals} - {game.visiting_team_goals}
+              </div>
+              <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={30} height={30} />
             </div>
-            <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={30} height={30} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </Link>
   )

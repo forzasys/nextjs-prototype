@@ -93,8 +93,10 @@ export type TeamType = {
 export type GameType = {
   date: string;
   id: number;
+  has_live_playlist: boolean;
   home_team: TeamType;
   home_team_goals: number;
+  phase: string;
   start_time: string;
   visiting_team: TeamType;
   visiting_team_goals: number;

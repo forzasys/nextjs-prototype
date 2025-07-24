@@ -1,7 +1,7 @@
 .filter-dropdown {
     position: relative;
     font-family: 'Exo', sans-serif;
-    color: var(--text-color);
+    color: var(--primary-text-color);
     width: 200px;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .filter-dropdown-option.selected {
-    color: var(--text-color);
+    color: var(--primary-text-color);
     font-weight: 700;
 }
 
@@ -147,7 +147,7 @@
     gap: 25px;
     margin-top: 12px;
     margin-bottom: 25px;
-    color: var(--text-color);
+    color: var(--primary-text-color);
 }
 
 .single-option {

@@ -24,7 +24,7 @@
 
 .page-btn.active-page {
    background-color: var(--primary-color);
-   color: var(--text-color);
+   color: var(--primary-text-color);
 }
 
 .page-number-dots {

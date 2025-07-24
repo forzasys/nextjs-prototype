@@ -9,11 +9,11 @@ import { getStadiumImage } from "@/utilities/imageUtil"
 import Link from "next/link"
 
 interface HeadlineNextMatchProps {  
+    show: boolean
     game: GameType
-    headlinePosition: string
 }
 
-function HeadlineNextMatch({headlinePosition, game}: HeadlineNextMatchProps) {
+function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
 
     const [isMounted, setIsMounted] = useState(false)
     const countdown = useCountDown(game.start_time)
@@ -22,7 +22,7 @@ function HeadlineNextMatch({headlinePosition, game}: HeadlineNextMatchProps) {
         setIsMounted(true)
     }, [])
 
-    if (!isMounted) return null
+    if (!isMounted || !show) return null
 
     const {home_team, visiting_team} = game
     const {days, hours, minutes, seconds} = countdown
@@ -31,7 +31,7 @@ function HeadlineNextMatch({headlinePosition, game}: HeadlineNextMatchProps) {
 
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
-    const nextMatchStadium = getStadiumImage[home_team.short_name]
+    const nextMatchStadium = getStadiumImage[home_team.id]
 
     const nextMatchCountdown = (
         <div className="headline-next-match-countdown">
@@ -86,14 +86,18 @@ function HeadlineNextMatch({headlinePosition, game}: HeadlineNextMatchProps) {
     )
 
     return (
-        <div style={{transform: `translate(${headlinePosition})`}} className="headline-single">
-            <Image 
-                src={nextMatchStadium} 
-                alt="stadium" 
-                fill
-                className="headline-single-img"
-                priority
-            />
+        <div className="headline-single">
+            {nextMatchStadium && (
+                <Image 
+                    src={nextMatchStadium} 
+                    alt="stadium" 
+                    fill
+                    priority
+                    className="headline-single-img blur-in"
+                    data-aos="fade"
+                    data-aos-duration="1000"
+                />
+            )}
             <div className="headline-content middle-container">
                 {nextMatch}
                 {nextMatchTitle}

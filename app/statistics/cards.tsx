@@ -4,21 +4,22 @@ import config from '@/config';
 import { StatsPlayerType, QueryType } from '@/types/dataTypes'
 import Link from 'next/link'
 
-function RenderCards({cards, type}: {cards: StatsPlayerType[], type: "yellow" | "red"}) {
-    const currentSeason = config.availableSeasons[0]
+interface RenderCardsProps {
+    cards: StatsPlayerType[]
+    type: "yellow" | "red"
+    seasonParam: string | null
+}
+
+function RenderCards({cards, type, seasonParam}: RenderCardsProps) {
+
+    const teamPlatformId = config.team
 
     const cardsList = cards.map((c: StatsPlayerType) => {
 
-        const cards = type === "yellow" ? c.yellow_cards : c.red_cards
-        
-        const query = {
-            tag: `${type} card`,
-            team: c.team_id.toString(),
-            player: c.id.toString(),
-            season: currentSeason,
-        }
-        
-        const playerLinkToVideos = `videos?${new URLSearchParams(query).toString()}`
+        const cards = type === "yellow" ? c.yellow_cards : c.red_cards        
+        let playerLinkToVideos = `videos?event=${cards} card&player=${c.id}`
+        if (!teamPlatformId) playerLinkToVideos += `&team=${teamPlatformId}`
+        if (seasonParam) playerLinkToVideos += `&season=${seasonParam}`
 
         return (
             <Link key={c.id} href={playerLinkToVideos} style={{display: "flex", gap: "10px"}}>
@@ -37,7 +38,11 @@ function RenderCards({cards, type}: {cards: StatsPlayerType[], type: "yellow" | 
     )
 }
 
-async function Cards() {
+interface CardsProps {
+    seasonParam: string | null
+}
+
+async function Cards({seasonParam}: CardsProps) {
 
     const currentSeason = config.availableSeasons[0]
 
@@ -69,9 +74,9 @@ async function Cards() {
         <div>
             <div>Bookings</div>
             <br />
-            <RenderCards cards={yellowCards} type="yellow" />
+            <RenderCards cards={yellowCards} seasonParam={seasonParam} type="yellow" />
             <br />
-            <RenderCards cards={redCards} type="red" />
+            <RenderCards cards={redCards} seasonParam={seasonParam} type="red" />
         </div>
     )
 }

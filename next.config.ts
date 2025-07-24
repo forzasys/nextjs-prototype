@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       "www.hent.no",
       "g.acdn.no",
       "www.brynefk.no",
+      "www.glimt.no",
     ],
   },
 };

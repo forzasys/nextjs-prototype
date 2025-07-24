@@ -4,38 +4,44 @@ import Link from "next/link"
 import { IoArrowForward } from "react-icons/io5";
 
 interface HeadlineClubSiteProps {
-    headlinePosition: string
+    show: boolean
 }
 
-function HeadlineClubSite({headlinePosition}: HeadlineClubSiteProps) {
+function HeadlineClubSite({show}: HeadlineClubSiteProps) {
 
     const clubSiteImage = getClubSiteImage["VIF"]
 
-  return (
-    <div style={{transform: `translate(${headlinePosition})`}} className="headline-single">
-        <Image 
-            src={clubSiteImage} 
-            alt="stadium" 
-            fill
-            className="headline-single-img"
-            priority
-        />
-        <div className="headline-content middle-container">
-            <div className="headline-text">
-                <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    if (!show) return null
+
+    return (
+        <div className="headline-single">
+            {clubSiteImage && (
+                <Image 
+                    src={clubSiteImage} 
+                    alt="wallpaper" 
+                    fill
+                    priority
+                    className="headline-single-img blur-in"
+                    data-aos="fade"
+                    data-aos-duration="1000"
+                />
+            )}
+            <div className="headline-content middle-container">
+                <div className="headline-text">
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </div>
+                    <br />
+                    <Link href="https://www.vif-fotball.no" target="_blank" className="headline-text-link">
+                        <div>www.vif-fotball.no</div>
+                        <IoArrowForward />
+                    </Link>
                 </div>
-                <br />
-                <Link href="https://www.vif-fotball.no" target="_blank" className="headline-text-link">
-                    <div>www.vif-fotball.no</div>
-                    <IoArrowForward />
-                </Link>
             </div>
+            <div className="headline-img-mask-left"></div>
+            <div className="headline-img-mask-right"></div>
         </div>
-        <div className="headline-img-mask-left"></div>
-        <div className="headline-img-mask-right"></div>
-    </div>
-  )
+    )
 }
 
 export default HeadlineClubSite

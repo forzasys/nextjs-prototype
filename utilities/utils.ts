@@ -179,10 +179,39 @@ export function formatReadableDate(dateString: string): string {
 }
 
 export const getTeamBaseColor = {
-    "VIF": "#022ca1",
-    "FFK": "#FFFFFF",
-    "FKH": "#FFFFFF",
-    "BRFK": "rgb(206, 58, 58)",
-    "B/G": "#FBDD00",
-    "SIF": "rgb(0, 33, 69)"
+    1: "#022ca1",
+    9: "#FFFFFF",
+    14: "#FBDD00",
+    16: "rgb(0, 33, 69)",
+    44: "#FFFFFF",
+    45: "rgb(206, 58, 58)",
+}
+
+export const teamStadiumName = {
+    // VIF
+    1: "Intility Arena",
+    // Brann
+    7: "Brann Stadion",
+    // S08
+    8: "Sarpsborg Stadion",
+    // FKH
+    9: "Haugesund Sparebank Arena",
+    // TIL
+    10: "Romssa Arena",
+    // B/G
+    14: "Aspmyra Stadion",
+    // MOL
+    15: "Aker Stadion",
+    // SIF
+    16: "Marienlyst Stadion",
+    // SAN
+    18: "Jotun Arena",
+    // HAM
+    35: "Briskeby",
+    // KFUM
+    39: "KFUM Arena",
+    // FFK
+    44: "Fredrikstad Stadion",
+    // BRFK
+    45: "Bryne Stadion",
 }

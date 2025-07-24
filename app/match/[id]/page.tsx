@@ -1,18 +1,19 @@
 import MatchScoreboard from './matchScoreboard';
 import MatchCountdown from './matchCountdown';
-import MatchInfoTypes from './matchInfoTypes';
+import MatchCenterFilter from '../../../components/Filters/matchCenterFilter';
 import MatchHeadToHead from './matchHeadToHead';
 import MatchStats from './matchStats';
 import MatchLineup from './matchLineup';
 import MatchEvents from './matchEvents';
 import { onFetch } from '@/utilities/fetchApi';
+import "./match.css";
 
 interface MatchPageProps {
   params: {
     id: string;
   };
   searchParams: {
-    match_info?: string;
+    match_center_type?: string;
   };
 };
 
@@ -23,8 +24,6 @@ async function Page({ params, searchParams }: MatchPageProps) {
   const resolvedSearchParams = await Promise.resolve(searchParams);
 
   const gameId = resolvedParams.id;
-  const match_info = resolvedSearchParams.match_info;
-
   const gameData = await onFetch("game/" + gameId)
   const gameEventsData = await onFetch(`/game/${gameId}/events`, { count: 999 })
 
@@ -35,30 +34,33 @@ async function Page({ params, searchParams }: MatchPageProps) {
 
   const isUpcomingMatch = game.phase === "not started" && game.start_time > new Date().toISOString()
 
-  let matchInfo = isUpcomingMatch ? <MatchHeadToHead game={game} /> :  <MatchStats gameId={gameId} /> 
+  const defaultMatchCenterType = isUpcomingMatch ? "headtohead" : "stats";
+  const match_center_type = resolvedSearchParams.match_center_type || defaultMatchCenterType;
 
-  if (match_info === "headtohead") {
+  let matchInfo
+
+  if (match_center_type === "headtohead") {
     matchInfo = <MatchHeadToHead game={game} />;
   }
-  if (match_info === "stats") {
+  if (match_center_type === "stats") {
     matchInfo = <MatchStats gameId={gameId} />;
   }
-  if (match_info === "lineup") {
+  if (match_center_type === "lineup") {
     matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;
   }
-  if (match_info === "events") {
+  if (match_center_type === "events") {
     matchInfo = <MatchEvents gameEvents={gameEvents} />;
   }
 
   return (
-    <div className="middle-container">
+    <div className="match-main main-page">
       <MatchScoreboard game={game} gameEvents={gameEvents} />
-      <br />
-      {isUpcomingMatch && <MatchCountdown game={game} />}
-      <br />
-      <MatchInfoTypes />
-      <br />
-      {matchInfo}
+      <div className='match-center-filter-cont'>
+        <MatchCenterFilter defaultType={defaultMatchCenterType} />
+      </div>
+      <div className="middle-container">
+        {matchInfo}
+      </div>
     </div>
   )
 }

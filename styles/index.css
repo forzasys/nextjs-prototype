@@ -3,8 +3,8 @@
     height: 100%;
     margin: 0 auto;
     font-family: 'Lato', sans-serif;
-    background-color: rgb(240, 240, 240);
-    /* background-color: var(--background-color); */
+    /* background-color: rgb(240, 240, 240); */
+    background-color: var(--background-color);
 }
 
 .main-content {
@@ -22,7 +22,7 @@
     width: 100%;
     height: fit-content;
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: var(--primary-text-color);
 }
 
 .page-header-title {
@@ -30,13 +30,23 @@
     font-family: 'Michroma', sans-serif;
     max-width: 1280px;
     margin: 0 auto;
-    font-size: 42px;
-    font-weight: 700;
     letter-spacing: 2px;
     padding: 50px 0;
-    color: var(--text-color);
+    color: var(--primary-text-color);
     z-index: 10;
 }
+
+.page-header-main-title {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.page-header-subtitle {
+    font-family: "Exo", sans-serif;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
 
 .section-title {
     font-size: 30px;
@@ -75,7 +85,7 @@
     font-weight: 600;
     letter-spacing: 0.5px;
     padding: 0 2px;
-    color: var(--text-color);
+    color: var(--primary-text-color);
 }
 
 .page-tab.selected {

@@ -3,20 +3,26 @@ import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
 import config from '@/config';
 import { format, parseISO } from 'date-fns';
+// import { getLeagueLogo } from '@/utilities/imageUtil';
 import "./home.css"
 
 interface HomePageMatchesProps {
     games: GameType[]
 }
 
-async function HomePageMatches({games}: HomePageMatchesProps) {
+function HomePageMatches({games}: HomePageMatchesProps) {
 
-  const gamesList = games.map((game: GameType) => {
+  const gamesList = games.map((game: GameType, index: number) => {
     const {home_team, visiting_team} = game
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
     return (
-      <div className="home-match-single" key={game.id}>
+      <div 
+        key={game.id}
+        className="home-match-single" 
+        data-aos="fade-up"
+        data-aos-delay={index * 100}
+      >
         <div className="home-match-date">{gameDate}</div>
         <div className="home-match-league">
           {config.league}
@@ -43,12 +49,11 @@ async function HomePageMatches({games}: HomePageMatchesProps) {
     <div className="home-page-matches-cont">
       {/* <div className="home-page-matches-bg"></div> */}
       <div className= "home-page-matches middle-container">
-        {/* <div className="home-page-matches-title">Next <br /> matches</div> */}
+        <div className="home-page-matches-title">Next matches</div>
         <div className="next-matches-list">
         {gamesList}
         </div>
-      </div>
-        
+      </div>   
     </div>
   )
 }

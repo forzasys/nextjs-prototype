@@ -36,6 +36,7 @@ const michroma = Michroma({
 import "@/styles/default.css";
 import "@/styles/brann.css";
 import "@/styles/vif.css";
+import "@/styles/shl.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",

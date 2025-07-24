@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     background-color: black;
-    color: var(--text-color);
+    color: var(--primary-text-color);
 }
 
 .headline-container {
@@ -48,6 +48,15 @@
     z-index: 0;
 }
 
+.headline-single-img.blur-in {
+    filter: blur(10px);
+    transition: filter 1s ease-out;
+}
+
+.aos-animate.blur-in {
+    filter: blur(0);
+  }
+
 .headline-items {
     position: absolute;
     bottom: 12px;
@@ -57,7 +66,7 @@
     width: 100%;
     display: flex;
     gap: 12px;
-    z-index: 2;
+    z-index: 3;
 }
 
 .headline-item {
@@ -66,6 +75,7 @@
     cursor: pointer;
     border-radius: 2px;
     transition: background-color 0.3s linear;
+    cursor: pointer;
 }
 
 .headline-item-bar {
@@ -147,7 +157,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    z-index: 10;
+    z-index: 3;
 }
 
 .headline-text {
@@ -170,7 +180,7 @@
     font-size: 22px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    color: var(--text-color);
+    color: var(--primary-text-color);
     text-decoration: none;
 }
 
@@ -178,7 +188,7 @@
     padding: 12px;
     padding-top: 30px;
     width: 350px;
-    background-color: var(--background-color);
+    background-color: var(--box-color);
     color: black;
     font-family: 'Exo', sans-serif;
     position: relative;
@@ -284,8 +294,8 @@
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: var(--button-color);
+    color: var(--primary-text-color);
     padding: 12px 0;
     text-align: center;
     text-transform: uppercase;
@@ -299,7 +309,7 @@
 
 /* HOVER */
 .headline-match-center:hover {
-    background-color: var(--accent-color);
+    background-color: var(--button-hover-color);
 }
 .headline-item:hover {
     background-color: rgba(0, 0, 0, 0.2);

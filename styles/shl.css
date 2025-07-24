@@ -1,9 +1,14 @@
 html[data-theme="shl"] * {
+  --background-color: #f0f0f0;
   --primary-color: #000000;
   --secondary-color: #1b1f26;
   --header-color: #1b1f26;
   --accent-color: #67a4ff;
-  --text-color: #FFFFFF;
-  --header-text-color: #FFFFFF;
+  --background-text-color: #000000;
+  --primary-text-color: #FFFFFF;
   --secondary-text-color: #000000;
+  --header-text-color: #FFFFFF;
+  --box-color: #FFFFFF;
+  --button-color: var(--accent-color);
+  --button-hover-color: #0e4eae;
 }

@@ -1,45 +1,58 @@
-import { onFetch } from "@/utilities/fetchApi";
+"use client"
+import { useEffect } from "react";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import Image from "next/image";
 import { PlaylistType } from "@/types/dataTypes";
 import Link from "next/link";
-import { formatReadableDate } from "@/utilities/utils";
+import { formatReadableDate, saveQueryToSession } from "@/utilities/utils";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import classNames from "classnames";
 import "./home.css"
 
-async function HomeLatestVideos() {
+interface HomeLatestVideosProps {
+    latestGoals: PlaylistType[]
+}
 
-    const goalCollectionQuery = videoCollectionQueries({collectionName: "goal"})
-    goalCollectionQuery.count = 6
+function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
-    const highlightCollectionQuery = videoCollectionQueries({collectionName: "highlights"})
-    highlightCollectionQuery.count = 6
+    useEffect(() => {
+        AOS.init({
+          offset: 50,
+          once: true,
+          easing: 'ease-in-out',
+        });
+    }, []);
 
-    const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
-    const latestGoals = latestGoalsData?.playlists || []
+    const onClickVideo = () => {
+        const query = videoCollectionQueries({collectionName: "goal"})
+        saveQueryToSession(query)
+    }
 
     const latestGoalsList = (
         <div className="latest-videos-list">
             {latestGoals.map((video: PlaylistType, index: number) => {
                 return (
-                    <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-single", {
+                    <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-link", {
                         "first": index === 0,
                         "second": index === 1,
                         "fifth": index === 4,
                         "sixth": index === 5,
                     })}>
-                        <div className="latest-video-img-container">
-                            <Image 
-                                src={video.thumbnail_url}
-                                alt={video.description || "Video thumbnail"}
-                                fill
-                                className="latest-video-img"
-                                priority
-                            />
+                        <div onClick={onClickVideo} className="latest-video-single" data-aos="fade-up">
+                            <div className="latest-video-img-container">
+                                <Image 
+                                    src={video.thumbnail_url}
+                                    alt={video.description || "Video thumbnail"}
+                                    fill
+                                    className="latest-video-img"
+                                    priority
+                                />
+                            </div>
+                            <div className="latest-video-type">Event</div>
+                            <div className="latest-video-item-title">{video.description}</div>
+                            <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                         </div>
-                        <div className="latest-video-type">Event</div>
-                        <div className="latest-video-item-title">{video.description}</div>
-                        <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                     </Link>
                 )
             })}
@@ -49,7 +62,7 @@ async function HomeLatestVideos() {
     return (
         <div className="">
            <div className="latest-videos-container middle-container">
-                <div className="latest-videos-title">
+                <div className="latest-videos-title" data-aos="fade-right">
                     Latest <br />videos
                     <br />
                     <br />

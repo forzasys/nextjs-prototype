@@ -4,7 +4,11 @@ import config from '@/config';
 import { QueryType, StatsPlayerType } from '@/types/dataTypes'
 import Link from 'next/link'
 
-async function TopScorers() {
+interface TopScorersProps {
+    seasonParam: string | null
+}
+
+async function TopScorers({seasonParam}: TopScorersProps) {
 
     const currentSeason = config.availableSeasons[0]
 
@@ -21,12 +25,19 @@ async function TopScorers() {
     if (teamPlatformId) query.team_id = teamPlatformId
 
     const topScorersData = await onFetch("stats/top/scorer", query)
+    const topAssistsData = await onFetch("stats/top/assists", query)
+
     const topScorers = topScorersData?.players || []
-    
+    const topAssists = topAssistsData?.players || []
+
     const topScorersList = (
         <div>
             {topScorers.map((s: StatsPlayerType) => {
-                const playerLinkToVideos = `videos?tag=goal&team=${s.team_id}&player=${s.id}&season=${currentSeason}`
+
+                let playerLinkToVideos = `videos?event=goal&player=${s.id}`
+                if (!teamPlatformId) playerLinkToVideos += `&team=${teamPlatformId}`
+                if (seasonParam) playerLinkToVideos += `&season=${seasonParam}`
+
                 return (
                     <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>
                         <div>{s.shirt_number}</div>
@@ -38,11 +49,31 @@ async function TopScorers() {
         </div>
     )
 
+    const topAssistsList = (
+        <div>
+            {topAssists.map((s: StatsPlayerType) => {
+                let playerLinkToVideos = `videos?event=assist&player=${s.id}`
+                if (!teamPlatformId) playerLinkToVideos += `&team=${teamPlatformId}`
+                return (
+                    <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>
+                        <div>{s.name}</div>
+                        <div>{s.shirt_number}</div>
+                        <div>{s.assists}</div>
+                    </Link>
+                )
+            })}
+        </div>
+    )
+
     return (
         <div>
             <div>TopScorers</div>
             <br />
             {topScorersList}
+            <br />
+            <div>TopAssists</div>
+            <br />
+            {topAssistsList}
         </div>
     )
 }

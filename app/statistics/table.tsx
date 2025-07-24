@@ -1,35 +1,38 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import { TableType, TeamType } from '@/types/dataTypes'
-import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import Image from 'next/image';
 import { getLeagueLogo } from '@/utilities/imageUtil';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import "./statistics.css"
 
-async function Table() {
+interface TableProps {
+    table: TableType[]
+    teams: TeamType[]
+    seasonParam: string | null
+}
 
-    const currentSeason = config.availableSeasons[0]
-    const league = config.league
-    const leagueLogo = getLeagueLogo[league as string]
+function Table({table, teams, seasonParam}: TableProps) {
 
-    const tableInitialQuery = {
-        season: currentSeason,
-        to_date: `${currentSeason}-12-31`,
-    }
+    useEffect(() => {
+        AOS.init({
+          offset: 100,
+          once: true,
+          easing: 'ease-in-out',
+        });
+    }, []);
 
-    const teamsData = await onFetch("team", {season: currentSeason})
-    const tableData = await onFetch("stats/table", tableInitialQuery)
-    const table = tableData?.teams || []
+    const leagueLogo = getLeagueLogo[config.league as string]
 
     const getTeamLogo = (teamId: number) => {
-        const team = teamsData?.teams.find((t: TeamType) => t.id === teamId)
-        return team?.logo_url
+        const team = teams.find((t: TeamType) => t.id === teamId)
+        return team?.logo_url || ""
     }
 
-    console.log(table)
-
     const tableList = (
-        <div className="table-cont">
+        <div className="table-cont" data-aos="fade-up">
             <div className="table-header">
                 <div className="table-statistic position">Pos</div>
                 <div className="table-statistic team">Team</div>

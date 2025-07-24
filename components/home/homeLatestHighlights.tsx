@@ -19,8 +19,8 @@ function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
 
     const latestHighlightsList = latestGames.map((game) => {
         const {home_team, visiting_team} = game
-        const homeTeamColor = getTeamBaseColor[game.home_team.short_name as keyof typeof getTeamBaseColor]
-        const awayTeamColor = getTeamBaseColor[game.visiting_team.short_name as keyof typeof getTeamBaseColor]
+        const homeTeamColor = getTeamBaseColor[game.home_team.id as keyof typeof getTeamBaseColor]
+        const awayTeamColor = getTeamBaseColor[game.visiting_team.id as keyof typeof getTeamBaseColor]
         const gameDate = format(game.date, 'EEE, dd MMM yyyy');
         return (
             <div key={game.id} className="latest-single">

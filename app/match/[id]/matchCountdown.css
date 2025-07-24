@@ -1,0 +1,45 @@
+
+.match-countdown-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.match-countdown-title {
+    font-size: 14px;
+}
+
+.match-countdown-timer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.match-countdown-time-single {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 10px 17px;
+}
+
+.match-countdown-time-number {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.match-countdown-time-label {
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.match-countdown-time-separator {
+    font-size: 22px;
+    margin-top: -15px;
+}

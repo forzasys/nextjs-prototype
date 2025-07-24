@@ -6,6 +6,7 @@ import HomeLatestHighlights from "./homeLatestHighlights";
 import HomePageHighlights from "./homePageHighlights";
 // import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";
+import { videoCollectionQueries } from "@/utilities/queryUtils";
 import config from "@/config";
 import { GameType } from "@/types/dataTypes";
 
@@ -24,10 +25,16 @@ async function Home() {
   }
   // query.count = 3
 
+  const goalCollectionQuery = videoCollectionQueries({collectionName: "goal"})
+  goalCollectionQuery.count = 6
+
+  const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
+  const latestGoals = latestGoalsData?.playlists || []
+
   const gamesData = await onFetch("game", query)
   const games = gamesData?.games || [];
 
-  const nextThreeGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 3)
+  const nextThreeGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 4)
 
   const hasStatisticsPage = config.hasStatisticsPage
 
@@ -36,9 +43,9 @@ async function Home() {
       <Headlines game={nextThreeGames[0]}/>
       <br />
       {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
-      <HomeLatestVideos />
+      <HomeLatestVideos latestGoals={latestGoals} />
       <br />
-      <HomeLatestHighlights games={games}/>
+      {/* <HomeLatestHighlights games={games}/> */}
       <br />
       <br />
       <br />

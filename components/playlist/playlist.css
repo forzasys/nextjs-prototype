@@ -1,4 +1,4 @@
-.playlist-single {
+.playlist-single-link {
     display: flex;
     flex-direction: column;
     /* width: 100%; */
@@ -73,7 +73,7 @@
 .playlist-description {
     height: 50px;
     font-size: 17px;
-    color: var(--secondary-text-color);
+    color: var(--background-text-color);
     padding: 0 1px;
 }
 
@@ -112,7 +112,7 @@
 .playlist-info-match-score {
     font-size: 12px;
     font-weight: 600;
-    color: black;
+    color: var(--background-text-color);
 }
 
 /* SMALLER PLAYLIST ITEM */

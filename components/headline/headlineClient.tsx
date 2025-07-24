@@ -37,7 +37,7 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
     }
 
     const headlineTimeBar = {width: timing + "%"}
-    const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`
+    // const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`
 
     const headlineItems = (
         <div className="headline-items middle-container">
@@ -68,13 +68,13 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
         <div className="headline-main">
             <div className="headline-container">
                 <div className="headline-slider-container">
-                    <HeadlineNextMatch headlinePosition={headlinePosition} game={game} />
-                    <HeadlineClubSite headlinePosition={headlinePosition}/>
+                    <HeadlineNextMatch show={index === 0} game={game} />
+                    <HeadlineClubSite show={index === 1}/>
                     {/* <HeadlineLatestGoal translate={translate} latestGoal={latestGoal} /> */}
-                    {headlineItems}
                     {/* <div className="headline-img-mask-right"></div> */}
                     {/* <div className="headline-img-mask-left"></div> */}
                 </div>
+                {headlineItems}
             </div>
         </div>
     )

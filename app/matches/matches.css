@@ -1,29 +1,129 @@
-.single-game {
+.matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.single-match {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--box-color);
+    text-decoration: none;
+    font-family: "Exo", sans-serif;
+    transition: transform 0.1s linear;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.single-match-content {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
+    height: 100%;
+    width: 100%;
 }
 
-.single-game-team-logo {
+.single-match-team {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    width: 50%;
+    color: var(--background-text-color);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    /* border: 1px solid green; */
+}
+
+.single-match-team.away {
+    justify-content: flex-start;
+}
+
+.single-match-team-logo {
     position: relative;
-    width: 30px;
+    width: 80px;
+    height: 80px;
+}
+
+.single-match-middle {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+
+.single-match-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.single-match-score-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 42px;
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    font-size: 18px;
+    border-radius: 2px;
+}
+
+.single-match-score-separator {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.single-match-time {
+    display: flex;
+    font-size: 22px;
+    color: var(--secondary-color);
+}
+
+.single-match-date {
+    font-size: 14px;
+    color: black;
+}
+
+.single-match-center {
+    width: 100%;
+    max-width: 960px;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgb(225, 225, 225);
+    color: var(--button-color);
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+.single-match-league {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 60px;
     height: 30px;
+    font-size: 14px;
+    color: gray;
+    text-transform: uppercase;
 }
 
-.team-logo-img {
-    object-fit: contain;
+.single-match-stadium {
+    color: grey;
 }
 
-.fetch-games-btn {
-    border: 1px solid;
-    padding: 3px 7px;
-    cursor: pointer;
-}
 
-.select-season-btn {
-    margin-right: 7px;
-}
+/* HOVER */
+.single-match:hover {
 
-.select-season-btn a {
-    text-decoration: none;
 }

@@ -25,7 +25,7 @@
     margin-top: -180px;
 }
 
-.latest-video-single {
+.latest-video-link {
     height: 450px;
     width: calc(33.33% - 25px);
     margin-bottom: 60px;
@@ -35,23 +35,28 @@
     color: inherit;
 }
 
-.latest-video-single.first {
+.latest-video-single {
+    height: 100%;
+    width: 100%;
+}
+
+.latest-video-link.first {
     margin-top: 240px;
 }
 
-.latest-video-single.second {
+.latest-video-link.second {
     margin-top: 120px;
 }
 
-.latest-video-single.fifth {
+.latest-video-link.fifth {
     margin-top: -35px;
 }
 
-.latest-video-single.sixth {
+.latest-video-link.sixth {
     margin-top: -70px;
 }
 
-.latest-video-single.short-box {
+.latest-video-link.short-box {
     height: 330px;
 }
 
@@ -99,6 +104,8 @@
 
 .home-page-matches-cont {
     position: relative;
+    padding-bottom: 35px;
+    /* background-color: var(--secondary-color); */
 }
 
 .home-page-matches-bg {
@@ -122,18 +129,19 @@
     font-size: 32px;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--secondary-color);
+    color: var(--secondary-text-color);
     margin: 25px 0;
 }
 
 .home-match-single {
-    width: calc(33.33% - 15px);
+    width: calc(25% - 15px);
     box-sizing: border-box;
     padding: 12px;
     padding-top: 25px;
-    background-color: var(--background-color);
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--box-color);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s linear;
+    font-family: 'Exo', sans-serif;
 }
 
 .home-match-date {
@@ -174,14 +182,15 @@
 
 .home-match-team-name {
     text-align: center;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 600;
     text-transform: uppercase;
 }
 
 .home-match-time {
     margin-top: -60px;
-    padding: 7px;
-    background-color: rgb(235, 235, 235);
+    padding: 8px;
+    background-color: rgb(240, 240, 240);
     border-radius: 2px;
 }
 
@@ -189,8 +198,8 @@
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: var(--button-color);
+    color: var(--primary-text-color);
     padding: 12px 0;
     text-align: center;
     text-transform: uppercase;
@@ -250,7 +259,7 @@
     height: 100%;
     width: 100%;
     /* background-color: #060672; */
-    background: linear-gradient(to top right, #09092f 20%, transparent 100%);
+    background: linear-gradient(to right, #09092f 40%, #09092fb8 60%, #09092f33 90%);
 }
 
 .latest-highlights-single-content {
@@ -265,14 +274,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: var(--text-color);
+    color: var(--primary-text-color);
 }
 
 .latest-highlights-score {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 25px;
+    gap: 10px;
     width: 100%;
 }
 
@@ -300,17 +308,31 @@
 
 .latest-highlights-date {
     position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
+    top: 20px;
+    left: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 5px;
     font-size: 12px;
-    margin-top: 32px;
-    color: var(--text-color);
+    margin-bottom: 5px;
+    color: var(--primary-text-color);
+}
+
+.latest-highlights-date-day {
+    font-size: 13px;
+}
+
+.latest-highlights-date-time {
+    font-size: 22px;
+}
+
+.latest-highlights-venue {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+    color: var(--primary-text-color);
 }
 
 
@@ -367,5 +389,5 @@
 
 /* HOVER */
 .home-match-center:hover {
-    background-color: var(--accent-color);
+    background-color: var(--button-hover-color);
 }
