@@ -5,8 +5,7 @@ import Image from "next/image";
 import { PlaylistType } from "@/types/dataTypes";
 import Link from "next/link";
 import { formatReadableDate, saveQueryToSession } from "@/utilities/utils";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import Playlist from '@/components/playlist/playlist';
 import classNames from "classnames";
 import "./home.css"
 
@@ -15,14 +14,6 @@ interface HomeLatestVideosProps {
 }
 
 function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
-
-    useEffect(() => {
-        AOS.init({
-          offset: 50,
-          once: true,
-          easing: 'ease-in-out',
-        });
-    }, []);
 
     const onClickVideo = () => {
         const query = videoCollectionQueries({collectionName: "goal"})
@@ -34,12 +25,12 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
             {latestGoals.map((video: PlaylistType, index: number) => {
                 return (
                     <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-link", {
-                        "first": index === 0,
-                        "second": index === 1,
-                        "fifth": index === 4,
-                        "sixth": index === 5,
+                        // "first": index === 0,
+                        // "second": index === 1,
+                        // "fifth": index === 4,
+                        // "sixth": index === 5,
                     })}>
-                        <div onClick={onClickVideo} className="latest-video-single" data-aos="fade-up">
+                        {/* <div onClick={onClickVideo} className="latest-video-single" data-aos="fade-up">
                             <div className="latest-video-img-container">
                                 <Image 
                                     src={video.thumbnail_url}
@@ -49,10 +40,13 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                     priority
                                 />
                             </div>
-                            <div className="latest-video-type">Event</div>
-                            <div className="latest-video-item-title">{video.description}</div>
-                            <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
-                        </div>
+                            <div className="latest-video-details">
+                                <div className="latest-video-type">Event</div>
+                                <div className="latest-video-item-title">{video.description}</div>
+                                <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
+                            </div>
+                        </div> */}
+                        <Playlist playlist={video} query={{}}/>
                     </Link>
                 )
             })}
@@ -62,20 +56,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     return (
         <div className="">
            <div className="latest-videos-container middle-container">
-                <div className="latest-videos-title" data-aos="fade-right">
-                    Latest <br />videos
-                    <br />
-                    <br />
-                    <div className="latest-videos-subtitle">
-                        Lorem ipsum dolor, sit amet 
-                        <br />
-                        consectetur adipisicing elit. Mollitia 
-                        <br />
-                        quas eos voluptatibus nostrum sapiente. 
-                        <br />
-                        Doloribus animi eum aliquid 
-                    </div>
-                </div>
+                <div className="section-title">Latest videos</div>
                 {latestGoalsList}
            </div>
         </div>

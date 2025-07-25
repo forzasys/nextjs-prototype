@@ -2,7 +2,7 @@ import Headlines from "../headline/headlines";
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
 import HomeLatestVideos from "./homeLatestVideos";
-import HomeLatestHighlights from "./homeLatestHighlights";
+// import HomeLatestHighlights from "./homeLatestHighlights";
 import HomePageHighlights from "./homePageHighlights";
 // import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
-import config from '@/config';
+import { teamStadiumName } from '@/utilities/utils';
 import { format, parseISO } from 'date-fns';
 // import { getLeagueLogo } from '@/utilities/imageUtil';
 import "./home.css"
@@ -16,6 +16,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
     const {home_team, visiting_team} = game
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
+    const stadiumName = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
     return (
       <div 
         key={game.id}
@@ -25,7 +26,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
       >
         <div className="home-match-date">{gameDate}</div>
         <div className="home-match-league">
-          {config.league}
+          {stadiumName}
         </div>
         <div className="home-match-teams">
             <div className="home-match-team">
@@ -49,7 +50,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
     <div className="home-page-matches-cont">
       {/* <div className="home-page-matches-bg"></div> */}
       <div className= "home-page-matches middle-container">
-        <div className="home-page-matches-title">Next matches</div>
+        <div className="section-title">Next matches</div>
         <div className="next-matches-list">
         {gamesList}
         </div>

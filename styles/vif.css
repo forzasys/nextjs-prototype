@@ -3,7 +3,7 @@ html[data-theme="vif"] * {
   --primary-color: #022ca1;
   --secondary-color: #060672;
   --header-color: #f0f0f0;
-  --accent-color: #da1828;
+  --accent-color: #c3101f;
   --background-text-color: #000000;
   --primary-text-color: #FFFFFF;
   --secondary-text-color: #00007d;
@@ -11,8 +11,5 @@ html[data-theme="vif"] * {
   --box-color: #FFFFFF;
   --button-color: var(--primary-color);
   --button-hover-color: var(--accent-color);
+  --section-title-color: var(--accent-color);
 }
-
-
-
-

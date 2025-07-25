@@ -1,10 +1,11 @@
 "use client"
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
-import { saveQueryToSession, formatDuration } from '@/utilities/utils'
+import { saveQueryToSession, formatDuration, formatReadableDate } from '@/utilities/utils'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import classNames from 'classnames'
 import { IoMdPlay } from "react-icons/io";
 import "./playlist.css";
@@ -18,6 +19,14 @@ interface PlaylistProps {
 function Playlist({ playlist, query, smaller }: PlaylistProps) {
 
   const router = useRouter()
+
+  useEffect(() => {
+    AOS.init({
+      offset: 50,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
 
   const [isGameHovered, setIsGameHovered] = useState(false);
 
@@ -41,13 +50,13 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
   const duration = formatDuration(playlist.duration_ms / 1000)
 
   return (
-    <Link 
+    <a 
       href={`/video/${playlist.id}`} 
       className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
         "smaller": smaller,
       })}>
-      <div onClick={onClickVideo} className="playlist-single">
+      <div onClick={onClickVideo} className="playlist-single" data-aos="fade-up">
         <div className="playlist-image">
           <Image 
             src={playlist.thumbnail_url} 
@@ -66,10 +75,11 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
             </div>
           </div>
         </div>
+        <div className="playlist-event-type">EVENT</div>
         <div className="playlist-description">{playlist.description}</div>
         <div className="playlist-line"></div>
         <div className="playlist-info">
-          <div className="playlist-info-type">Event</div>
+          <div className="playlist-date">{formatReadableDate(playlist.date)}</div>
           {game && (
             <div 
               className="playlist-info-match" 
@@ -86,7 +96,7 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
           )}
         </div>
       </div>
-    </Link>
+    </a>
   )
 }
 

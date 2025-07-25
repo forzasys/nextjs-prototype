@@ -179,9 +179,65 @@
     width: 100%;
 }
 
+.page-tab-options {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.page-tab {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    width: 50%;
+    background-color: var(--secondary-color);
+}
+
+.page-tab-title {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0 2px;
+    color: var(--primary-text-color);
+}
+
+.page-tab.selected {
+    position: relative;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+.page-tab.selected .page-tab-title {
+    color: var(--secondary-color);
+}
+
+.page-tab .page-tab-title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: width 0.2s linear;
+}
+
+.page-tab.selected .page-tab-title::after {
+    width: 100%;
+}
+
 /* HOVER */
 .single-option:hover {
-    
 }
 
 .filter-dropdown-option:hover {
@@ -190,4 +246,13 @@
 
 .filter-dropdown-option:hover .filter-dropdown-option-value {
     transform: translateX(10px);
+}
+
+.page-tab:hover {
+    background-color: var(--background-color);
+    transition: background-color 0.2s linear;
+}
+
+.page-tab:hover .page-tab-title {
+    color: var(--secondary-color);
 }

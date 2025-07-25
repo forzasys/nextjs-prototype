@@ -1,11 +1,11 @@
 "use client"
 import { GameType } from "@/types/dataTypes"
-import config from "@/config"
 import Image from "next/image"
 import { useCountDown } from "@/utilities/ClientSideUtils"
 import { useEffect, useState } from "react"
 import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
+import { teamStadiumName } from "@/utilities/utils"
 import Link from "next/link"
 
 interface HeadlineNextMatchProps {  
@@ -32,6 +32,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
     const nextMatchStadium = getStadiumImage[home_team.id]
+    const stadiumName = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
 
     const nextMatchCountdown = (
         <div className="headline-next-match-countdown">
@@ -60,7 +61,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const nextMatch = (
       <div className="headline-next-match">
         <div className="headline-next-match-date">{gameDate}</div>
-        <div className="headline-next-match-league">{config.league}</div>
+        <div className="headline-next-match-league">{stadiumName}</div>
         <div className="headline-next-match-teams">
             <div className="headline-next-match-team">
                 <Image src={home_team.logo_url} alt="team logo" width={90} height={90}/>
