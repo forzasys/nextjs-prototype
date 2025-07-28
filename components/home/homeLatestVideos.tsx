@@ -1,5 +1,3 @@
-"use client"
-import { useEffect } from "react";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import Image from "next/image";
 import { PlaylistType } from "@/types/dataTypes";
@@ -7,6 +5,7 @@ import Link from "next/link";
 import { formatReadableDate, saveQueryToSession } from "@/utilities/utils";
 import Playlist from '@/components/playlist/playlist';
 import classNames from "classnames";
+import { useLocale, useTranslations } from "next-intl";
 import "./home.css"
 
 interface HomeLatestVideosProps {
@@ -15,16 +14,14 @@ interface HomeLatestVideosProps {
 
 function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
-    const onClickVideo = () => {
-        const query = videoCollectionQueries({collectionName: "goal"})
-        saveQueryToSession(query)
-    }
+    const t = useTranslations();
+    const query = videoCollectionQueries({collectionName: "goal"})
 
     const latestGoalsList = (
         <div className="latest-videos-list">
             {latestGoals.map((video: PlaylistType, index: number) => {
                 return (
-                    <Link href={`/video/${video.id}`} key={video.id} className={classNames("latest-video-link", {
+                    <div key={video.id} className={classNames("latest-video-link", {
                         // "first": index === 0,
                         // "second": index === 1,
                         // "fifth": index === 4,
@@ -46,8 +43,8 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                 <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                             </div>
                         </div> */}
-                        <Playlist playlist={video} query={{}}/>
-                    </Link>
+                        <Playlist playlist={video} query={query}/>
+                    </div>
                 )
             })}
         </div>
@@ -56,7 +53,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     return (
         <div className="">
            <div className="latest-videos-container middle-container">
-                <div className="section-title">Latest videos</div>
+                <div className="section-title">{t("latest videos")}</div>  
                 {latestGoalsList}
            </div>
         </div>

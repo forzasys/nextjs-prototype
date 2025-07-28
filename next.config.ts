@@ -1,5 +1,6 @@
-import type { NextConfig } from "next";
-
+import {NextConfig} from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+ 
 const nextConfig: NextConfig = {
   images: {
     domains: [
@@ -7,6 +8,7 @@ const nextConfig: NextConfig = {
       'video-ntf.forzify.com', 
       'd22hh18o76pkhl.cloudfront.net', 
       "norkring-ntf-od.telenorcdn.net",
+      "https://norkring-sef-od.telenorcdn.net",
       "video-shl.forzify.com",
       "video-shl.s3.eu-north-1.amazonaws.com",
       "www.hent.no",
@@ -16,5 +18,6 @@ const nextConfig: NextConfig = {
     ],
   },
 };
-
-export default nextConfig;
+ 
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);

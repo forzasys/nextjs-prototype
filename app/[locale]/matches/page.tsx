@@ -5,6 +5,7 @@ import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
 import MatchesFilters from './matchesFilters';
 import config from '@/config';
+import { getTranslations } from 'next-intl/server';
 
 // Matches
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -13,7 +14,8 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
   const query = generateGamesQueryFromParams(params);
-  
+  const t = await getTranslations();
+
   const initialQuery = structuredClone(initialGamesQuery)
   const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
   const isTeamPlatform = !!config.team
@@ -29,7 +31,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
       <div className="page-header">
         <div className="page-header-title">
           <div className="page-header-main-title">
-            Fixtures & Results
+            {t("fixtures")} & {t("results")}
           </div>
           <div className="page-header-subtitle">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.

@@ -3,6 +3,7 @@ import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
 import { teamStadiumName } from '@/utilities/utils';
 import { format, parseISO } from 'date-fns';
+import { useLocale, useTranslations } from 'next-intl';
 // import { getLeagueLogo } from '@/utilities/imageUtil';
 import "./home.css"
 
@@ -11,6 +12,9 @@ interface HomePageMatchesProps {
 }
 
 function HomePageMatches({games}: HomePageMatchesProps) {
+
+  const t = useTranslations();
+  const locale = useLocale();
 
   const gamesList = games.map((game: GameType, index: number) => {
     const {home_team, visiting_team} = game
@@ -39,8 +43,8 @@ function HomePageMatches({games}: HomePageMatchesProps) {
                 <div className="home-match-team-name">{visiting_team.short_name}</div>
             </div>
         </div>
-        <Link href={`/match/${game.id}`} className="home-match-center">
-            Match center
+        <Link href={`/${locale}/match/${game.id}`} className="home-match-center">
+            {t("match center")}
         </Link>
       </div>
     )
@@ -50,7 +54,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
     <div className="home-page-matches-cont">
       {/* <div className="home-page-matches-bg"></div> */}
       <div className= "home-page-matches middle-container">
-        <div className="section-title">Next matches</div>
+        <div className="section-title">{t("next matches")}</div>
         <div className="next-matches-list">
         {gamesList}
         </div>

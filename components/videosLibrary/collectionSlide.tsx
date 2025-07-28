@@ -9,6 +9,7 @@ import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -36,6 +37,7 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
   const searchParams = useSearchParams();
   const initialCollectionQuery = videoCollectionQueries({collectionName});
   const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
+  const t = useTranslations();
 
   // collection slide doesn't need all the videos
   query.count = 9
@@ -99,9 +101,9 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
     >
       <div className="collection-single middle-container">
         <div className="collection-title-container">
-          <div className="collection-title">{collectionTitle}</div>
+          <div className="collection-title">{t(collectionTitle)}</div>
           <button onClick={onClickMore} className="collection-title-more">
-            More
+            {t("more")}
             <MdOutlineArrowForwardIos/>
           </button>
         </div>

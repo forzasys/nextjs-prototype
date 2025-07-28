@@ -3,9 +3,11 @@ import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import Link from 'next/link'
 import { QueryType, StatsPlayerType } from '@/types/dataTypes'
+import { useLocale } from 'next-intl';
 
 async function HomeTopScorer() {
 
+    const locale = useLocale();
     const currentSeason = config.availableSeasons[0]
 
     const topScorerInitialQuery = {
@@ -25,7 +27,7 @@ async function HomeTopScorer() {
     const topScorersList = (
         <div>
             {topScorers.map((s: StatsPlayerType) => {
-                const playerLinkToVideos = `videos?tag=goal&team=${s.team_id}&player=${s.id}&season=${currentSeason}`
+                const playerLinkToVideos = `/${locale}/videos?tag=goal&team=${s.team_id}&player=${s.id}&season=${currentSeason}`
                 return (
                     <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>
                         <div>{s.name}</div>

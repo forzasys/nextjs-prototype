@@ -1,6 +1,6 @@
 import MatchScoreboard from './matchScoreboard';
 import MatchCountdown from './matchCountdown';
-import MatchCenterFilter from '../../../components/Filters/matchCenterFilter';
+import MatchCenterFilter from '../../../../components/Filters/matchCenterFilter';
 import MatchHeadToHead from './matchHeadToHead';
 import MatchStats from './matchStats';
 import MatchLineup from './matchLineup';

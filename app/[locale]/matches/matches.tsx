@@ -8,6 +8,7 @@ import { onFetch } from '@/utilities/fetchApi';
 import { GameType } from '@/types/dataTypes';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
 import { getLeagueLogo } from '@/utilities/imageUtil';
 import { format, parseISO } from 'date-fns';
 import { teamStadiumName } from '@/utilities/utils';
@@ -25,6 +26,8 @@ function Match ({game, index}: {game: GameType, index: number}) {
     });
   }, []);
 
+  const t = useTranslations();
+  const locale = useLocale();
   const matchNotStarted = game.phase === "not started" && new Date(game.date) > new Date()
   const date = format(game.date, 'EEE, dd MMM yyyy');
   const time = format(parseISO(game.start_time), 'HH:mm')
@@ -50,7 +53,7 @@ function Match ({game, index}: {game: GameType, index: number}) {
   return (
     <Link 
       key={game.id} 
-      href={`match/${game.id}`} 
+      href={`/${locale}/match/${game.id}`} 
       className='single-match' 
       data-aos="fade-up" 
       data-aos-delay={index <= 2 ? index * 100 : 0}
@@ -79,7 +82,7 @@ function Match ({game, index}: {game: GameType, index: number}) {
         </div>
       </div>
       <div className="single-match-center">
-        Match center
+        {t("match center")}
       </div>
       <div className='single-match-league'>
         <Image src={leagueLogo} alt="league logo" fill priority/>

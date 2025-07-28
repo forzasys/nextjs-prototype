@@ -3,9 +3,11 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
 import classNames from 'classnames';
 import "./filters.css";
+import { useTranslations } from 'next-intl';
 
 function MatchesTypeFilter() {
-    
+
+    const t = useTranslations();
     const {updateParam} = useUpdateSearchParam();
     const searchParams = useSearchParams();
     const matchTypeParam = searchParams.get("match_type");
@@ -17,7 +19,7 @@ function MatchesTypeFilter() {
                 className={classNames("page-tab", {
                     "selected": matchTypeParam === "fixtures" || !matchTypeParam
                 })}>
-                <div className="page-tab-title">Fixtures</div>
+                <div className="page-tab-title">{t("fixtures")}</div>
             </div>
             <div 
                 onClick={() => updateParam("match_type", "results")} 
@@ -25,7 +27,7 @@ function MatchesTypeFilter() {
                     "selected": matchTypeParam === "results",
                     "disabled": !matchTypeParam
                 })}>
-                <div className="page-tab-title">Results</div>
+                <div className="page-tab-title">{t("results")}</div>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import classNames from 'classnames';
+import { useTranslations } from 'next-intl';
 import { IoMdArrowDropdown } from "react-icons/io";
 import './filters.css';
 
@@ -20,6 +21,7 @@ interface FilterDropdownProps {
 export function FilterDropdown({title, options, value, defaultValue, hasAll}: FilterDropdownProps) {
 
     const {updateParam} = useUpdateSearchParam();
+    const t = useTranslations();
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -38,7 +40,7 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
     let filterValue = options.find((option: OptionType) => option.id.toString() === value?.toString())?.value
 
     if (!value) {
-        if (hasAll) filterValue = "All"
+        if (hasAll) filterValue = t("all")
         else if (defaultValue) filterValue = defaultValue
     }
 
@@ -52,7 +54,7 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
             ref={ref}
             className={classNames("filter-dropdown", {"narrow": title === "season"})}
             >
-            <div className="filter-title">{title}</div>
+            <div className="filter-title">{t(title)}</div>
             <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">
                     <div className="filter-dropdown-value">{filterValue}</div>
@@ -64,7 +66,7 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
                             onClick={() => onSelect(undefined)} 
                             className={classNames("filter-dropdown-option no-border", {"selected": !value})}
                             >
-                            <div className="filter-dropdown-option-value">All</div>
+                            <div className="filter-dropdown-option-value">{t("all")}</div>
                         </div>
                     )}
                     {options.map((option: OptionType) => (
@@ -109,6 +111,7 @@ export function PlayerFilterDropdown({
 }: PlayerFilterDropdownProps) {
 
     const {updateParam} = useUpdateSearchParam();
+    const t = useTranslations();
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -123,7 +126,7 @@ export function PlayerFilterDropdown({
         return () => document.removeEventListener("click", close)
     }, [isOpen])
     
-    let filterValue: React.ReactNode = hasAll ? "All" : undefined
+    let filterValue: React.ReactNode = hasAll ? t("all") : undefined
 
     if (disabled) {
         filterValue = disabled
@@ -155,7 +158,7 @@ export function PlayerFilterDropdown({
     }                                
     return (
         <div ref={ref} className={classNames("filter-dropdown wide", {"disabled": disabled})}>
-            <div className="filter-title">{title}</div>
+            <div className="filter-title">{t(title)}</div>
             <div onClick={onOpenList} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">
                     <div className="filter-dropdown-value">{filterValue}</div>
@@ -164,7 +167,7 @@ export function PlayerFilterDropdown({
                 <div className={classNames("filter-dropdown-options", {"open": isOpen})}>
                     {hasAll && (
                         <div onClick={() => onSelect(undefined)} className="filter-dropdown-option no-border">
-                            <div className="filter-dropdown-option-value">All</div>
+                            <div className="filter-dropdown-option-value">{t("all")}</div>
                         </div>
                     )}
                     {options.map((option: PlayerOptionType) => (

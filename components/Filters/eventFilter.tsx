@@ -3,6 +3,7 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
 import { PlayerType } from '@/types/dataTypes';
 import config from '@/config';
+import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
 import './filters.css';
 
@@ -24,6 +25,7 @@ interface SingleEventProps {
 
 function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: SingleEventProps) {
 
+  const t = useTranslations();
   const { updateParam } = useUpdateSearchParam();
 
   let disabled = false
@@ -50,7 +52,7 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
 
   return (
     <div className={classNames("single-option", {"selected": eventParam === event})} onClick={onSelectEvent}>
-      <div>{event}</div>
+      <div>{t(event)}</div>
       {/* {condition && <div>{condition}</div>} */}
     </div>
   )
@@ -63,6 +65,7 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const teamParam = searchParams.get("team");
   const eventParam = searchParams.get("event");
 
+  const t = useTranslations();
   const { updateMultipleParams } = useUpdateSearchParam();
 
   if (tags.length === 0) return null
@@ -100,7 +103,7 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
         onClick={onSelectAllTag} 
         className={classNames("single-option", {"selected": !eventParam})}
         >
-          All
+          {t("all")}
         </div>
       {availableTags.map((t) => {
         return (

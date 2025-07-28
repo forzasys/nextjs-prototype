@@ -9,13 +9,15 @@ type CollectionTitlesType = {
 }
 
 export const collectionTitles: CollectionTitlesType = {
-    "goal": "Goals",
-    "assist": "Assists",
-    "yellow card": "Yellow cards",
-    "red card": "Red cards",
-    "shot": "Shots",
-    "latest": "Latest",
-    "interviews": "Interviews",
+    "assist": "assists",
+    "goal": "goals",
+    "goalkeeperevent": "goalkeeper events",
+    "penalty": "penalties",
+    "red card": "red cards",
+    "save": "saves",
+    "shootoutpenaltyshot": "shootout penalty shots",
+    "shot": "shots",
+    "yellow card": "yellow cards",
 }
 
 interface VideoCollectionProps {

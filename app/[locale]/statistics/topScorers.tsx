@@ -3,6 +3,7 @@ import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import { QueryType, StatsPlayerType } from '@/types/dataTypes'
 import Link from 'next/link'
+import { useLocale } from 'next-intl';
 
 interface TopScorersProps {
     seasonParam: string | null
@@ -10,6 +11,7 @@ interface TopScorersProps {
 
 async function TopScorers({seasonParam}: TopScorersProps) {
 
+    const locale = useLocale();
     const currentSeason = config.availableSeasons[0]
 
     const topScorerInitialQuery = {
@@ -34,7 +36,7 @@ async function TopScorers({seasonParam}: TopScorersProps) {
         <div>
             {topScorers.map((s: StatsPlayerType) => {
 
-                let playerLinkToVideos = `videos?event=goal&player=${s.id}`
+                let playerLinkToVideos = `/${locale}/videos?event=goal&player=${s.id}`
                 if (!teamPlatformId) playerLinkToVideos += `&team=${teamPlatformId}`
                 if (seasonParam) playerLinkToVideos += `&season=${seasonParam}`
 
@@ -52,7 +54,7 @@ async function TopScorers({seasonParam}: TopScorersProps) {
     const topAssistsList = (
         <div>
             {topAssists.map((s: StatsPlayerType) => {
-                let playerLinkToVideos = `videos?event=assist&player=${s.id}`
+                let playerLinkToVideos = `/${locale}/videos?event=assist&player=${s.id}`
                 if (!teamPlatformId) playerLinkToVideos += `&team=${teamPlatformId}`
                 return (
                     <Link key={s.id} href={playerLinkToVideos} style={{display: "flex", gap: "7px"}}>

@@ -5,6 +5,7 @@ import HeadlineClubSite from './headlineClubSite'
 // import HeadlineLatestGoal from './headlineLatestGoal'
 import { GameType, PlaylistType } from '@/types/dataTypes'
 import classNames from 'classnames'
+import { useTranslations } from 'next-intl'
 
 interface HeadlineClientProps {
     game: GameType
@@ -15,6 +16,8 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
 
     const [index, setIndex] = useState(0)
     const [timing, setTiming] = useState(1)
+
+    const t = useTranslations();
 
     useEffect(() => {
         const onSetTiming = setInterval(() => {
@@ -46,7 +49,7 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                     <div style={headlineTimeBar} className="headline-timing-bar"/>
                 </div>
                 <div className="headline-item-text">
-                    <div>Next match</div>
+                    <div>{t("next match")}</div>
                     <div>Vålerenga IF - FK Haugesund</div>
                     <div>20.07.2025 14:30</div>
                 </div>
@@ -56,7 +59,7 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                     <div style={headlineTimeBar} className="headline-timing-bar"/>
                 </div>
                 <div className="headline-item-text">
-                    <div>Latest news</div>
+                    <div>{t("latest news")}</div>
                     <div>Find out the latest news from the club</div>
                     <div>Visit www.vif-fotball.no</div>
                 </div>

@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Paging } from '../paging/paging';
 import { PlaylistType, QueryType } from '@/types/dataTypes';
 import Playlist from '../playlist/playlist';
+import { useTranslations } from 'next-intl';
 
 interface CollectionProps {
     playlists: PlaylistType[]
@@ -34,6 +35,7 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     const pageParam = searchParams.get("page") || 1
     const initialCollectionQuery = videoCollectionQueries({collectionName});
     const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
+    const t = useTranslations();
 
     // 16 results per page
     const resultsPerPage = 12
@@ -57,7 +59,7 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     
     return (
         <div className="collection-container middle-container">
-            <div className="collection-total-results">Showing {data?.total} results</div>
+            <div className="collection-total-results">{t("showing")} {data?.total} {t("results")}</div>
             <Collection playlists={playlists} query={query}/>
             <Paging page={Number(pageParam)} pageCount={totalPage} onChange={onUpdatePage}/>
         </div>

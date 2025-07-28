@@ -4,6 +4,7 @@ import { normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import VideosFilters from './videosFilters';
 import config from '@/config';
+import { getTranslations } from 'next-intl/server';
 import "./videos.css";
 
 // Highlights
@@ -12,7 +13,8 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
-  
+  const t = await getTranslations();
+
   const teamPlatformId = config.team;
   const currentSeason = config.availableSeasons[0]
   
@@ -32,9 +34,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
     <div className="videos-main main-page">
       <div className="page-header">
         <div className="page-header-title">
-          <div className="page-header-main-title">
-            Videos
-          </div>
+          <div className="page-header-main-title">{t("videos")}</div>
           <div className="page-header-subtitle">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>

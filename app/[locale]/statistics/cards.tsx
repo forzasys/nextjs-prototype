@@ -3,6 +3,7 @@ import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import { StatsPlayerType, QueryType } from '@/types/dataTypes'
 import Link from 'next/link'
+import { useLocale } from 'next-intl';
 
 interface RenderCardsProps {
     cards: StatsPlayerType[]
@@ -12,6 +13,7 @@ interface RenderCardsProps {
 
 function RenderCards({cards, type, seasonParam}: RenderCardsProps) {
 
+    const locale = useLocale();
     const teamPlatformId = config.team
 
     const cardsList = cards.map((c: StatsPlayerType) => {
@@ -22,7 +24,7 @@ function RenderCards({cards, type, seasonParam}: RenderCardsProps) {
         if (seasonParam) playerLinkToVideos += `&season=${seasonParam}`
 
         return (
-            <Link key={c.id} href={playerLinkToVideos} style={{display: "flex", gap: "10px"}}>
+            <Link key={c.id} href={`/${locale}/${playerLinkToVideos}`} style={{display: "flex", gap: "10px"}}>
                 <div>{c.name}</div>
                 <div>{c.shirt_number}</div>
                  <div>{cards}</div>

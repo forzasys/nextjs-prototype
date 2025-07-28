@@ -2,6 +2,7 @@
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import classNames from 'classnames';
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import "./MatchCenterFilter.css";
 
 interface MatchCenterFilterProps {
@@ -13,6 +14,7 @@ function MatchCenterFilter({defaultType}: MatchCenterFilterProps) {
     const {updateParam} = useUpdateSearchParam();
     const searchParams = useSearchParams();
     const matchCenterTypeParam = searchParams.get("match_center_type");
+    const t = useTranslations();
 
     return (
         <div className="match-center-filter middle-container">
@@ -36,13 +38,13 @@ function MatchCenterFilter({defaultType}: MatchCenterFilterProps) {
                 onClick={() => updateParam("match_center_type", "lineup")}
                 className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "lineup"})}
                 >
-                <div className="">Lineup</div>
+                <div className="">{t("lineup")}</div>
             </div>
             <div 
                 onClick={() => updateParam("match_center_type", "events")}
                 className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "events"})}
                 >
-                <div className="">Events</div>
+                <div className="">{t("events")}</div>
             </div>
         </div>
     )

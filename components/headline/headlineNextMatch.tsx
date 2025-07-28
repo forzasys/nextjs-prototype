@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
 import { teamStadiumName } from "@/utilities/utils"
+import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
 
 interface HeadlineNextMatchProps {  
@@ -17,6 +18,8 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
 
     const [isMounted, setIsMounted] = useState(false)
     const countdown = useCountDown(game.start_time)
+    const t = useTranslations();
+    const locale = useLocale();
     
     useEffect(() => {
         setIsMounted(true)
@@ -38,22 +41,22 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
         <div className="headline-next-match-countdown">
             <div className="match-countdown-item">
                 <div className="match-countdown-number">{days}</div>
-                <div className="match-countdown-label">days</div>
+                <div className="match-countdown-label">{t("days")}</div>
             </div>
             <div className="match-countdown-separator">:</div>
             <div className="match-countdown-item">
                 <div className="match-countdown-number">{hours}</div>
-                <div className="match-countdown-label">hrs</div>
+                <div className="match-countdown-label">{t("hrs")}</div>
             </div>
             <div className="match-countdown-separator">:</div>
             <div className="match-countdown-item">
                 <div className="match-countdown-number">{minutes}</div>
-                <div className="match-countdown-label">mins</div>
+                <div className="match-countdown-label">{t("mins")}</div>
             </div>
             <div className="match-countdown-separator">:</div>
             <div className="match-countdown-item">
                 <div className="match-countdown-number">{seconds}</div>
-                <div className="match-countdown-label">secs</div>
+                <div className="match-countdown-label">{t("secs")}</div>
             </div>
         </div>
     )
@@ -74,8 +77,8 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
             </div>
         </div>
         {nextMatchCountdown}
-        <Link href={`/match/${game.id}`} className="headline-match-center">
-            Match center
+        <Link href={`/${locale}/match/${game.id}`} className="headline-match-center">
+            {t("match center")}
         </Link>
       </div>
     )

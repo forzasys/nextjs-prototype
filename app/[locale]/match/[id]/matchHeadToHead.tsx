@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import config from '@/config'
 import { checkMultipleMatchesResult } from '@/utilities/utils'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface H2HTableProps {
     table: TableType[]
@@ -37,7 +38,7 @@ async function HeadToHeadTable({ table, homeTeamId, awayTeamId }: H2HTableProps)
                         <div>{t.wins}</div>
                         <div>{t.ties}</div>
                         <div>{t.losses}</div>
-                        <div>{t.goals_scored}</div>
+                        <div>{t.goals}</div>
                         <div>{t.goals_conceded}</div>
                         <div>{t.goal_difference}</div>
                         <div>{t.points}</div>
@@ -63,6 +64,8 @@ interface RecentIndividualMatchesProps {
 
 function RecentIndividualMatches({ homeTeamId, awayTeamId, homeTeamGames, awayTeamGames }: RecentIndividualMatchesProps) {
 
+    const t = useTranslations();
+    const locale = useLocale();
     const lastFiveHomeTeamGames = homeTeamGames.slice(0, 5)
     const lastFiveAwayTeamGames = awayTeamGames.slice(0, 5)
 
@@ -84,7 +87,7 @@ function RecentIndividualMatches({ homeTeamId, awayTeamId, homeTeamGames, awayTe
             <br />
             {lastFiveHomeTeamGames.map((game) => {
                 return (
-                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                    <Link key={game.id} href={`/${locale}/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
                         <div className='single-game-team-logo'>
                             <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
                         </div>
@@ -117,7 +120,7 @@ function RecentIndividualMatches({ homeTeamId, awayTeamId, homeTeamGames, awayTe
             <br />
             {lastFiveAwayTeamGames.map((game) => {
                 return (
-                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                    <Link key={game.id} href={`/${locale}/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
                         <div className='single-game-team-logo'>
                             <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
                         </div>
@@ -137,7 +140,7 @@ function RecentIndividualMatches({ homeTeamId, awayTeamId, homeTeamGames, awayTe
 
     return (
         <div>
-            <div>Recent individual matches</div>
+            <div>{t("recent individual matches")}</div>
             <br />
             <div style={{display: "flex", gap: "100px"}}>
                 {homeTeamGamesList}
@@ -152,13 +155,15 @@ interface RecentMeetingsProps {
 
 function RecentMeetings({ games }: RecentMeetingsProps) {
 
+    const t = useTranslations();
+    const locale = useLocale();
     const lastMeetings = games.slice(0, 3)
 
     const headToHeadGames = (
         <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
             {lastMeetings.map((game) => {
                 return (
-                    <Link key={game.id} href={`/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
+                    <Link key={game.id} href={`/${locale}/match/${game.id}`} style={{display: "flex", marginBottom: "10px", alignItems: "center"}}>
                         <div className='single-game-team-logo'>
                             <Image src={game.home_team.logo_url} alt="team logo" width={30} height={30}/>
                         </div>
@@ -179,7 +184,7 @@ function RecentMeetings({ games }: RecentMeetingsProps) {
 
     return (
         <div>
-            <div>Most recent meetings</div>
+            <div>{t("most recent meetings")}</div>
             <br />
             {headToHeadGames}
         </div>

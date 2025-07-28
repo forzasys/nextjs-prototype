@@ -6,6 +6,7 @@ import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { saveQueryToSession, formatDuration, formatReadableDate } from '@/utilities/utils'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useLocale, useTranslations } from 'next-intl';
 import classNames from 'classnames'
 import { IoMdPlay } from "react-icons/io";
 import "./playlist.css";
@@ -19,6 +20,7 @@ interface PlaylistProps {
 function Playlist({ playlist, query, smaller }: PlaylistProps) {
 
   const router = useRouter()
+  const locale = useLocale()
 
   useEffect(() => {
     AOS.init({
@@ -29,18 +31,20 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
   }, []);
 
   const [isGameHovered, setIsGameHovered] = useState(false);
+  const t = useTranslations();
 
   const onClickVideo = () => {
     if (query) {
       console.log("setting query", query)
       saveQueryToSession(query)
     }
+    router.push(`/${locale}/video/${playlist.id}`)
   }
 
   const onGameClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    router.push(`/match/${game.id}`)
+    router.push(`/${locale}/match/${game.id}`)
   }
 
   // console.log("playlist", playlist)
@@ -50,8 +54,8 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
   const duration = formatDuration(playlist.duration_ms / 1000)
 
   return (
-    <a 
-      href={`/video/${playlist.id}`} 
+    <div 
+      onClick={onClickVideo}
       className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
         "smaller": smaller,
@@ -75,7 +79,7 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
             </div>
           </div>
         </div>
-        <div className="playlist-event-type">EVENT</div>
+        <div className="playlist-event-type">{t("event")}</div>
         <div className="playlist-description">{playlist.description}</div>
         <div className="playlist-line"></div>
         <div className="playlist-info">
@@ -96,7 +100,7 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
           )}
         </div>
       </div>
-    </a>
+    </div>
   )
 }
 
