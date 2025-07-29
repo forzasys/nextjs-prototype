@@ -1,8 +1,11 @@
+"use client"
 import { onFetch } from "@/utilities/fetchApi";
-import { QueryType } from "@/types/dataTypes";
+import { useQueries } from "@tanstack/react-query";
 import { generatePlaylistQueryFromParams } from "@/utilities/queryUtils";
 import CollectionSlide from "./collectionSlide";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 type CollectionTitlesType = {
   [key: string]: string
@@ -21,31 +24,47 @@ export const collectionTitles: CollectionTitlesType = {
 }
 
 interface VideoCollectionProps {
-  collectionName: string
-  params?: URLSearchParams | undefined
-  visibleCollections?: string[]
+  visibleCollections: string[]
   showCollection?: boolean | true
 }
 
-export async function VideoCollectionSlide({collectionName, params, visibleCollections, showCollection}: VideoCollectionProps) {
+export function VideoCollectionSlide({visibleCollections}: VideoCollectionProps) {
   
-  if (!showCollection) return null;
-  
-  const initialCollectionQuery = videoCollectionQueries({collectionName});
-  // collection slide doesn't need all the videos
-  initialCollectionQuery.count = 9
+  const searchParams = useSearchParams();
 
-  let query: QueryType = {};
+  // Memoize the queries array to prevent constant re-creation
+  const queriesArray = useMemo(() => {
+    return visibleCollections.map((collection) => {
+      let collectionQuery = videoCollectionQueries({collectionName: collection})
+      collectionQuery = generatePlaylistQueryFromParams(searchParams, collectionQuery);
+      collectionQuery.count = 9
+      
+      return {
+        queryKey: ['playlist', collection, Object.entries(Object.fromEntries(searchParams)).toString()],
+        queryFn: () => onFetch('playlist', collectionQuery),
+        staleTime: 3 * 60 * 1000,
+      }
+    });
+  }, [visibleCollections, searchParams]);
 
-  if (params) {
-    query = generatePlaylistQueryFromParams(params, initialCollectionQuery);
-  }
+  const queries = useQueries({
+    queries: queriesArray,
+  });
 
-  const isInitialQuery = !params || (JSON.stringify(query) === JSON.stringify(initialCollectionQuery))
-
-  const playlistData = isInitialQuery ? await onFetch("playlist", initialCollectionQuery) : undefined;
+  const allCollections = visibleCollections.map((collectionName, index) => {
+    return (
+      <CollectionSlide 
+        key={collectionName} 
+        collectionName={collectionName}
+        visibleCollections={visibleCollections}
+        playlists={queries[index].data?.playlists}
+      />
+    )
+  })
 
   return (
-    <CollectionSlide playlistData={playlistData} isInitialQuery={isInitialQuery} collectionName={collectionName} visibleCollections={visibleCollections} />
+    <div>
+      {allCollections}
+    </div>
   )
 }

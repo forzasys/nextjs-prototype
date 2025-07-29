@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useRef, useEffect } from 'react'
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import classNames from 'classnames';

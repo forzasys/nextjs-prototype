@@ -31,24 +31,14 @@ function Videos({ params }: {params: URLSearchParams}) {
     checkShowCollection(collectionName)
   );
 
-  const allCollections = collectionsInVideo.map((collectionName) => {
-    const showCollection = visibleCollections.includes(collectionName)
-    return (
-      <VideoCollectionSlide 
-        key={collectionName} 
-        collectionName={collectionName}
-        params={params} 
-        visibleCollections={visibleCollections}
-        showCollection={showCollection}
-      />
-    )
-  })
-
   const hasEventParam = !!eventParam
 
   return (
     <div className="videos-collections">
-      {hasEventParam ? <VideoCollection collectionName={eventParam} /> : allCollections}
+      {hasEventParam ? 
+        <VideoCollection collectionName={eventParam} /> : 
+        <VideoCollectionSlide visibleCollections={visibleCollections} />
+      }
     </div>
   )
 }

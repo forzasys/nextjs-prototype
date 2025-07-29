@@ -1,10 +1,9 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { saveQueryToSession, formatDuration, formatReadableDate } from '@/utilities/utils'
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useLocale, useTranslations } from 'next-intl';
 import classNames from 'classnames'
@@ -21,14 +20,6 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
 
   const router = useRouter()
   const locale = useLocale()
-
-  useEffect(() => {
-    AOS.init({
-      offset: 50,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
 
   const [isGameHovered, setIsGameHovered] = useState(false);
   const t = useTranslations();
@@ -60,7 +51,7 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
         "game-hovered": isGameHovered,
         "smaller": smaller,
       })}>
-      <div onClick={onClickVideo} className="playlist-single" data-aos="fade-up">
+      <div onClick={onClickVideo} className="playlist-single">
         <div className="playlist-image">
           <Image 
             src={playlist.thumbnail_url} 

@@ -8,14 +8,13 @@ import HomePageHighlights from "./homePageHighlights";
 import { onFetch } from "@/utilities/fetchApi";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import config from "@/config";
-import { GameType } from "@/types/dataTypes";
+import { GameType, QueryType } from "@/types/dataTypes";
 
 async function Home() {
 
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0];
-  console.log(formattedToday)
-  console.log(`${config.availableSeasons[0]}-01-01`)
+  const currentSeason = config.availableSeasons[0]
 
   const query = {
     season: config.availableSeasons[0],
@@ -27,6 +26,18 @@ async function Home() {
 
   const goalCollectionQuery = videoCollectionQueries({collectionName: "goal"})
   goalCollectionQuery.count = 6
+
+  const topScorerInitialQuery: QueryType = {
+    from_date: `${currentSeason}-01-01`,
+    to_date: `${currentSeason}-12-31`,
+  }
+
+  // Team platform
+  const teamPlatformId = config.team
+  if (teamPlatformId) topScorerInitialQuery.team_id = teamPlatformId
+
+  const topScorersData = await onFetch("stats/top/scorer", topScorerInitialQuery)
+  const topScorers = topScorersData?.players || []
 
   const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
   const latestGoals = latestGoalsData?.playlists || []
@@ -60,7 +71,7 @@ async function Home() {
       <br />
       <br />
       <br />
-      {hasStatisticsPage && <HomeTopScorer/>}
+      {hasStatisticsPage && <HomeTopScorer topScorers={topScorers}/>}
       <br />
     </div>
   );

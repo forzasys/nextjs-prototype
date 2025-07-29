@@ -1,28 +1,18 @@
+"use client"
 import React from 'react'
-import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import Link from 'next/link'
-import { QueryType, StatsPlayerType } from '@/types/dataTypes'
+import { StatsPlayerType } from '@/types/dataTypes'
 import { useLocale } from 'next-intl';
 
-async function HomeTopScorer() {
+interface HomeTopScorerProps {
+    topScorers: StatsPlayerType[]
+}
+
+function HomeTopScorer({topScorers}: HomeTopScorerProps) {
 
     const locale = useLocale();
     const currentSeason = config.availableSeasons[0]
-
-    const topScorerInitialQuery = {
-        from_date: `${currentSeason}-01-01`,
-        to_date: `${currentSeason}-12-31`,
-    }
-
-    const query: QueryType = topScorerInitialQuery
-
-    // Team platform
-    const teamPlatformId = config.team
-    if (teamPlatformId) query.team_id = teamPlatformId
-
-    const topScorersData = await onFetch("stats/top/scorer", query)
-    const topScorers = topScorersData?.players || []
 
     const topScorersList = (
         <div>

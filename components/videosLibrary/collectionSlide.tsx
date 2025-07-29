@@ -1,7 +1,5 @@
 'use client';
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { onFetch } from '@/utilities/fetchApi';
 import { useSearchParams } from 'next/navigation';
 import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
@@ -17,13 +15,12 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
 
 interface VideoCollectionProps {
-    playlistData?: PlaylistType[] | undefined
-    isInitialQuery: boolean
+    playlists?: PlaylistType[] | undefined
     collectionName: string
     visibleCollections?: string[]
 }
 
-export function CollectionSlide({playlistData, isInitialQuery, collectionName, visibleCollections}: VideoCollectionProps) {
+export function CollectionSlide({playlists, collectionName, visibleCollections}: VideoCollectionProps) {
 
   useEffect(() => {
     AOS.init({
@@ -34,23 +31,13 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
   }, []);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialCollectionQuery = videoCollectionQueries({collectionName});
-  const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
+  // const searchParams = useSearchParams();
+  // const initialCollectionQuery = videoCollectionQueries({collectionName});
+  // const query = generatePlaylistQueryFromParams(searchParams, initialCollectionQuery);
   const t = useTranslations();
 
   // collection slide doesn't need all the videos
-  query.count = 9
-
-  const { data, isLoading } = useQuery({
-      queryKey: ['playlist', query],
-      queryFn: () => onFetch("playlist", query),
-      initialData: playlistData,
-      enabled: !isInitialQuery || !playlistData,
-      // staleTime: staleTime,
-  });
-
-  const collections = data?.playlists || [];
+  // query.count = 9
 
   const onClickMore = () => {
     router.push(`/videos?event=${collectionName}`);
@@ -70,10 +57,11 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
 
   const playlist = (
     <div className="collection-slide-playlist-container">
-      {collections.map((p: PlaylistType) => {
+      {playlists?.map((p: PlaylistType) => {
         return (
           <div key={p.id} className="collection-slide-playlist-single">
-            <Playlist playlist={p} query={query}/>
+            {/* {p.description} */}
+            <Playlist playlist={p} query={{}}/>
           </div>
         )
       })}
@@ -87,9 +75,9 @@ export function CollectionSlide({playlistData, isInitialQuery, collectionName, v
 
   let render
 
-  if (isLoading) render = <div >Loading...</div>
+  // if (isLoading) render = <div >Loading...</div>
 
-  if (collections.length === 0) render = <div>0 videos</div>
+  if (playlists?.length === 0) render = <div>0 videos</div>
 
   else render = playlist
 

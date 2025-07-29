@@ -16,7 +16,7 @@ interface VideosFiltersProps {
   teams: TeamType[];
 }
 
-function VideosFilters({ playersData, tags, teams }: VideosFiltersProps) {
+async function VideosFilters({ playersData, tags, teams }: VideosFiltersProps) {
 
   const isTeamPlatform = !!config.team;
 
