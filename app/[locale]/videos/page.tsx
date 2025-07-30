@@ -2,10 +2,13 @@ import Videos from './videos';
 import { onFetch } from "@/utilities/fetchApi";
 import { normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
-import VideosFilters from './videosFilters';
+import SeasonFilter from '@/components/Filters/seasonFilter';
+import PlayerFilter from '@/components/Filters/playerFilter';
+import EventFilter from '@/components/Filters/eventFilter';
 import config from '@/config';
 import { getTranslations } from 'next-intl/server';
 import "./videos.css";
+import TeamFilter from '@/components/Filters/teamFilter';
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -30,6 +33,14 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
 
+  const videosFilters = (
+    <div className="filters-inline middle-container">
+      <SeasonFilter games/>
+      {!teamPlatformId && <TeamFilter teams={teams} />}
+      <PlayerFilter playersData={playersData} />
+    </div>
+  )
+
   return (
     <div className="videos-main main-page">
       <div className="page-header">
@@ -39,12 +50,13 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>
         </div>
-        <VideosFilters 
-          playersData={playersData}
-          tags={tags} 
-          teams={teams} 
-        />
       </div>
+      <br />
+      <br />
+      {videosFilters}
+      <br />
+      <EventFilter tags={tags} playersData={playersData} />
+      <br />
       <Videos params={params} />
     </div>
   )

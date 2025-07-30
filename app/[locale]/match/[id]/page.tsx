@@ -1,5 +1,4 @@
 import MatchScoreboard from './matchScoreboard';
-import MatchCountdown from './matchCountdown';
 import MatchCenterFilter from '../../../../components/Filters/matchCenterFilter';
 import MatchHeadToHead from './matchHeadToHead';
 import MatchStats from './matchStats';
@@ -43,7 +42,7 @@ async function Page({ params, searchParams }: MatchPageProps) {
     matchInfo = <MatchHeadToHead game={game} />;
   }
   if (match_center_type === "stats") {
-    matchInfo = <MatchStats gameId={gameId} />;
+    matchInfo = <MatchStats game={game} />;
   }
   if (match_center_type === "lineup") {
     matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;

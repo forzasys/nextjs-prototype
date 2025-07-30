@@ -2,6 +2,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import Main from './main';
+import "./globals.css";
 
 // Import theme overrides 
 // TODO move to other file when it's bigger

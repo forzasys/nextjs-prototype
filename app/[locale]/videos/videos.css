@@ -3,23 +3,3 @@
 
 .videos-main {
 }
-
-.videos-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    margin-bottom: 60px;
-}
-
-.videos-filters-inline {
-    display: flex;
-    align-items: end;
-    gap: 25px;
-}
-
-.videos-collections {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    width: 100%;
-}

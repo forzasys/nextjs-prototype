@@ -9,7 +9,7 @@ html[data-theme="vif"] * {
   --secondary-text-color: #00007d;
   --header-text-color: #000000;
   --box-color: #FFFFFF;
-  --button-color: var(--primary-color);
-  --button-hover-color: var(--accent-color);
-  --section-title-color: var(--accent-color);
+  --button-color: var(--accent-color);
+  --button-hover-color: #960713;
+  --section-title-color: var(--secondary-color);
 }

@@ -3,7 +3,7 @@ import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
 import { QueryType, StatsPlayerType } from '@/types/dataTypes'
 import Link from 'next/link'
-import { useLocale } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 
 interface TopScorersProps {
     seasonParam: string | null
@@ -11,7 +11,7 @@ interface TopScorersProps {
 
 async function TopScorers({seasonParam}: TopScorersProps) {
 
-    const locale = useLocale();
+    const locale = await getLocale();
     const currentSeason = config.availableSeasons[0]
 
     const topScorerInitialQuery = {

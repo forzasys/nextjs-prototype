@@ -1,112 +1,46 @@
-import React from 'react'
+"use-client"
 import { onFetch } from '@/utilities/fetchApi'
-
+import Stat from './Stat'
+import { GameType } from '@/types/dataTypes'
+import config from '@/config'
+import './matchStats.css'
 interface MatchStatsProps { 
-    gameId: string
+    game: GameType
 }
 
-async function MatchStats({ gameId } : MatchStatsProps) {
+async function MatchStats({ game } : MatchStatsProps) {
 
+    const gameId = game.id
     const matchStatsData = await onFetch(`/game/${gameId}/stats`)
     const statistics = matchStatsData.statistics
 
-    const {corners, goals, offsides, red_cards, shots_on_target, total_shots, yellow_cards, possessions, distances} = statistics
+    const teamPlatform = config.team
+
+    let side = "none"
+
+    if (!!teamPlatform) {
+        if (game.home_team.id === teamPlatform) {
+            side = "home"
+        }
+        if (game.visiting_team.id === teamPlatform) {
+            side = "away"
+        }
+    }
+
+    console.log(statistics)
+
+    const {corners, distances, fouls_committed, goals, offsides, possessions, red_cards, shots_on_target, total_shots, yellow_cards} = statistics
     
     return (
-        <div className="">
-            <div className="statistic-cont">
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{goals.home_team}</div>
-                    <div className="statistic-title">
-                        Goal
-                    </div>
-                    <div className="statistic-value">{goals.visiting_team}</div>
-                </div>
-                {/* <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">
-                        {showPossession(possessions.home_team["1st_half"], start_of_1st_half)}
-                    </div>
-                    <div className="statistic-title">
-                        <FormattedMessage id="statistic.possession" defaultMessage="Possession" /> 1:A %
-                    </div>
-                    <div className="statistic-value">
-                        {showPossession(possessions.visiting_team["1st_half"], start_of_1st_half)}
-                    </div>
-                </div>
-                <div className="statistic-single">
-                    <div className="statistic-value">
-                        {showPossession(possessions.home_team["2nd_half"], start_of_2nd_half)}
-                    </div>
-                    <div className="statistic-title">
-                        <FormattedMessage id="statistic.possession" defaultMessage="Possession" /> 2:A %
-                    </div>
-                    <div className="statistic-value">
-                        {showPossession(possessions.visiting_team["2nd_half"], start_of_2nd_half)}
-                    </div>
-                </div>
-                <div className="statistic-single">
-                    <div className="statistic-value">
-                        {showPossession(possessions.home_team.game, start_of_1st_half)}
-                    </div>
-                    <div className="statistic-title">
-                        <FormattedMessage id="statistic.possession" defaultMessage="Possession" /> %
-                    </div>
-                    <div className="statistic-value">
-                        {showPossession(possessions.visiting_team.game, start_of_1st_half)}
-                    </div>
-                </div> */}
-                {distances && (
-                    <div style={{display: "flex", gap: "10px"}}>
-                        <div className="statistic-value">{distances.home_team?.game?.toLocaleString()}</div>
-                        <div className="statistic-title">
-                            Distance
-                        </div>
-                        <div className="statistic-value">{distances.visiting_team?.game?.toLocaleString()}</div>
-                    </div>
-                )}
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{total_shots.home_team}</div>
-                    <div className="statistic-title">
-                        Shot
-                    </div>
-                    <div className="statistic-value">{total_shots.visiting_team}</div>
-                </div>
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{shots_on_target.home_team}</div>
-                    <div className="statistic-title">
-                        Shot on target
-                    </div>
-                    <div className="statistic-value">{shots_on_target.visiting_team}</div>
-                </div>
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{corners.home_team}</div>
-                    <div className="statistic-title">
-                        Corner
-                    </div>
-                    <div className="statistic-value">{corners.visiting_team}</div>
-                </div>
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{offsides.home_team}</div>
-                    <div className="statistic-title">
-                        Offside
-                    </div>
-                    <div className="statistic-value">{offsides.visiting_team}</div>
-                </div>
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{yellow_cards.home_team}</div>
-                    <div className="statistic-title">
-                        Yellow card
-                    </div>
-                    <div className="statistic-value">{yellow_cards.visiting_team}</div>
-                </div>
-                <div style={{display: "flex", gap: "10px"}}>
-                    <div className="statistic-value">{red_cards.home_team}</div>
-                    <div className="statistic-title">
-                        Red card
-                    </div>
-                    <div className="statistic-value">{red_cards.visiting_team}</div>
-                </div>
-            </div>
+        <div className="statistic-cont">
+            <Stat title="Goals" homeStat={goals.home_team} awayStat={goals.visiting_team} side={side} />
+            <Stat title="Shots" homeStat={total_shots.home_team} awayStat={total_shots.visiting_team} side={side} />
+            <Stat title="Shots on target" homeStat={shots_on_target.home_team} awayStat={shots_on_target.visiting_team} side={side} />
+            <Stat title="Fouls committed" homeStat={fouls_committed.home_team} awayStat={fouls_committed.visiting_team} side={side} />
+            <Stat title="Yellow cards" homeStat={yellow_cards.home_team} awayStat={yellow_cards.visiting_team} side={side} />
+            <Stat title="Red cards" homeStat={red_cards.home_team} awayStat={red_cards.visiting_team} side={side} />
+            <Stat title="Corners" homeStat={corners.home_team} awayStat={corners.visiting_team} side={side} />
+            <Stat title="Offsides" homeStat={offsides.home_team} awayStat={offsides.visiting_team} side={side} />
         </div>
     )
 }

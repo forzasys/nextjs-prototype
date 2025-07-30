@@ -1,29 +1,28 @@
-import { useLocale } from 'next-intl';
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import NorwayFlag from "@/public/img/norway-flag.png";
-import EnglishFlag from "@/public/img/united-kingdom-flag.png";
+import { usePathname, useRouter } from 'next/navigation';
+import norwegianFlag from "@/public/img/norwegian-flag.png";
+import swedishFlag from "@/public/img/swedish-flag.png";
+import ukFlag from "@/public/img/uk-flag.png";
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function LocaleSwitcher() {
 
     const router = useRouter();
-    const params = useParams();
     const pathname = usePathname();
+    const t = useTranslations();
     
     const handleLanguageChange = (locale: string) => {
-        console.log("locale", locale)
-        // Create the new pathname with the new locale
         const segments = pathname.split('/');
-        segments[1] = locale; // Replace the locale segment
+        segments[1] = locale;
         const newPathname = segments.join('/');
-        
         router.replace(newPathname);
     }
     return (
         <div className="header-top-languages">
-            <div className="language-selection-title">Language</div>
-            <Image src={NorwayFlag} onClick={() => handleLanguageChange("no")} alt="Norway flag" className="language-selection-flag"/>
-            <Image src={EnglishFlag} onClick={() => handleLanguageChange("en")} alt="English flag" className="language-selection-flag"/>
+            <div className="language-selection-title">{t("language")}</div>
+            <Image src={norwegianFlag} onClick={() => handleLanguageChange("no")} alt="Norway flag" className="language-selection-flag"/>
+            <Image src={swedishFlag} onClick={() => handleLanguageChange("sv")} alt="Swedish flag" className="language-selection-flag"/>
+            <Image src={ukFlag} onClick={() => handleLanguageChange("en")} alt="English flag" className="language-selection-flag"/>
         </div>
     );
 }

@@ -19,6 +19,7 @@
 }
 
 .page-header {
+    box-sizing: border-box;
     width: 100%;
     height: fit-content;
     background-color: var(--primary-color);
@@ -31,7 +32,8 @@
     max-width: 1280px;
     margin: 0 auto;
     letter-spacing: 2px;
-    padding: 50px 0;
+    padding-top: 75px;
+    padding-bottom: 35px;
     color: var(--primary-text-color);
     z-index: 10;
 }
@@ -39,6 +41,7 @@
 .page-header-main-title {
     font-size: 42px;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 .page-header-subtitle {
@@ -48,17 +51,17 @@
 }
 
 .section-title {
-    height: 32px;
+    height: 30px;
     width: 100%;
     display: flex;
     align-items: center;
     padding: 0 10px;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.5px;
     box-sizing: border-box;
     color: var(--primary-text-color);
     text-transform: uppercase;
-    background-color: var(--section-title-color);
+    background-color: var(--primary-color);
 }

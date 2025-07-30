@@ -41,7 +41,7 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
     let filterValue = options.find((option: OptionType) => option.id.toString() === value?.toString())?.value
 
     if (!value) {
-        if (hasAll) filterValue = t("all")
+        if (hasAll) filterValue = t("all") + " " + t(title)
         else if (defaultValue) filterValue = defaultValue
     }
 
@@ -55,7 +55,6 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
             ref={ref}
             className={classNames("filter-dropdown", {"narrow": title === "season"})}
             >
-            <div className="filter-title">{t(title)}</div>
             <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">
                     <div className="filter-dropdown-value">{filterValue}</div>
@@ -127,7 +126,7 @@ export function PlayerFilterDropdown({
         return () => document.removeEventListener("click", close)
     }, [isOpen])
     
-    let filterValue: React.ReactNode = hasAll ? t("all") : undefined
+    let filterValue: React.ReactNode = hasAll ? t("all") + " " + t(title) : undefined
 
     if (disabled) {
         filterValue = disabled
@@ -159,7 +158,6 @@ export function PlayerFilterDropdown({
     }                                
     return (
         <div ref={ref} className={classNames("filter-dropdown wide", {"disabled": disabled})}>
-            <div className="filter-title">{t(title)}</div>
             <div onClick={onOpenList} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">
                     <div className="filter-dropdown-value">{filterValue}</div>

@@ -1,0 +1,107 @@
+.latest-highlights-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.latest-highlights-single {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 375px;
+    width: 50%;
+    /* background-color: var(--background-color); */
+    background: linear-gradient(
+    to right,
+    black 20%,
+    var(--secondary-color) 75%,
+    var(--primary-color) 100%
+  );
+  font-family: 'Exo', sans-serif;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.latest-highlights-single-img-cont {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.latest-highlights-single-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.latest-highlights-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.latest-highlights-content {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: var(--primary-text-color);
+}
+
+.latest-highlights-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.latest-highlights-team {
+    position: relative;
+    height: 75px;
+    width: 75px;
+}
+
+.latest-highlights-score {
+    display: flex;
+    gap: 2px;
+}
+
+.latest-highlights-date {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: var(--primary-text-color);
+}
+
+.latest-highlights-date-day {
+    font-size: 13px;
+}
+
+.latest-highlights-date-time {
+    font-size: 22px;
+}
+
+.latest-highlights-venue {
+    font-size: 12px;
+    color: var(--primary-text-color);
+}
+
+.latest-highlights-away-bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    box-shadow: -2px 0 10px 2px rgba(0, 0, 0, 0.5);
+    transform: rotate(20deg) translateX(3%);
+}

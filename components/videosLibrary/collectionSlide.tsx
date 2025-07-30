@@ -1,9 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
 import { PlaylistType } from '@/types/dataTypes';
-import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
 import { useRouter } from 'next/navigation';
@@ -88,8 +85,8 @@ export function CollectionSlide({playlists, collectionName, visibleCollections}:
       data-aos-delay={collectionIndex && collectionIndex <= 1 ? collectionIndex * 100 : 0}
     >
       <div className="collection-single middle-container">
-        <div className="collection-title-container">
-          <div className="collection-title">{t(collectionTitle)}</div>
+        <div className="collection-title-cont">
+          <div className="section-title">{t(collectionTitle)}</div>
           <button onClick={onClickMore} className="collection-title-more">
             {t("more")}
             <MdOutlineArrowForwardIos/>

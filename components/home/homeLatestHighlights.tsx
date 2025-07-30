@@ -3,12 +3,15 @@ import Image from 'next/image'
 import { GameType } from '@/types/dataTypes'
 import { format } from 'date-fns'
 import { getTeamBaseColor } from '@/utilities/utils'
+import { getTranslations } from 'next-intl/server'
 
 interface HomeLatestHighlightsProps {
     games: GameType[]
 }
 
-function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
+async function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
+
+    const t = await getTranslations();
 
     const latestGames = games
         .filter((game) => new Date(game.date) < new Date())
@@ -51,6 +54,7 @@ function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
 
   return (
     <div className="middle-container">
+        <div className="section-title">{t("latest results")}</div>
         <div className="latest-highlights-list">
             {latestHighlightsList}
         </div>

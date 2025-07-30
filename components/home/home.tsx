@@ -9,11 +9,12 @@ import { onFetch } from "@/utilities/fetchApi";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import config from "@/config";
 import { GameType, QueryType } from "@/types/dataTypes";
+import "./home.css";
 
 async function Home() {
 
-  const today = new Date();
-  const formattedToday = today.toISOString().split('T')[0];
+  // const today = new Date();
+  // const formattedToday = today.toISOString().split('T')[0];
   const currentSeason = config.availableSeasons[0]
 
   const query = {
@@ -53,22 +54,18 @@ async function Home() {
     <div className="">
       <Headlines game={nextThreeGames[0]}/>
       <br />
+      <br />
       {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
       <HomeLatestVideos latestGoals={latestGoals} />
       <br />
       {/* <HomeLatestHighlights games={games}/> */}
-      <br />
-      <br />
       <br />
       <HomePageHighlights games={games} />
       <br />
       <br />
       <br />
       <br />
-      <br />
-      <br />
       <HomePageMatches games={nextThreeGames} />
-      <br />
       <br />
       <br />
       {hasStatisticsPage && <HomeTopScorer topScorers={topScorers}/>}

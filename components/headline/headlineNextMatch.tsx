@@ -8,6 +8,9 @@ import { getStadiumImage } from "@/utilities/imageUtil"
 import { teamStadiumName } from "@/utilities/utils"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import './headlineNextMatch.css'
 
 interface HeadlineNextMatchProps {  
     show: boolean
@@ -23,6 +26,11 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     
     useEffect(() => {
         setIsMounted(true)
+        AOS.init({
+            offset: 50,
+            once: true,
+            easing: 'ease-in-out',
+        });
     }, [])
 
     if (!isMounted || !show) return null
@@ -35,6 +43,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
     const nextMatchStadium = getStadiumImage[home_team.id]
+    // console.log("nextMatchStadium", nextMatchStadium)
     const stadiumName = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
 
     const nextMatchCountdown = (

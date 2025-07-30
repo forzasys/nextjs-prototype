@@ -37,7 +37,7 @@ function Match ({game, index}: {game: GameType, index: number}) {
   const score = (
     <div className='single-match-score'>
       <div className='single-match-score-box'>{game.home_team_goals}</div>
-      <div className='single-match-score-separator'>-</div>
+      <div className='single-match-score-separator'></div>
       <div className='single-match-score-box'>{game.visiting_team_goals}</div>
     </div>
   )
@@ -138,8 +138,6 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
   
   return (
     <div className="middle-container">
-      <br />
-      <br />
       <br />
       <br />
       {render}

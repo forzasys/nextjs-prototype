@@ -5,7 +5,12 @@ import { PlayerType } from '@/types/dataTypes';
 import config from '@/config';
 import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
-import './filters.css';
+import { TbCards, TbCardsFilled } from "react-icons/tb";
+import { FaHands } from "react-icons/fa6";
+import { GiWhistle, GiRunningShoe } from "react-icons/gi";
+import { PiSoccerBallLight } from "react-icons/pi";
+import "./filters.css";
+import './eventFilters.css';
 
 interface EventFilterProps {
   tags: string[];
@@ -21,6 +26,15 @@ interface SingleEventProps {
   playerSelected: boolean;
   eventParam: string | null;
   isGoalkeeper: boolean;
+}
+
+const eventIcons = {
+  "assist": <GiRunningShoe />,
+  "goal": <PiSoccerBallLight />,
+  "penalty": <GiWhistle />,
+  "red card": <TbCardsFilled />,
+  "save": <FaHands />,
+  "yellow card": <TbCards />,
 }
 
 function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: SingleEventProps) {
@@ -51,8 +65,13 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
   }
 
   return (
-    <div className={classNames("single-option", {"selected": eventParam === event})} onClick={onSelectEvent}>
-      <div>{t(event)}</div>
+    <div className={classNames("event-filter-item", {"selected": eventParam === event})} onClick={onSelectEvent}>
+      <div className="event-filter-item-title">
+        {t(event)}
+      </div>
+      <div className="event-filter-item-icon">
+        {eventIcons[event as keyof typeof eventIcons]}
+      </div>
       {/* {condition && <div>{condition}</div>} */}
     </div>
   )
@@ -98,12 +117,12 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   }
 
   const eventsOptions = (
-    <div className="inline-filter-options">
+    <div className="events-filter-options">
       <div 
         onClick={onSelectAllTag} 
-        className={classNames("single-option", {"selected": !eventParam})}
+        className={classNames("event-filter-item", {"selected": !eventParam})}
         >
-          {t("all")}
+          <div className="event-filter-item-title">{t("all")}</div>
         </div>
       {availableTags.map((t) => {
         return (
@@ -119,7 +138,11 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
     </div>
   )
 
-  return eventsOptions
+  return (
+    <div className="events-filter middle-container">
+      {eventsOptions}
+    </div>
+  )
 }
 
 export default EventFilter

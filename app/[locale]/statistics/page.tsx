@@ -1,18 +1,21 @@
 import StatisticsTypeFilter from '@/components/Filters/statisticsTypeFilter';
 import { normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
+import { onFetch } from '@/utilities/fetchApi';
 import config from '@/config';
 import Table from './table'
 import TopScorers from './topScorers'
 import Cards from './cards'
+import SeasonFilter from '@/components/Filters/seasonFilter';
+import TeamFilter from '@/components/Filters/teamFilter';
 import "./statistics.css"
-import { onFetch } from '@/utilities/fetchApi';
+import "@/components/Filters/filters.css"
 
 async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
-
+  const isTeamPlatform = !!config.team
   const statisticTypeParam = params.get("statistic_type");
   const seasonParam = params.get("season");
 
@@ -44,6 +47,13 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
     statisticsContent = <Cards seasonParam={seasonParam}/>  
   }
 
+  const statisticsFilters = (
+    <div className="filters-inline middle-container">
+      <SeasonFilter games/>
+      {!isTeamPlatform && <TeamFilter teams={teams} />}
+    </div>
+  )
+
   return (
     <div className="statistics-main main-page">
       <div className="page-header">
@@ -55,8 +65,9 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>
         </div>
-        <StatisticsTypeFilter/>
       </div>
+      <StatisticsTypeFilter/>
+      {statisticsFilters}
       <div className="statistics-content middle-container">
         {statisticsContent}
       </div>

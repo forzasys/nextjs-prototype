@@ -3,7 +3,9 @@ import { onFetch } from "@/utilities/fetchApi";
 import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
-import MatchesFilters from './matchesFilters';
+import SeasonFilter from '@/components/Filters/seasonFilter';
+import TeamFilter from '@/components/Filters/teamFilter';
+import MatchesTypeFilter from '@/components/Filters/matchesTypeFilter';
 import config from '@/config';
 import { getTranslations } from 'next-intl/server';
 
@@ -26,6 +28,13 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   
   const teams = teamsData?.teams || [];
 
+  const matchesFilters = (
+    <div className="filters-inline middle-container">
+      <SeasonFilter games/>
+      {!isTeamPlatform && <TeamFilter teams={teams} />}
+    </div>
+  )
+
   return (
     <div className="matches-main main-page">
       <div className="page-header">
@@ -37,8 +46,9 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>
         </div>
-        <MatchesFilters teams={teams} isTeamPlatform={isTeamPlatform} />
       </div>
+      <MatchesTypeFilter/>
+      {matchesFilters}
       <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
     </div>
   )

@@ -49,9 +49,9 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                     <div style={headlineTimeBar} className="headline-timing-bar"/>
                 </div>
                 <div className="headline-item-text">
-                    <div>{t("next match")}</div>
-                    <div>Vålerenga IF - FK Haugesund</div>
-                    <div>20.07.2025 14:30</div>
+                    <div className="headline-item-title">{t("next match")}</div>
+                    <div className="headline-item-subtitle">Vålerenga IF - FK Haugesund</div>
+                    <div className="headline-item-subtitle">20.07.2025 14:30</div>
                 </div>
             </div>
             <div onClick={() => onSelectHeadline(1)} className={classNames("headline-item", {active: index === 1})}>
@@ -59,9 +59,9 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                     <div style={headlineTimeBar} className="headline-timing-bar"/>
                 </div>
                 <div className="headline-item-text">
-                    <div>{t("latest news")}</div>
-                    <div>Find out the latest news from the club</div>
-                    <div>Visit www.vif-fotball.no</div>
+                    <div className="headline-item-title">{t("latest news")}</div>
+                    <div className="headline-item-subtitle">Find out the latest news from the club</div>
+                    <div className="headline-item-subtitle">Visit www.vif-fotball.no</div>
                 </div>
             </div>
         </div>

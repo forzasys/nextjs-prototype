@@ -29,34 +29,6 @@
     flex: 1;
 }
 
-.headline-single {
-    position: relative;
-    min-width: 100%;
-    height: 100%;
-    transition: transform 0.2s linear;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.headline-single-img {
-    height: auto;
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-}
-
-.headline-single-img.blur-in {
-    filter: blur(10px);
-    transition: filter 1s ease-out;
-}
-
-.aos-animate.blur-in {
-    filter: blur(0);
-  }
-
 .headline-items {
     position: absolute;
     bottom: 12px;
@@ -95,6 +67,10 @@
     visibility: hidden;
 }
 
+.active .headline-timing-bar {
+    visibility: visible;
+}
+
 .headline-item-text {
     display: flex;
     flex-direction: column;
@@ -104,11 +80,6 @@
     font-weight: 600;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
-
-.active .headline-timing-bar {
-    visibility: visible;
-}
-
 
 .headline-bg-img {
     width: 100%;
@@ -124,55 +95,6 @@
     background-color: black;
 }
 
-.headline-img-mask-right {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20%;
-    height: 100%;
-    background-color: black;
-    background: linear-gradient(to right, black 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
-    z-index: 1;
-}
-
-.headline-img-mask-left {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20%;
-    height: 100%;
-    background-color: black;
-    background: linear-gradient(to left, black 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.1) 70%, transparent 100%);
-    z-index: 1;
-}
-
-.headline-content {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    z-index: 3;
-}
-
-.headline-text {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    max-width: 395px;
-    margin: auto;
-    height: fit-content;
-    font-size: 37px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
-    font-family: 'Exo', sans-serif;
-}
-
 .headline-text-link {
     display: flex;
     align-items: center;
@@ -184,133 +106,11 @@
     text-decoration: none;
 }
 
-.headline-next-match {
-    padding: 12px;
-    padding-top: 30px;
-    width: 350px;
-    background-color: var(--box-color);
-    color: black;
-    font-family: 'Exo', sans-serif;
-    position: relative;
-    z-index: 11;
-}
-
-.headline-next-home {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.headline-next-away {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.headline-next-match-date {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--secondary-color);
-}
-
-.headline-next-match-league {
-    text-align: center;
-    font-size: 14px;
-    color: grey;
+.headline-item-title {
     text-transform: capitalize;
 }
 
-.headline-next-match-teams {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 0 15px;
-    margin-bottom: 20px;
-}
-
-.headline-next-match-team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    height: 100px;
-    margin-bottom: 10px;
-    /* border: 1px solid red; */
-}
-
-.headline-match-team {
-    margin-top: -2px;
-    text-transform: uppercase;
-}
-
-.headline-next-match-countdown {
-    width: 100%;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-    border-top: 1px solid lightgrey;
-    color: var(--accent-color);
-}
-
-.match-countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-}
-
-.match-countdown-number {
-    font-size: 36px;
-}
-
-.match-countdown-label {
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.match-countdown-separator {
-    margin-top: 7px;
-    font-size: 20px;
-}
-
-.headline-next-match-time {
-    padding: 12px;
-    background-color: rgb(235, 235, 235);
-    border-radius: 2px;
-    font-weight: 500;
-}
-
-.headline-match-center {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: var(--button-color);
-    color: var(--primary-text-color);
-    padding: 12px 0;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s linear;
-    display: block;
-}
-
 /* HOVER */
-.headline-match-center:hover {
-    background-color: var(--button-hover-color);
-}
 .headline-item:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }

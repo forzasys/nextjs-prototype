@@ -5,7 +5,7 @@ import { teamStadiumName } from '@/utilities/utils';
 import { format, parseISO } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 // import { getLeagueLogo } from '@/utilities/imageUtil';
-import "./home.css"
+import "./homePageMatches.css"
 
 interface HomePageMatchesProps {
     games: GameType[]

@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       "g.acdn.no",
       "www.brynefk.no",
       "www.glimt.no",
+      "www.vif-fotball.no",
     ],
   },
 };

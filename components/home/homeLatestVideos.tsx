@@ -1,25 +1,22 @@
 import { videoCollectionQueries } from "@/utilities/queryUtils";
-import Image from "next/image";
 import { PlaylistType } from "@/types/dataTypes";
-import Link from "next/link";
-import { formatReadableDate, saveQueryToSession } from "@/utilities/utils";
 import Playlist from '@/components/playlist/playlist';
 import classNames from "classnames";
-import { useLocale, useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import "./home.css"
 
 interface HomeLatestVideosProps {
     latestGoals: PlaylistType[]
 }
 
-function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
+async function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
-    const t = useTranslations();
+    const t = await getTranslations();
     const query = videoCollectionQueries({collectionName: "goal"})
 
     const latestGoalsList = (
         <div className="latest-videos-list">
-            {latestGoals.map((video: PlaylistType, index: number) => {
+            {latestGoals.map((video: PlaylistType) => {
                 return (
                     <div key={video.id} className={classNames("latest-video-link", {
                         // "first": index === 0,
@@ -51,11 +48,9 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     )
 
     return (
-        <div className="">
-           <div className="latest-videos-container middle-container">
-                <div className="section-title">{t("latest videos")}</div>  
-                {latestGoalsList}
-           </div>
+        <div className="latest-videos-container middle-container">
+            <div className="section-title">{t("latest videos")}</div>  
+            {latestGoalsList}
         </div>
     )
 }
