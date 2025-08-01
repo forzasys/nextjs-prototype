@@ -2,6 +2,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import Main from './main';
+import { fonts } from '@/lib/fonts';
 import "./globals.css";
 
 // Import theme overrides 
@@ -11,7 +12,7 @@ import "@/styles/brann.css";
 import "@/styles/vif.css";
 import "@/styles/shl.css";
 import ReactQueryProvider from '@/lib/reactQueryProvider';
- 
+
 export default async function LocaleLayout({
   children,
   params
@@ -28,7 +29,7 @@ export default async function LocaleLayout({
   const theme = process.env.NEXT_PUBLIC_TARGET || 'default';
  
   return (
-    <html data-theme={theme} lang={locale}>
+    <html data-theme={theme} lang={locale} className={fonts}>
       <body>
         <ReactQueryProvider>
           <NextIntlClientProvider>

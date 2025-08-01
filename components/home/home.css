@@ -1,3 +1,4 @@
+
 .latest-videos-subtitle {
     font-size: 20px;
     color: black;
@@ -91,67 +92,4 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-.home-page-matches-cont {
-    position: relative;
-    padding-bottom: 35px;
-    /* background-color: var(--secondary-color); */
-}
-
-.home-page-matches-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 275px;
-    background-color: var(--secondary-color);
-    /* background: linear-gradient(to right, black, #00007d, #00007d, #022ca1); */
-    z-index: 0;
-}
-
-.home-page-matches {
-    position: relative;
-    z-index: 1;
-    border: 1px solid transparent;
-}
-
-.latest-single {
-    width: 100%;
-}
-
-.latest-single-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 7px;
-    border: 1px solid lightgray;
-}
-
-.latest-single-bg {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;  
-    height: 175%;
-    min-width: 120%;
-    box-sizing: border-box;
-    overflow: hidden;
-    
-}
-
-.latest-single-team {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;        /* vertical centering */
-    justify-content: center;    /* horizontal centering */
-    gap: 32px;
 }

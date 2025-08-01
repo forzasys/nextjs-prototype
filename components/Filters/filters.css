@@ -16,7 +16,7 @@
 .filter-dropdown-box {
     display: flex;
     align-items: center;
-    height: 40px;
+    height: 36px;
     width: 100%;
     max-width: 100%;
     border-bottom: 1px solid var(--secondary-text-color);
@@ -33,8 +33,8 @@
     justify-content: space-between;
     gap: 7px;
     width: 100%;
-    padding: 0 1px;
-    font-size: 14px;
+    padding: 0 3px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--secondary-text-color);
 }
@@ -45,12 +45,13 @@
 
 .filter-dropdown-options {
     position: absolute;
-    top: 43px;
+    top: 38px;
     left: 0;
-    width: calc(100% - 30px);
-    padding: 2px 15px;
+    box-sizing: border-box; 
+    width: 100%;
+    padding: 2px 12px;
     background-color: var(--secondary-color);
-    z-index: 10;
+    z-index: 5;
     display: none;
     max-height: 550px;
     overflow-x: hidden;
@@ -81,10 +82,11 @@
 .filter-dropdown-option {
     display: flex;
     align-items: center;
-    height: 47px;
+    height: 40px;
     width: 100%;
+    padding: 0 3px;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: rgb(245, 245, 245);
     cursor: pointer;
@@ -140,7 +142,14 @@
     align-items: center;
     justify-content: flex-end;
     gap: 25px;
-    margin-bottom: 20px;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-right: 45px;
+}
+
+.filters-inline.start {
+    justify-content: flex-start;
 }
 
 .single-option {
@@ -245,7 +254,7 @@
 }
 
 .filter-dropdown-option:hover .filter-dropdown-option-value {
-    transform: translateX(10px);
+    transform: translateX(5px);
 }
 
 .page-tab:hover {

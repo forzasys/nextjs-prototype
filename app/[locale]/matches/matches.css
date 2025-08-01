@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    height: 300px;
+    height: 270px;
     width: 100%;
     padding: 20px;
     background-color: var(--box-color);
@@ -103,10 +103,10 @@
     max-width: 960px;
     text-transform: uppercase;
     text-align: center;
-    padding-top: 15px;
+    padding-top: 12px;
     border-top: 1px solid rgb(225, 225, 225);
-    color: var(--button-color);
-    font-size: 17px;
+    color: var(--secondary-text-color);
+    font-size: 14px;
     letter-spacing: 0.5px;
 }
 
@@ -123,4 +123,12 @@
 
 .single-match-stadium {
     color: grey;
+}
+
+.match-single-month {
+    margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--secondary-color);
 }

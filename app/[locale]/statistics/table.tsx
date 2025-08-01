@@ -50,7 +50,7 @@ function Table({table, teams, seasonParam}: TableProps) {
                     <div key={t.id} className="table-item">
                         <div className="table-position">{t.rank}</div>
                         <div className="table-statistic team item">
-                            <Image src={getTeamLogo(t.id)} alt={t.name} width={50} height={50} />
+                            <Image src={getTeamLogo(t.id)} alt={t.name} width={45} height={45} />
                             {t.name}
                         </div>
                         <div className="table-statistic">{t.games_played}</div>  
@@ -60,7 +60,7 @@ function Table({table, teams, seasonParam}: TableProps) {
                         <div className="table-statistic">{t.goals}</div>
                         <div className="table-statistic">{t.goals_conceded}</div>
                         <div className="table-statistic">{t.goal_difference}</div>
-                        <div className="table-statistic">{t.points}</div>
+                        <div className="table-statistic points">{t.points}</div>
                     </div>
                 )
             })}
@@ -70,7 +70,7 @@ function Table({table, teams, seasonParam}: TableProps) {
     return (
         <div className="league-table">
             <div className="league-table-logo">
-                <Image src={leagueLogo} alt="League logo" width={120} height={60} />
+                <Image src={leagueLogo} alt="League logo" width={100} height={50} />
             </div>
             {tableList}
         </div>

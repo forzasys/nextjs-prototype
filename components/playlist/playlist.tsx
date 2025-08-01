@@ -70,26 +70,28 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
             </div>
           </div>
         </div>
+        <div className="playlist-content">
         <div className="playlist-event-type">{t("event")}</div>
-        <div className="playlist-description">{playlist.description}</div>
-        <div className="playlist-line"></div>
-        <div className="playlist-info">
-          <div className="playlist-date">{formatReadableDate(playlist.date)}</div>
-          {game && (
-            <div 
-              className="playlist-info-match" 
-              onClick={onGameClick}
-              onMouseEnter={() => setIsGameHovered(true)}
-              onMouseLeave={() => setIsGameHovered(false)}
-            >
-              <Image src={game.home_team.logo_url} alt="home team logo" width={30} height={30} />
-              <div className="playlist-info-match-score">
-                {game.home_team_goals} - {game.visiting_team_goals}
-              </div>
-              <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={30} height={30} />
-            </div>
-          )}
-        </div>
+<div className="playlist-description">{playlist.description}</div>
+<div className="playlist-line"></div>
+<div className="playlist-info">
+  <div className="playlist-date">{formatReadableDate(playlist.date)}</div>
+  {game && (
+    <div 
+      className="playlist-info-match" 
+      onClick={onGameClick}
+      onMouseEnter={() => setIsGameHovered(true)}
+      onMouseLeave={() => setIsGameHovered(false)}
+    >
+      <Image src={game.home_team.logo_url} alt="home team logo" width={27} height={27} />
+      <div className="playlist-info-match-score">
+        {game.home_team_goals} - {game.visiting_team_goals}
+      </div>
+      <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={27} height={27} />
+    </div>
+  )}
+</div>
+        </div>                    
       </div>
     </div>
   )

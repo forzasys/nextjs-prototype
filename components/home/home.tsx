@@ -2,7 +2,7 @@ import Headlines from "../headline/headlines";
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
 import HomeLatestVideos from "./homeLatestVideos";
-// import HomeLatestHighlights from "./homeLatestHighlights";
+import HomeLatestHighlights from "./homeLatestHighlights";
 import HomePageHighlights from "./homePageHighlights";
 // import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";
@@ -51,20 +51,14 @@ async function Home() {
   const hasStatisticsPage = config.hasStatisticsPage
 
   return (
-    <div className="">
+    <div className="home-container">
       <Headlines game={nextThreeGames[0]}/>
       <br />
       <br />
       {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
       <HomeLatestVideos latestGoals={latestGoals} />
-      <br />
       {/* <HomeLatestHighlights games={games}/> */}
-      <br />
       <HomePageHighlights games={games} />
-      <br />
-      <br />
-      <br />
-      <br />
       <HomePageMatches games={nextThreeGames} />
       <br />
       <br />

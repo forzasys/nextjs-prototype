@@ -4,6 +4,8 @@
 }
 
 .league-table {
+    position: relative;
+    margin-top: 45px;
     margin-bottom: 45px;
 }
 
@@ -17,16 +19,18 @@
 .table-header {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 40px;
     background-color: rgb(245, 245, 245);
     border-bottom: 1px solid #e0e0e0;
+    font-size: 13px;
 }
 
 .table-item {
     display: flex;
     align-items: center;
-    height: 80px;
+    height: 68px;
     border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
     /* background-image: repeating-linear-gradient(
         to right,
         #a0a0a0 0,
@@ -72,12 +76,20 @@
 
 .table-statistic.team.item {
     gap: 25px;
-    font-size: 15px;
+    font-weight: 600;
 }   
 
 .league-table-logo {
+    position: absolute;
+    top: -100px;
+    left: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 25px 0;
-    margin-left: 10px;
+    margin-left: 5px;
+}
+
+.table-statistic.points {
+    font-weight: 600;
 }

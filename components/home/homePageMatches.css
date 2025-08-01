@@ -1,17 +1,44 @@
+.home-page-matches-cont {
+    /* background-color: var(--box-color); */
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+.home-page-matches-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary-text-color);
+    /* background-color: rgb(33, 99, 222); */
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .home-match-single {
     width: calc(25% - 15px);
     box-sizing: border-box;
-    padding: 12px;
+    padding: 20px;
     padding-top: 25px;
     background-color: var(--box-color);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s linear;
-    font-family: 'Exo', sans-serif;
+}
+
+.home-match-single-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.home-match-single-league {
+    position: relative;
+    width: 48px;
+    height: 24px;
 }
 
 .home-match-date {
     font-size: 14px;
-    text-align: center;
     text-transform: uppercase;
     margin-top: 2px;
     font-size: 12px;
@@ -22,45 +49,74 @@
 
 .home-match-league {
     font-size: 14px;
-    text-align: center;
     color: grey;
     text-transform: capitalize;
 }
 
 .home-match-teams {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    gap: 5px;
-    margin: 20px 0;
+    gap: 32px;
+    margin: 32px 0;
 }
 
 .home-match-team {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.home-match-team-names {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    height: 135px;
-    width: 50%;
+    gap: 5px;
+    width: 100%;
 }
 
 .home-match-team-name {
     text-align: center;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 22px;
+    padding: 0 5px;
     text-transform: uppercase;
 }
 
+.home-match-team-separator {
+    margin: 0 auto;
+    width: 50px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
 .home-match-time {
-    margin-top: -60px;
-    padding: 8px;
-    background-color: rgb(240, 240, 240);
-    border-radius: 2px;
+    font-size: 24px;
+    color: var(--secondary-color);
+}
+
+.home-match-label {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+}
+
+.home-match-label.away {
+    font-weight: 600;
+    background-color: transparent;
+    color: var(--secondary-text-color);
+    border: 1px solid var(--secondary-text-color);
 }
 
 .home-match-center {
     width: 100%;
+    margin-top: 32px;
     margin-left: 0;
     margin-right: 0;
     background-color: var(--button-color);

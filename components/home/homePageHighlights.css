@@ -1,107 +1,124 @@
-.latest-highlights-list {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+.home-page-results-cont {
+    padding: 50px 0;
+    background-color: var(--secondary-color);
 }
 
-.latest-highlights-single {
+.home-page-results {
+}
+
+.latest-results-title {
+    color: var(--primary-text-color);
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.latest-results-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}   
+
+.latest-result-single {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 375px;
-    width: 50%;
-    /* background-color: var(--background-color); */
-    background: linear-gradient(
-    to right,
-    black 20%,
-    var(--secondary-color) 75%,
-    var(--primary-color) 100%
-  );
-  font-family: 'Exo', sans-serif;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.latest-highlights-single-img-cont {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.latest-highlights-single-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.latest-highlights-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.latest-highlights-content {
-    height: 100%;
-    width: 100%;
     box-sizing: border-box;
-    padding: 25px;
+    width: 25%;
+    padding: 20px;
+    background-color: var(--box-color);
+    color: var(--secondary-text-color);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.latest-result-header {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    color: var(--primary-text-color);
-}
-
-.latest-highlights-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
-
-.latest-highlights-team {
-    position: relative;
-    height: 75px;
-    width: 75px;
-}
-
-.latest-highlights-score {
-    display: flex;
     gap: 2px;
-}
-
-.latest-highlights-date {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
     font-size: 12px;
     margin-bottom: 5px;
-    color: var(--primary-text-color);
 }
 
-.latest-highlights-date-day {
-    font-size: 13px;
-}
-
-.latest-highlights-date-time {
-    font-size: 22px;
-}
-
-.latest-highlights-venue {
+.latest-result-league {
+    text-align: center;
+    text-transform: uppercase;
     font-size: 12px;
-    color: var(--primary-text-color);
 }
 
-.latest-highlights-away-bg {
+.latest-result-date {
+    text-align: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    /* font-weight: 600; */
+    color: rgb(125, 125, 125);
+}
+
+.latest-result-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 12px 0;
+    /* border: 1px solid red; */
+}
+
+.latest-result-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.latest-result-team-name {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.latest-result-team-logo {
+    position: relative;
+    height: 50px;
+    width: 50px;
+}
+
+.latest-result-score {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 50%;
-    box-shadow: -2px 0 10px 2px rgba(0, 0, 0, 0.5);
-    transform: rotate(20deg) translateX(3%);
+    flex-grow: 1;
+    gap: 3px;
+    font-size: 27px;
+    margin-top: -20px;
+}
+
+.latest-result-score-number {
+}
+
+.latest-result-score-separator {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.latest-result-match-report {
+    width: 100%;
+    margin-top: 32px;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: var(--button-color);
+    color: var(--primary-text-color);
+    padding: 12px 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+    display: block;
 }

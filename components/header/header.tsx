@@ -33,8 +33,7 @@ function TopHeader() {
         {clubWebsite && (
           <a href={clubWebsite} className="club-website-link" target="_blank">{clubWebsite.replace("https://", "")}</a>
         )}
-        <LocaleSwitcher />
-      </div>
+      </div>                
     </div>
   )
 }
@@ -42,7 +41,7 @@ function TopHeader() {
 function Header() {
 
   const locale = useLocale();
-  const t = useTranslations();
+  const t = useTranslations()
 
   const headerLogo = getHeaderLogo[config.target] || getHeaderLogo["default"]
   const hasStatisticsPage = config.hasStatisticsPage
@@ -71,7 +70,8 @@ function Header() {
             )}
           </div>
           <div className="header-right">
-            <HeaderSearch />
+            <LocaleSwitcher />
+            {/* <HeaderSearch /> */}
           </div>
         </div>
       </div>

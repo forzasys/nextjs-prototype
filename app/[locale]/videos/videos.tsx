@@ -34,7 +34,7 @@ function Videos({ params }: {params: URLSearchParams}) {
   const hasEventParam = !!eventParam
 
   return (
-    <div className="videos-collections">
+    <div className="">
       {hasEventParam ? 
         <VideoCollection collectionName={eventParam} /> : 
         <VideoCollectionSlide visibleCollections={visibleCollections} />

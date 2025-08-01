@@ -4,6 +4,7 @@ import { GameType } from '@/types/dataTypes'
 import { format } from 'date-fns'
 import { getTeamBaseColor } from '@/utilities/utils'
 import { getTranslations } from 'next-intl/server'
+import "./homeLatestHighlights.css"
 
 interface HomeLatestHighlightsProps {
     games: GameType[]
@@ -27,7 +28,7 @@ async function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
         const gameDate = format(game.date, 'EEE, dd MMM yyyy');
         return (
             <div key={game.id} className="latest-single">
-                    <div className="latest-single-box">
+                <div className="latest-single-box">
                     <div style={{backgroundColor: homeTeamColor}} className="latest-single-bg">
                         <div style={{backgroundColor: awayTeamColor}} className="latest-highlights-away-bg"></div>
                     </div>                
@@ -53,12 +54,14 @@ async function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
     })
 
   return (
-    <div className="middle-container">
-        <div className="section-title">{t("latest results")}</div>
-        <div className="latest-highlights-list">
-            {latestHighlightsList}
+    <div className="home-latest-highlights-cont">
+        <div className="middle-container">
+            <div className="home-latest-highlights-title">{t("latest results")}</div>
+            <div className="latest-highlights-list">
+                {latestHighlightsList}
+            </div>
         </div>
-    </div>
+    </div>  
   )
 }
 

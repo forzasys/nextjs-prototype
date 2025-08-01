@@ -6,6 +6,7 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useQuery } from '@tanstack/react-query';
 import { onFetch } from '@/utilities/fetchApi';
 import { GameType } from '@/types/dataTypes';
+import config from '@/config';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -16,22 +17,14 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import "./matches.css";
 
-function Match ({game, index}: {game: GameType, index: number}) {
-
-  useEffect(() => {
-    AOS.init({
-      offset: 50,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
+function Match ({game}: {game: GameType}) {
 
   const t = useTranslations();
   const locale = useLocale();
   const matchNotStarted = game.phase === "not started" && new Date(game.date) > new Date()
   const date = format(game.date, 'EEE, dd MMM yyyy');
   const time = format(parseISO(game.start_time), 'HH:mm')
-  const leagueLogo = getLeagueLogo["eliteserien"]
+  const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
   const stadiumName = teamStadiumName[game.home_team.id as keyof typeof teamStadiumName]
 
   const score = (
@@ -55,8 +48,8 @@ function Match ({game, index}: {game: GameType, index: number}) {
       key={game.id} 
       href={`/${locale}/match/${game.id}`} 
       className='single-match' 
-      data-aos="fade-up" 
-      data-aos-delay={index <= 2 ? index * 100 : 0}
+      
+      
       >
       <div className='single-match-date'>
         {date}
@@ -98,6 +91,14 @@ interface MatchesProps {
 
 function Matches({ gamesData, isInitialQuery }: MatchesProps) {
 
+  useEffect(() => {
+    AOS.init({
+      offset: 50,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
+
   const searchParams = useSearchParams();
   const {updateParam} = useUpdateSearchParam();
   const query = generateGamesQueryFromParams(searchParams);
@@ -125,7 +126,21 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
   ) : (
     <div className="matches-list">
       {games.map((game: GameType, index: number) => {
-        return <Match key={game.id} game={game} index={index} />
+        const month = format(game.date, 'MMMM');
+        const prevMonth = index > 0 ? format(games[index - 1].date, 'MMMM') : null;
+        const showMonth = month !== prevMonth;
+        
+        return (
+          <div 
+            key={game.id} 
+            className='match-single-and-month'
+            data-aos="fade-up" 
+            data-aos-delay={index <= 2 ? index * 100 : 0}
+            >
+            {showMonth && <div className='match-single-month'>{month}</div>}
+            <Match game={game} />
+          </div>
+        )
       })}
     </div>
   )

@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    padding: 10px 0;
+    padding-bottom: 25px;
     overflow: hidden;
     font-family: 'Lato', sans-serif;
 }
@@ -15,6 +15,21 @@
     justify-content: space-between;
     height: fit-content;
     box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 7px;
+    padding: 3px 0;
+    padding-left: 10px;
+    padding-right: 3px;
+    color: var(--primary-text-color);
+    background-color: var(--accent-color);
+    font-family: "Titillium Web", sans-serif;
+}
+
+.collection-slide-title {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 /* .top-first .collection-title {
@@ -22,24 +37,21 @@
 } */
 
 .collection-title-more {
-    position: absolute;
-    top: 0;
-    right: 0;
     display: flex;
     align-items: center;
-    height: 30px;
     gap: 2px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
+    color: var(--primary-text-color);
     text-transform: uppercase;
     cursor: pointer;
-    background-color: var(--accent-color);
-    color: var(--primary-text-color);
+    background-color: transparent;
     border: none;
+    font-family: "Titillium Web", sans-serif;
 }
 
 .collection-title-more svg {
-    font-size: 15px;
+    font-size: 14px;
     transition: transform 0.1s linear;
 }
 
@@ -50,14 +62,14 @@
 .collection-slide-playlist-container {
     position: relative;
     display: flex;
-    gap: 25px;
+    gap: 10px;
     width: 100%;
     overflow: hidden;
 }
 
 .collection-slide-playlist-single {
     float: left;
-    min-width: calc(33.33% - 40px);
+    min-width: calc(33.33% - 25px);
 }
 
 .collection-container {
@@ -89,7 +101,7 @@
 .collection-playlist-slider-button {
     position: absolute;
     top: 25%;
-    right: 5px;
+    right: 3px;
     width: 32px;
     height: 45px;
     display: flex;

@@ -34,7 +34,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
 
   const videosFilters = (
-    <div className="filters-inline middle-container">
+    <div className="filters-inline start middle-container">
       <SeasonFilter games/>
       {!teamPlatformId && <TeamFilter teams={teams} />}
       <PlayerFilter playersData={playersData} />
@@ -44,15 +44,13 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   return (
     <div className="videos-main main-page">
       <div className="page-header">
-        <div className="page-header-title">
+        <div className="page-header-title middle-container">
           <div className="page-header-main-title">{t("videos")}</div>
           <div className="page-header-subtitle">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>
         </div>
       </div>
-      <br />
-      <br />
       {videosFilters}
       <br />
       <EventFilter tags={tags} playersData={playersData} />

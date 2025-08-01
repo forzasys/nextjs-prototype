@@ -57,7 +57,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   return (
     <div className="statistics-main main-page">
       <div className="page-header">
-        <div className="page-header-title">
+        <div className="page-header-title middle-container">
           <div className="page-header-main-title">
             Statistics
           </div>

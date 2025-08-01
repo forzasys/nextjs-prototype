@@ -86,7 +86,7 @@ export function CollectionSlide({playlists, collectionName, visibleCollections}:
     >
       <div className="collection-single middle-container">
         <div className="collection-title-cont">
-          <div className="section-title">{t(collectionTitle)}</div>
+          <div className="collection-slide-title">{t(collectionTitle)}</div>
           <button onClick={onClickMore} className="collection-title-more">
             {t("more")}
             <MdOutlineArrowForwardIos/>

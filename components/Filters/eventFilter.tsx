@@ -69,9 +69,9 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
       <div className="event-filter-item-title">
         {t(event)}
       </div>
-      <div className="event-filter-item-icon">
-        {eventIcons[event as keyof typeof eventIcons]}
-      </div>
+      {/* <div className="event-filter-item-icon"> */}
+        {/* {eventIcons[event as keyof typeof eventIcons]} */}
+      {/* </div> */}
       {/* {condition && <div>{condition}</div>} */}
     </div>
   )

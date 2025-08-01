@@ -62,9 +62,6 @@ export function VideoCollectionSlide({visibleCollections}: VideoCollectionProps)
     )
   })
 
-  return (
-    <div>
-      {allCollections}
-    </div>
-  )
+  return allCollections
+  
 }

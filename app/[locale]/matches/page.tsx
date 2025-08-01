@@ -38,7 +38,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   return (
     <div className="matches-main main-page">
       <div className="page-header">
-        <div className="page-header-title">
+        <div className="page-header-title middle-container">
           <div className="page-header-main-title">
             {t("fixtures")} & {t("results")}
           </div>
