@@ -2,6 +2,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import Main from './main';
+import AOSWrapper from '@/components/aosWrapper/aosWrapper';
 import { fonts } from '@/lib/fonts';
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default async function LocaleLayout({
       <body>
         <ReactQueryProvider>
           <NextIntlClientProvider>
+            <AOSWrapper />
             <Main>
               {children}
             </Main>

@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 45px;
+    gap: 32px;
     font-size: 14px;
 }
 
@@ -37,29 +37,12 @@
     cursor: pointer;
 }
 
-.header-top-languages {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-}
-
-.language-selection-title {
-    margin-right: 5px;
-}
-
-.language-selection-flag {
-    height: 17px;
-    width: auto;
-    margin-top: 3px;
-    cursor: pointer;
-}
-
 .club-website-link {
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--secondary-text-color);
 }
 
 .header-main {
@@ -76,8 +59,8 @@
 }
 
 .header-link {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;

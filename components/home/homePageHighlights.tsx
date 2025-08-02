@@ -2,30 +2,33 @@ import React from 'react'
 import { GameType } from '@/types/dataTypes'
 import Image from 'next/image'
 import config from '@/config'
-import { format, parseISO } from 'date-fns';
-import { getTranslations } from 'next-intl/server';
-import { teamStadiumName } from '@/utilities/utils';
+import Link from 'next/link';
+import { format } from 'date-fns';
+import { useLocale, useTranslations } from 'next-intl';
+import { HiOutlineArrowRight } from "react-icons/hi";
 import './homePageHighlights.css'
 
 interface HomePageHighlightsProps { 
     games: GameType[]
 }
 
-async function HomePageHighlights({games}: HomePageHighlightsProps) {
+function HomePageHighlights({games}: HomePageHighlightsProps) {
 
-    const t = await getTranslations();
+    const t = useTranslations();
+    const locale = useLocale();
+    const moreResultsUrl = `/${locale}/${t("matches")}?match_type=results`;
 
     const latestThreeGames = games
         .filter((game) => new Date(game.date) < new Date())
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 4)
 
-    const latestHighlightsList = latestThreeGames.map((game) => {
+    const latestHighlightsList = latestThreeGames.map((game, index) => {
 
         const {home_team, visiting_team} = game
         const gameDate = format(game.date, 'EEE, dd MMM yyyy');
         return (
-            <div key={game.id} className="latest-result-single">
+            <div key={game.id} data-aos="fade-up" data-aos-delay={index * 100} className="latest-result-single">
                 <div className="latest-result-header">
                     {/* <div className="latest-result-venue">{stadiumName}</div> */}
                     <div className="latest-result-league">{config.league}</div>
@@ -50,9 +53,9 @@ async function HomePageHighlights({games}: HomePageHighlightsProps) {
                         <div className='latest-result-team-name'>{visiting_team.name}</div>
                     </div>
                 </div>
-                <div className="latest-result-match-report">
-                    Match Report
-                </div>
+                <Link href={`/${locale}/match/${game.id}`} className="match-center-button">
+                    {t("match report")}
+                </Link>
             </div>
         )
     })
@@ -60,7 +63,13 @@ async function HomePageHighlights({games}: HomePageHighlightsProps) {
     return (
         <div className="home-page-results-cont">
             <div className="home-page-results middle-container">
-                <div className="section-title opposite">{t("latest results")}</div>
+                <div className="section-header opposite">
+                    <div className="section-title">{t("latest results")}</div>
+                    <Link href={moreResultsUrl} className="section-more">
+                        {t("more results")}
+                        <HiOutlineArrowRight />
+                    </Link>
+                </div>
                 <div className="latest-results-list">
                     {latestHighlightsList}
                 </div>

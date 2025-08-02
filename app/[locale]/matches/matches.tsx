@@ -13,8 +13,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { getLeagueLogo } from '@/utilities/imageUtil';
 import { format, parseISO } from 'date-fns';
 import { teamStadiumName } from '@/utilities/utils';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import "./matches.css";
 
 function Match ({game}: {game: GameType}) {
@@ -48,8 +46,6 @@ function Match ({game}: {game: GameType}) {
       key={game.id} 
       href={`/${locale}/match/${game.id}`} 
       className='single-match' 
-      
-      
       >
       <div className='single-match-date'>
         {date}
@@ -91,14 +87,6 @@ interface MatchesProps {
 
 function Matches({ gamesData, isInitialQuery }: MatchesProps) {
 
-  useEffect(() => {
-    AOS.init({
-      offset: 50,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
-
   const searchParams = useSearchParams();
   const {updateParam} = useUpdateSearchParam();
   const query = generateGamesQueryFromParams(searchParams);
@@ -116,7 +104,7 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
     queryFn: () => onFetch("game", query),
     initialData: gamesData,
     enabled: !isInitialQuery,
-    // staleTime: staleTime,
+    staleTime: 3 * 60 * 1000, // 3 minutes
   });
   
   const games = data?.games || [];
@@ -152,9 +140,7 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
   )
   
   return (
-    <div className="middle-container">
-      <br />
-      <br />
+    <div className="matches-container middle-container">
       {render}
       {noFixturesInfo}
     </div>

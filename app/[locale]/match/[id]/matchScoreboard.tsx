@@ -23,7 +23,7 @@ async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
   const filteredEvents = gameEvents.filter((e: EventType) => e.tag.action === "goal")
   const homeFilteredEvents = filteredEvents.filter((e: EventType) => e.tag.team?.id === homeTeam)
   const awayFilteredEvents = filteredEvents.filter((e: EventType) => e.tag.team?.id === awayTeam)
-  console.log(game)
+
   const matchIsLive = game.has_live_playlist
   const matchIsFinished = game.phase === "finished"
   const isUpcomingMatch = game.phase === "not started" && game.start_time > new Date().toISOString()

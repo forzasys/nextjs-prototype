@@ -1,15 +1,39 @@
+"use client";
+import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import norwegianFlag from "@/public/img/norwegian-flag.png";
 import swedishFlag from "@/public/img/swedish-flag.png";
 import ukFlag from "@/public/img/uk-flag.png";
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import Image, { StaticImageData } from 'next/image';
+import { useLocale } from 'next-intl';
+import classNames from 'classnames';
+import { IoMdArrowDropdown } from "react-icons/io";
+import "./localeSwitcher.css";
 
 export default function LocaleSwitcher() {
 
     const router = useRouter();
     const pathname = usePathname();
-    const t = useTranslations();
+    const locale = useLocale();
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const ref = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!isOpen) return
+        const close = (e: MouseEvent) => {
+            if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false)
+        }
+        document.addEventListener("click", close)
+        return () => document.removeEventListener("click", close)
+    }, [isOpen])
+
+    const localeToFlag: Record<string, StaticImageData> = {
+        no: norwegianFlag,
+        sv: swedishFlag,
+        en: ukFlag
+    }
     
     const handleLanguageChange = (locale: string) => {
         const segments = pathname.split('/');
@@ -17,12 +41,50 @@ export default function LocaleSwitcher() {
         const newPathname = segments.join('/');
         router.replace(newPathname);
     }
+
     return (
-        <div className="header-top-languages">
-            <div className="language-selection-title">{t("language")}</div>
-            <Image src={norwegianFlag} onClick={() => handleLanguageChange("no")} alt="Norway flag" className="language-selection-flag"/>
-            <Image src={swedishFlag} onClick={() => handleLanguageChange("sv")} alt="Swedish flag" className="language-selection-flag"/>
-            <Image src={ukFlag} onClick={() => handleLanguageChange("en")} alt="English flag" className="language-selection-flag"/>
+        <div ref={ref} className="locale-switcher">
+            <div className="language-selection">
+                <div onClick={() => setIsOpen(!isOpen)} className="language-selection-header">
+                    <div className="language-selection-item-text">
+                        {locale}
+                    </div>
+                    <div className="language-selection-item-flag">
+                        <Image src={localeToFlag[locale]} alt="Norway flag" fill priority/>
+                    </div>
+                    <div className="language-selection-arrow">
+                        <IoMdArrowDropdown />                    
+                    </div>
+                </div>
+                {isOpen && (
+                     <div className="language-selection-list">
+                         <div onClick={() => handleLanguageChange("no")} className={classNames("language-selection-item", {"selected": locale === "no"})}>
+                             <div className="language-selection-item-text">
+                                 no
+                             </div>
+                             <div className="language-selection-item-flag">
+                                 <Image src={norwegianFlag} alt="Norway flag" fill priority/>
+                             </div>
+                         </div>
+                         <div onClick={() => handleLanguageChange("sv")} className={classNames("language-selection-item", {"selected": locale === "sv"})}>
+                             <div className="language-selection-item-text">
+                                 sv
+                             </div>
+                             <div className="language-selection-item-flag">
+                                 <Image src={swedishFlag} alt="Swedish flag" fill priority/>
+                             </div>
+                         </div>
+                         <div onClick={() => handleLanguageChange("en")} className={classNames("language-selection-item", {"selected": locale === "en"})}>
+                             <div className="language-selection-item-text">
+                                 en
+                             </div>
+                             <div className="language-selection-item-flag">
+                                 <Image src={ukFlag} alt="English flag" fill priority/>
+                             </div>
+                         </div>
+                  </div>
+                )}
+            </div>
         </div>
     );
 }

@@ -5,7 +5,6 @@
     width: 100%;
     padding-bottom: 25px;
     overflow: hidden;
-    font-family: 'Lato', sans-serif;
 }
 
 .collection-title-cont {
@@ -51,7 +50,7 @@
 }
 
 .collection-title-more svg {
-    font-size: 14px;
+    font-size: 15px;
     transition: transform 0.1s linear;
 }
 
@@ -70,6 +69,7 @@
 .collection-slide-playlist-single {
     float: left;
     min-width: calc(33.33% - 25px);
+    max-width: calc(33.33% - 25px);
 }
 
 .collection-container {

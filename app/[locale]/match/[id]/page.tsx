@@ -21,6 +21,7 @@ async function Page({ params, searchParams }: MatchPageProps) {
   // Await params and searchParams before accessing their properties
   const resolvedParams = await Promise.resolve(params);
   const resolvedSearchParams = await Promise.resolve(searchParams);
+  console.log(resolvedSearchParams)
 
   const gameId = resolvedParams.id;
   const gameData = await onFetch("game/" + gameId)

@@ -32,7 +32,6 @@ function HomeTopScorer({topScorers}: HomeTopScorerProps) {
     return (
         <div className='middle-container'>
             <div>TopScorers</div>
-            <br />
             {topScorersList}
         </div>
     )

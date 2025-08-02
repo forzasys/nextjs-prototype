@@ -6,6 +6,7 @@ import HeadlineClubSite from './headlineClubSite'
 import { GameType, PlaylistType } from '@/types/dataTypes'
 import classNames from 'classnames'
 import { useTranslations } from 'next-intl'
+import "./headline.css"
 
 interface HeadlineClientProps {
     game: GameType

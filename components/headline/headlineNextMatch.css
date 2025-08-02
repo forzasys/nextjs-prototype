@@ -54,9 +54,10 @@
 }
 
 .headline-next-match {
-    padding: 12px;
-    padding-top: 30px;
-    width: 350px;
+    box-sizing: border-box;
+    padding: 15px;
+    padding-top: 20px;
+    width: 275px;
     background-color: var(--box-color);
     color: black;
     font-family: 'Exo', sans-serif;
@@ -65,51 +66,46 @@
 }
 
 .headline-next-match-date {
-    text-align: center;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.5px;
     color: var(--secondary-color);
-}
-
-.headline-next-match-league {
-    text-align: center;
-    font-size: 14px;
-    color: grey;
-    text-transform: capitalize;
 }
 
 .headline-next-match-teams {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 0 15px;
-    margin-bottom: 20px;
+    justify-content: center;
+    gap: 45px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.headline-next-match-team-logo {
+    position: relative;
+    width: 75px;
+    height: 75px;
 }
 
 .headline-next-match-team {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    height: 100px;
-    margin-bottom: 10px;
+    gap: 7px;
     /* border: 1px solid red; */
 }
 
-.headline-match-team {
-    margin-top: -2px;
+.headline-next-match-team-name {
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .headline-next-match-countdown {
     width: 100%;
-    padding: 20px 0;
+    padding: 12px 0;
     display: flex;
     justify-content: center;
-    gap: 7px;
+    gap: 5px;
     border-top: 1px solid lightgrey;
     color: var(--accent-color);
 }
@@ -122,41 +118,22 @@
 }
 
 .match-countdown-number {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .match-countdown-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .match-countdown-separator {
     margin-top: 7px;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .headline-next-match-time {
-    padding: 12px;
-    background-color: rgb(235, 235, 235);
-    border-radius: 2px;
-    font-weight: 500;
-}
-
-.headline-match-center {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: var(--button-color);
-    color: var(--primary-text-color);
-    padding: 12px 0;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s linear;
-    display: block;
+    font-size: 20px;
 }
 
 .headline-img-mask-right {
@@ -179,9 +156,4 @@
     background-color: black;
     background: linear-gradient(to left, black 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.1) 70%, transparent 100%);
     z-index: 1;
-}
-
-/* HOVER */
-.headline-match-center:hover {
-    background-color: var(--button-hover-color);
 }

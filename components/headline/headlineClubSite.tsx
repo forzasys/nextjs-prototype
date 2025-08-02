@@ -31,7 +31,6 @@ function HeadlineClubSite({show}: HeadlineClubSiteProps) {
                     <div>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </div>
-                    <br />
                     <Link href="https://www.vif-fotball.no" target="_blank" className="headline-text-link">
                         <div>www.vif-fotball.no</div>
                         <IoArrowForward />

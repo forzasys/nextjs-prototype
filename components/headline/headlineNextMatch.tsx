@@ -1,15 +1,10 @@
-"use client"
 import { GameType } from "@/types/dataTypes"
 import Image from "next/image"
 import { useCountDown } from "@/utilities/ClientSideUtils"
-import { useEffect, useState } from "react"
 import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
-import { teamStadiumName } from "@/utilities/utils"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import './headlineNextMatch.css'
 
 interface HeadlineNextMatchProps {  
@@ -19,32 +14,18 @@ interface HeadlineNextMatchProps {
 
 function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
 
-    const [isMounted, setIsMounted] = useState(false)
     const countdown = useCountDown(game.start_time)
     const t = useTranslations();
     const locale = useLocale();
-    
-    useEffect(() => {
-        setIsMounted(true)
-        AOS.init({
-            offset: 50,
-            once: true,
-            easing: 'ease-in-out',
-        });
-    }, [])
 
-    if (!isMounted || !show) return null
+    if (!show) return null
 
     const {home_team, visiting_team} = game
     const {days, hours, minutes, seconds} = countdown
 
-    // console.log(home_team)
-
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
     const nextMatchStadium = getStadiumImage[home_team.id]
-    // console.log("nextMatchStadium", nextMatchStadium)
-    const stadiumName = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
 
     const nextMatchCountdown = (
         <div className="headline-next-match-countdown">
@@ -73,20 +54,23 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const nextMatch = (
       <div className="headline-next-match">
         <div className="headline-next-match-date">{gameDate}</div>
-        <div className="headline-next-match-league">{stadiumName}</div>
+        <div className="headline-next-match-time">{gameTime}</div>
         <div className="headline-next-match-teams">
             <div className="headline-next-match-team">
-                <Image src={home_team.logo_url} alt="team logo" width={90} height={90}/>
-                <div className="headline-match-team">{home_team.short_name}</div>
+                <div className="headline-next-match-team-logo">
+                    <Image src={home_team.logo_url} alt="team logo" fill priority/>
+                </div>
+                <div className="headline-next-match-team-name">{home_team.short_name}</div>
             </div>
-            <div className="headline-next-match-time">{gameTime}</div>
             <div className="headline-next-match-team">
-                <Image src={visiting_team.logo_url} alt="team logo" width={90} height={90}/>
-                <div className="headline-match-team">{visiting_team.short_name}</div>
+                <div className="headline-next-match-team-logo">
+                    <Image src={visiting_team.logo_url} alt="team logo" fill priority/>
+                </div>
+                <div className="headline-next-match-team-name">{visiting_team.short_name}</div>
             </div>
         </div>
         {nextMatchCountdown}
-        <Link href={`/${locale}/match/${game.id}`} className="headline-match-center">
+        <Link href={`/${locale}/match/${game.id}`} className="match-center-button">
             {t("match center")}
         </Link>
       </div>

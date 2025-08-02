@@ -1,13 +1,9 @@
-'use client';
-import { useEffect } from 'react';
 import { PlaylistType } from '@/types/dataTypes';
 import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
 
@@ -18,14 +14,6 @@ interface VideoCollectionProps {
 }
 
 export function CollectionSlide({playlists, collectionName, visibleCollections}: VideoCollectionProps) {
-
-  useEffect(() => {
-    AOS.init({
-      offset: 50,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
 
   const router = useRouter();
   // const searchParams = useSearchParams();
@@ -74,7 +62,7 @@ export function CollectionSlide({playlists, collectionName, visibleCollections}:
 
   // if (isLoading) render = <div >Loading...</div>
 
-  if (playlists?.length === 0) render = <div>0 videos</div>
+  if (playlists?.length === 0) return null
 
   else render = playlist
 

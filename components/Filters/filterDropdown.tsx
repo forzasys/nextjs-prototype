@@ -37,7 +37,6 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
         return () => document.removeEventListener("click", close)
     }, [isOpen])
 
-
     let filterValue = options.find((option: OptionType) => option.id.toString() === value?.toString())?.value
 
     if (!value) {

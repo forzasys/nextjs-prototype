@@ -17,7 +17,7 @@
     aspect-ratio: 16 / 9;
     margin-bottom: 5px;
     height: auto;
-    max-height: 200px;
+    max-height: 225px;
     overflow: hidden;
 }
 
@@ -75,12 +75,12 @@
 }
 
 .playlist-content {
-    padding: 10px;
+    padding: 10px 15px;
     padding-bottom: 20px;
 }
 
 .playlist-event-type {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-size: 12px;
     color: grey;
     text-transform: uppercase;
@@ -153,11 +153,11 @@
 }
 
 /* HOVER */
-.playlist-single:not(.game-hovered):hover .playlist-duration-hover {
+.playlist-single-link:not(.game-hovered):hover .playlist-duration-hover {
     width: 100%;
 }
 
-.playlist-single:not(.game-hovered):hover .playlist-thumbnail {
+.playlist-single-link:not(.game-hovered):hover .playlist-thumbnail {
     transform: scale(1.1);
 }
 

@@ -1,8 +1,12 @@
+.events-filter {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 .events-filter-options {
     display: flex;
     align-items: center;
     gap: 25px;
-    margin-bottom: 25px;
 }
 
 .event-filter-item {

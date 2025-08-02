@@ -1,10 +1,7 @@
-"use client"
-import React, { useEffect } from 'react'
 import { TableType, TeamType } from '@/types/dataTypes'
 import config from '@/config';
 import Image from 'next/image';
 import { getLeagueLogo } from '@/utilities/imageUtil';
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 import "./statistics.css"
 
@@ -15,14 +12,6 @@ interface TableProps {
 }
 
 function Table({table, teams, seasonParam}: TableProps) {
-
-    useEffect(() => {
-        AOS.init({
-          offset: 100,
-          once: true,
-          easing: 'ease-in-out',
-        });
-    }, []);
 
     const leagueLogo = getLeagueLogo[config.league as string]
 

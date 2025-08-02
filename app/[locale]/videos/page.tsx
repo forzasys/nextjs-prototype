@@ -52,9 +52,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
         </div>
       </div>
       {videosFilters}
-      <br />
       <EventFilter tags={tags} playersData={playersData} />
-      <br />
       <Videos params={params} />
     </div>
   )

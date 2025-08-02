@@ -27,8 +27,6 @@ async function MatchStats({ game } : MatchStatsProps) {
         }
     }
 
-    console.log(statistics)
-
     const {corners, distances, fouls_committed, goals, offsides, possessions, red_cards, shots_on_target, total_shots, yellow_cards} = statistics
     
     return (

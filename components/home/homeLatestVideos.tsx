@@ -1,17 +1,20 @@
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import { PlaylistType } from "@/types/dataTypes";
 import Playlist from '@/components/playlist/playlist';
+import Link from 'next/link';
 import classNames from "classnames";
-import { getTranslations } from "next-intl/server";
+import { HiOutlineArrowRight } from "react-icons/hi";
 import "./home.css"
+import { useLocale, useTranslations } from "next-intl";
 
 interface HomeLatestVideosProps {
     latestGoals: PlaylistType[]
 }
 
-async function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
+function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
-    const t = await getTranslations();
+    const t = useTranslations();
+    const locale = useLocale();
     const query = videoCollectionQueries({collectionName: "goal"})
 
     const latestGoalsList = (
@@ -49,7 +52,13 @@ async function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
     return (
         <div className="latest-videos-container middle-container">
-            <div className="section-title">{t("latest videos")}</div>  
+            <div className="section-header">
+                <div className="section-title">{t("latest videos")}</div>  
+                <Link href={`/${locale}/${t("videos")}`} className="section-more">
+                    {t("more latest videos")}
+                    <HiOutlineArrowRight />
+                </Link>
+            </div>
             {latestGoalsList}
         </div>
     )

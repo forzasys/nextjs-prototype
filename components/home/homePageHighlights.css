@@ -1,14 +1,10 @@
 .home-page-results-cont {
-    padding: 50px 0;
+    padding: 42px 0;
     background-color: var(--secondary-color);
-}
-
-.home-page-results {
 }
 
 .latest-results-title {
     color: var(--primary-text-color);
-    margin-bottom: 25px;
     font-size: 32px;
     font-weight: 600;
     text-transform: uppercase;
@@ -64,7 +60,8 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: 12px 0;
+    margin-top: 20px;
+    margin-bottom: 32px;
     /* border: 1px solid red; */
 }
 
@@ -73,6 +70,7 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    padding: 0 7px;
 }
 
 .latest-result-team-name {
@@ -97,28 +95,7 @@
     margin-top: -20px;
 }
 
-.latest-result-score-number {
-}
-
 .latest-result-score-separator {
     font-size: 20px;
     font-weight: 600;
-}
-
-.latest-result-match-report {
-    width: 100%;
-    margin-top: 32px;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: var(--button-color);
-    color: var(--primary-text-color);
-    padding: 12px 0;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s linear;
-    display: block;
 }

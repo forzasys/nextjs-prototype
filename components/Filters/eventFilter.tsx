@@ -5,10 +5,6 @@ import { PlayerType } from '@/types/dataTypes';
 import config from '@/config';
 import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
-import { TbCards, TbCardsFilled } from "react-icons/tb";
-import { FaHands } from "react-icons/fa6";
-import { GiWhistle, GiRunningShoe } from "react-icons/gi";
-import { PiSoccerBallLight } from "react-icons/pi";
 import "./filters.css";
 import './eventFilters.css';
 
@@ -26,15 +22,6 @@ interface SingleEventProps {
   playerSelected: boolean;
   eventParam: string | null;
   isGoalkeeper: boolean;
-}
-
-const eventIcons = {
-  "assist": <GiRunningShoe />,
-  "goal": <PiSoccerBallLight />,
-  "penalty": <GiWhistle />,
-  "red card": <TbCardsFilled />,
-  "save": <FaHands />,
-  "yellow card": <TbCards />,
 }
 
 function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: SingleEventProps) {
@@ -69,10 +56,6 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
       <div className="event-filter-item-title">
         {t(event)}
       </div>
-      {/* <div className="event-filter-item-icon"> */}
-        {/* {eventIcons[event as keyof typeof eventIcons]} */}
-      {/* </div> */}
-      {/* {condition && <div>{condition}</div>} */}
     </div>
   )
 }

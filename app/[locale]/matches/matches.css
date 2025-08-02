@@ -1,3 +1,7 @@
+.matches-container {
+    padding-bottom: 50px;
+}
+
 .matches-list {
     display: flex;
     flex-direction: column;

@@ -7,7 +7,7 @@ html[data-theme="vif"] * {
   --background-text-color: #000000;
   --primary-text-color: #FFFFFF;
   --secondary-text-color: var(--secondary-color);
-  --header-text-color: #000000;
+  --header-text-color: var(--secondary-color);
   --box-color: #FFFFFF;
   --button-color: var(--primary-color);
   --button-hover-color: var(--accent-color);

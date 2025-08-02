@@ -53,17 +53,12 @@ async function Home() {
   return (
     <div className="home-container">
       <Headlines game={nextThreeGames[0]}/>
-      <br />
-      <br />
       {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
       <HomeLatestVideos latestGoals={latestGoals} />
       {/* <HomeLatestHighlights games={games}/> */}
       <HomePageHighlights games={games} />
       <HomePageMatches games={nextThreeGames} />
-      <br />
-      <br />
       {hasStatisticsPage && <HomeTopScorer topScorers={topScorers}/>}
-      <br />
     </div>
   );
 }

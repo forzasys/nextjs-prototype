@@ -44,7 +44,6 @@ async function HomeLatestHighlights({games}: HomeLatestHighlightsProps) {
                 <div className="latest-single-info">
                     <div className="latest-single-info-title">Highlights</div>
                     <div className="latest-single-info-date">{gameDate}</div>
-                    <br />
                     <div className="latest-single-info-match">
                         <div>{home_team.name} {game.home_team_goals} - {game.visiting_team_goals} {visiting_team.name}</div>
                     </div>
