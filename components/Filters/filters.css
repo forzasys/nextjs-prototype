@@ -186,9 +186,8 @@
 }
 
 .page-tab-cont {
-    height: 45px;
+    height: 47px;
     background-color: var(--secondary-color);
-    padding: 3px 0;
     margin-bottom: 10px;
 }
 
@@ -196,7 +195,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 20px;
     height: 100%;
     width: 100%;
 }
@@ -209,11 +208,12 @@
     justify-content: center;
     box-sizing: border-box;
     height: 100%;
-    padding: 0 5px;
+    padding: 0 3px;
     background-color: var(--secondary-color);
     color: rgb(220, 220, 220);
     text-transform: uppercase;
     font-size: 13px;
+    font-weight: 600;
     letter-spacing: 0.3px;
 }
 
@@ -225,7 +225,7 @@
 .page-tab:after {
     content: "";
     position: absolute;
-    bottom: -2px;
+    bottom: 1px;
     left: 0;
     width: 0%;
     height: 4px;
@@ -263,4 +263,16 @@
 
 .page-tab:hover .page-tab-title {
     color: var(--primary-text-color);
+}
+
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    .filters-inline {
+        gap: 25px;
+        margin: 0 auto;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        padding-right: 15px;
+    }
 }

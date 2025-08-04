@@ -1,3 +1,4 @@
+"use client"
 import { GameType } from "@/types/dataTypes"
 import Image from "next/image"
 import { useCountDown } from "@/utilities/ClientSideUtils"
@@ -5,6 +6,8 @@ import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
+import { getLeagueLogo } from "@/utilities/imageUtil"
+import config from "@/config"
 import './headlineNextMatch.css'
 
 interface HeadlineNextMatchProps {  
@@ -26,6 +29,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
     const nextMatchStadium = getStadiumImage[home_team.id]
+    const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
 
     const nextMatchCountdown = (
         <div className="headline-next-match-countdown">
@@ -53,6 +57,9 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
 
     const nextMatch = (
       <div className="headline-next-match">
+        <div className='headline-next-match-league'>
+            <Image src={leagueLogo} alt="league logo" fill priority />
+        </div>
         <div className="headline-next-match-date">{gameDate}</div>
         <div className="headline-next-match-time">{gameTime}</div>
         <div className="headline-next-match-teams">

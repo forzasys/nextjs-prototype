@@ -11,5 +11,5 @@ html[data-theme="shl"] * {
   --box-color: #FFFFFF;
   --button-color: var(--accent-color);
   --button-hover-color: #0e4eae;
-  --section-title-color: var(--accent-color);
+  --section-title-color: var(--secondary-color);
 }

@@ -3,7 +3,7 @@ import config from '@/config';
 import Image from 'next/image';
 import { getLeagueLogo } from '@/utilities/imageUtil';
 import 'aos/dist/aos.css';
-import "./statistics.css"
+import "./table.css"
 
 interface TableProps {
     table: TableType[]
@@ -39,7 +39,9 @@ function Table({table, teams, seasonParam}: TableProps) {
                     <div key={t.id} className="table-item">
                         <div className="table-position">{t.rank}</div>
                         <div className="table-statistic team item">
-                            <Image src={getTeamLogo(t.id)} alt={t.name} width={45} height={45} />
+                            <div className="table-statistic-team-logo">
+                                <Image src={getTeamLogo(t.id)} alt={t.name} fill priority />
+                            </div>
                             {t.name}
                         </div>
                         <div className="table-statistic">{t.games_played}</div>  
@@ -59,7 +61,7 @@ function Table({table, teams, seasonParam}: TableProps) {
     return (
         <div className="league-table">
             <div className="league-table-logo">
-                <Image src={leagueLogo} alt="League logo" width={100} height={50} />
+                <Image src={leagueLogo} alt="League logo" fill priority />
             </div>
             {tableList}
         </div>

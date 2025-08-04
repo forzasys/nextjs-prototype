@@ -6,7 +6,7 @@ export const useUpdateSearchParam = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Single parameter update 
+  // Single parameter update
   const updateParam = (param: string, value?: string | number | undefined) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -16,7 +16,7 @@ export const useUpdateSearchParam = () => {
       params.set(param, String(value));
     }
 
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   // Handles multiple parameter updates
@@ -31,7 +31,7 @@ export const useUpdateSearchParam = () => {
       }
     });
 
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return {

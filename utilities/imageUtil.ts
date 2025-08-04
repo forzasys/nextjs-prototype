@@ -1,6 +1,7 @@
 import vifLogo from "@/public/img/logo/vif-logo.png";
 import brannLogo from "@/public/img/logo/brann-logo.png";
 import shlLogo from "@/public/img/logo/shl-logo.png";
+import shlLogoBlack from "@/public/img/logo/shl-logo-black.png";
 import eliteserienLogo from "@/public/img/logo/eliteserien-logo.png";
 import vifClubSiteImage from "@/public/img/clubSite/vif-club-site.png";
 import { StaticImageData } from "next/image";
@@ -17,6 +18,7 @@ export const getHeaderLogo: ImageType = {
 
 export const getLeagueLogo: ImageType = {
     "eliteserien": eliteserienLogo,
+    "shl": shlLogoBlack,
 }
 
 export const getStadiumImage: ImageType = {

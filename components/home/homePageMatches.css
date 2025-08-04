@@ -1,5 +1,5 @@
 .home-page-matches-cont {
-    /* background-color: var(--box-color); */
+    background-color: var(--box-color);
     padding-top: 30px;
     padding-bottom: 50px;
 }
@@ -14,13 +14,21 @@
     margin-bottom: 10px;
 }
 
+.next-matches-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
 .home-match-single {
-    width: calc(25% - 15px);
+    width: 100%;
     box-sizing: border-box;
     padding: 20px;
     padding-top: 25px;
     background-color: var(--box-color);
-    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s linear;
 }
 
@@ -77,7 +85,7 @@
 
 .home-match-team-name {
     text-align: center;
-    font-size: 20px;
+    font-size: 22px;
     letter-spacing: -0.5px;
     padding: 0 5px;
     text-transform: uppercase;
@@ -112,4 +120,88 @@
     background-color: transparent;
     color: var(--secondary-text-color);
     border: 1px solid var(--secondary-text-color);
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1200px) {
+
+    .home-match-single {
+        padding-top: 20px;
+    }
+
+    .home-match-single-league {
+        width: 40px;
+        height: 20px;
+    }
+    
+    .home-match-date {
+        font-size: 11px;
+    }
+
+    .home-match-league {
+        font-size: 11px;
+    }
+
+    .home-match-time {
+        font-size: 22px;
+    }
+
+    .home-match-teams {
+        gap: 25px;
+        margin: 15px 0;
+    }
+
+    .home-match-team {
+        width: 70px;
+        height: 70px;
+    }
+
+    .home-match-team-names {
+        margin-bottom: 12px;
+    }
+    
+    .home-match-team-name {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .next-matches-list {
+        overflow-x: scroll;
+        padding: 8px;
+    }
+
+    .home-match-single {
+        min-width: calc(33.33% - 32px);
+    }
+}
+
+@media (max-width: 992px) {
+    .home-match-single {
+        min-width: calc(50% - 70px);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-match-single {
+        min-width: calc(50% - 40px);
+    }
+}
+
+@media (max-width: 645px) {
+    .home-match-single {
+        min-width: calc(100% - 175px);
+    }
+}
+
+@media (max-width: 576px) {
+    .home-match-single {
+        min-width: calc(100% - 120px);
+    }
+}
+
+@media (max-width: 480px) {
+    .home-match-single {
+        min-width: calc(100% - 60px);
+    }
 }

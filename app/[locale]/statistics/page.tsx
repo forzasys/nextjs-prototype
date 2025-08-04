@@ -8,11 +8,13 @@ import TopScorers from './topScorers'
 import Cards from './cards'
 import SeasonFilter from '@/components/Filters/seasonFilter';
 import TeamFilter from '@/components/Filters/teamFilter';
+import { getTranslations } from 'next-intl/server';
 import "./statistics.css"
 import "@/components/Filters/filters.css"
 
 async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
+  const t = await getTranslations()
   const rawParams = await Promise.resolve(searchParams);
   const params = normalizeSearchParams(rawParams);
   const isTeamPlatform = !!config.team
@@ -59,7 +61,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
       <div className="page-header">
         <div className="page-header-title middle-container">
           <div className="page-header-main-title">
-            Statistics
+            {t("statistics")}
           </div>
           <div className="page-header-subtitle">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.

@@ -2,7 +2,7 @@ import Headlines from "../headline/headlines";
 import HomePageMatches from "./homePageMatches";
 import HomeTopScorer from "./homeTopScorer";
 import HomeLatestVideos from "./homeLatestVideos";
-import HomeLatestHighlights from "./homeLatestHighlights";
+// import HomeLatestHighlights from "./homeLatestHighlights";
 import HomePageHighlights from "./homePageHighlights";
 // import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";
@@ -19,7 +19,7 @@ async function Home() {
 
   const query = {
     season: config.availableSeasons[0],
-    from_date: "2025-05-01",
+    from_date: "2025-03-01",
     asc: true,
     count: 100,
   }
@@ -36,28 +36,27 @@ async function Home() {
   // Team platform
   const teamPlatformId = config.team
   if (teamPlatformId) topScorerInitialQuery.team_id = teamPlatformId
+  const hasStatisticsPage = config.hasStatisticsPage
 
-  const topScorersData = await onFetch("stats/top/scorer", topScorerInitialQuery)
+  const topScorersData = hasStatisticsPage ? await onFetch("stats/top/scorer", topScorerInitialQuery) : []
   const topScorers = topScorersData?.players || []
 
   const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
   const latestGoals = latestGoalsData?.playlists || []
 
   const gamesData = await onFetch("game", query)
-  const games = gamesData?.games || [];
+  const games = gamesData?.games || []
 
-  const nextThreeGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 4)
-
-  const hasStatisticsPage = config.hasStatisticsPage
+  const nextGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 4)
 
   return (
     <div className="home-container">
-      <Headlines game={nextThreeGames[0]}/>
+      <Headlines game={nextGames[0]}/>
       {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
       <HomeLatestVideos latestGoals={latestGoals} />
       {/* <HomeLatestHighlights games={games}/> */}
       <HomePageHighlights games={games} />
-      <HomePageMatches games={nextThreeGames} />
+      <HomePageMatches games={nextGames} />
       {hasStatisticsPage && <HomeTopScorer topScorers={topScorers}/>}
     </div>
   );

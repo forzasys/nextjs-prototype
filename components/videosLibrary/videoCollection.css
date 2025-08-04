@@ -20,7 +20,7 @@
     padding-left: 10px;
     padding-right: 3px;
     color: var(--primary-text-color);
-    background-color: var(--accent-color);
+    background-color: var(--section-title-color);
     font-family: "Titillium Web", sans-serif;
 }
 

@@ -11,7 +11,7 @@ async function MatchLineup({ gameId, gameEvents }: MatchLineupProps) {
 
     const matchLineupData = await onFetch(`/game/${gameId}/players`)
 
-    console.log(gameEvents)
+    console.log(matchLineupData)
 
     const homeTeamData = matchLineupData.home_team
     const awayTeamData = matchLineupData.visiting_team

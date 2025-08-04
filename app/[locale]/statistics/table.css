@@ -1,0 +1,201 @@
+.league-table {
+    position: relative;
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.table-cont {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: -2px 0 15px 2px rgba(0, 0, 0, 0.1);
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background-color: rgb(245, 245, 245);
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 13px;
+}
+
+.table-item {
+    display: flex;
+    align-items: center;
+    height: 68px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+    /* background-image: repeating-linear-gradient(
+        to right,
+        #a0a0a0 0,
+        #e0e0e0 2px,
+        transparent 2px,
+        transparent 8px
+    );
+    background-position: bottom;
+    background-repeat: repeat-x;
+    background-size: auto 2px; */
+}
+
+.table-item:last-child {
+    border-bottom: none;
+}
+
+.table-item:nth-child(odd) {
+    /* background-color: rgb(245, 245, 245); */
+}
+
+.table-position {
+    text-align: center;
+    width: 75px;
+}   
+
+.table-header .table-statistic {
+    font-weight: 600;
+}
+
+.table-statistic {
+    text-align: center;
+    width: 75px;
+}
+
+.table-statistic.team {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 250px;
+    margin-left: 35px;
+    flex-grow: 1;
+}
+
+.table-statistic.team.item {
+    gap: 25px;
+    font-weight: 600;
+}   
+
+.table-statistic-team-logo {
+    position: relative;
+    width: 45px;
+    height: 45px;
+}
+
+.league-table-logo {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    margin: 25px 0;
+    margin-left: 5px;
+}
+
+.table-statistic.points {
+    font-weight: 600;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 992px) {
+    .table-position {
+        width: 50px;
+    }   
+    
+    .table-statistic {
+        width: 50px;
+    }
+
+    .table-statistic.team {
+        width: 250px;
+        margin-left: 10px;
+    }
+
+    .league-table-logo {
+        position: absolute;
+        top: -80px;
+        left: 0;
+        margin: 25px 0;
+        margin-left: 5px;
+        height: 35px;
+        width: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-position {
+        width: 42px;
+    }   
+    
+    .table-statistic {
+        width: 42px;
+    }
+
+    .table-statistic.team {
+        width: 250px;
+        margin-left: 10px;
+    }
+
+    .table-header {
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .table-item {
+        display: flex;
+        align-items: center;
+        height: 52px;
+        font-size: 13px;
+    }
+
+    .table-statistic-team-logo {
+        width: 37px;
+        height: 37px;
+    }
+
+    .table-statistic.team.item {
+        gap: 15px;
+        font-size: 12px;
+    } 
+}
+
+@media (max-width: 576px) {
+    .table-position {
+        width: 42px;
+    }   
+    
+    .table-statistic {
+        width: 42px;
+    }
+
+    .table-statistic.team {
+        width: 225px;
+        margin-left: 5px;
+    }
+
+    .table-header {
+        height: 30px;
+        font-size: 10px;
+    }
+    
+    .table-item {
+        height: 50px;
+        font-size: 11px;
+    }
+
+    .table-statistic-team-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .table-statistic.team.item {
+        gap: 10px;
+        font-size: 10px;
+    } 
+
+    .league-table-logo {
+        top: -70px;
+    }
+
+}

@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
@@ -6,7 +7,6 @@ import { format, parseISO } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 import config from '@/config';
 import { getLeagueLogo } from '@/utilities/imageUtil';
-import classNames from 'classnames';
 import { HiOutlineArrowRight } from "react-icons/hi";
 import "./homePageMatches.css"
 
@@ -21,6 +21,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
   const t = useTranslations();
   const locale = useLocale();
   const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
+
   const moreMatchesUrl = `/${locale}/${t("matches")}`;
 
   const homeAwayLabel = (homeTeamId: number, awayTeamId: number) => {
@@ -81,14 +82,17 @@ function HomePageMatches({games}: HomePageMatchesProps) {
       {/* <div className="home-page-matches-bg"></div> */}
       <div className= "home-page-matches middle-container">
         <div className="section-header">
-          <div className="section-title">{t("next matches")}</div>
+          <div className="section-title">
+            {t("next matches")}
+            <div className="section-title-mask"></div>
+          </div>
           <Link href={moreMatchesUrl} className="section-more">
             {t("more matches")}
             <HiOutlineArrowRight />
           </Link>
         </div>
         <div className="next-matches-list">
-        {gamesList}
+          {gamesList}
         </div>
       </div>   
     </div>

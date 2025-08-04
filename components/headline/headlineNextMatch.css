@@ -57,12 +57,19 @@
     box-sizing: border-box;
     padding: 15px;
     padding-top: 20px;
-    width: 275px;
+    width: 280px;
     background-color: var(--box-color);
     color: black;
     font-family: 'Exo', sans-serif;
     position: relative;
     z-index: 11;
+}
+
+.headline-next-match-league {
+    position: relative;
+    height: 28px;
+    width: 56px;
+    margin-bottom: 7px;
 }
 
 .headline-next-match-date {

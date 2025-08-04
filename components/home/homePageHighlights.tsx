@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { GameType } from '@/types/dataTypes'
 import Image from 'next/image'
@@ -18,12 +19,12 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
     const locale = useLocale();
     const moreResultsUrl = `/${locale}/${t("matches")}?match_type=results`;
 
-    const latestThreeGames = games
-        .filter((game) => new Date(game.date) < new Date())
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    const latestGames = games
+        .filter((game) => new Date(game.start_time).getTime() < new Date().getTime())
+        .sort((a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime())
         .slice(0, 4)
 
-    const latestHighlightsList = latestThreeGames.map((game, index) => {
+    const latestHighlightsList = latestGames.map((game, index) => {
 
         const {home_team, visiting_team} = game
         const gameDate = format(game.date, 'EEE, dd MMM yyyy');
@@ -64,7 +65,10 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
         <div className="home-page-results-cont">
             <div className="home-page-results middle-container">
                 <div className="section-header opposite">
-                    <div className="section-title">{t("latest results")}</div>
+                    <div className="section-title">
+                        {t("latest results")}
+                        <div className="section-title-mask"></div>
+                    </div>
                     <Link href={moreResultsUrl} className="section-more">
                         {t("more results")}
                         <HiOutlineArrowRight />

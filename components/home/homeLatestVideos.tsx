@@ -53,7 +53,10 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     return (
         <div className="latest-videos-container middle-container">
             <div className="section-header">
-                <div className="section-title">{t("latest videos")}</div>  
+                <div className="section-title">
+                    {t("latest videos")}
+                    <div className="section-title-mask"></div>
+                </div>  
                 <Link href={`/${locale}/${t("videos")}`} className="section-more">
                     {t("more latest videos")}
                     <HiOutlineArrowRight />

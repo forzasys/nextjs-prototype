@@ -13,13 +13,16 @@ import { useLocale, useTranslations } from 'next-intl';
 import { getLeagueLogo } from '@/utilities/imageUtil';
 import { format, parseISO } from 'date-fns';
 import { teamStadiumName } from '@/utilities/utils';
+import classNames from 'classnames';
+import { HiOutlineArrowRight } from "react-icons/hi";
 import "./matches.css";
 
 function Match ({game}: {game: GameType}) {
 
   const t = useTranslations();
   const locale = useLocale();
-  const matchNotStarted = game.phase === "not started" && new Date(game.date) > new Date()
+  const matchNotStarted = game.phase === "not started" && new Date(game.date).getTime() > new Date().getTime()
+
   const date = format(game.date, 'EEE, dd MMM yyyy');
   const time = format(parseISO(game.start_time), 'HH:mm')
   const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
@@ -28,7 +31,6 @@ function Match ({game}: {game: GameType}) {
   const score = (
     <div className='single-match-score'>
       <div className='single-match-score-box'>{game.home_team_goals}</div>
-      <div className='single-match-score-separator'></div>
       <div className='single-match-score-box'>{game.visiting_team_goals}</div>
     </div>
   )
@@ -47,15 +49,18 @@ function Match ({game}: {game: GameType}) {
       href={`/${locale}/match/${game.id}`} 
       className='single-match' 
       >
-      <div className='single-match-date'>
-        {date}
-      </div>
       <div className='single-match-stadium'>
         {stadiumName}
       </div>
+      <div className='single-match-date'>
+        {date}
+      </div>
+      <div className={classNames("single-match-live", {visible: game.has_live_playlist})}>
+        live
+      </div>
       <div className='single-match-content'>
         <div className='single-match-team'>
-          <div>{game.home_team.name}</div>
+          <div className='single-match-team-name'>{game.home_team.name}</div>
           <div className='single-match-team-logo'>
             <Image src={game.home_team.logo_url} alt="team logo" fill priority/>
           </div>
@@ -67,11 +72,13 @@ function Match ({game}: {game: GameType}) {
           <div className='single-match-team-logo'>
             <Image src={game.visiting_team.logo_url} alt="team logo" fill priority/>
           </div>
-          <div>{game.visiting_team.name}</div>
+          <div className='single-match-team-name'>{game.visiting_team.name}</div>
         </div>
       </div>
+      <div className='single-match-separator'></div>
       <div className="single-match-center">
-        {t("match center")}
+        {matchNotStarted ? t("match center") : t("match report")}
+        <HiOutlineArrowRight/>
       </div>
       <div className='single-match-league'>
         <Image src={leagueLogo} alt="league logo" fill priority/>
