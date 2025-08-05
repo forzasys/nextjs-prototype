@@ -61,7 +61,7 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     /* border: 1px solid red; */
 }
 
@@ -69,6 +69,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50%;
     gap: 5px;
     padding: 0 7px;
 }
@@ -77,6 +78,7 @@
     text-align: center;
     font-size: 12px;
     font-weight: 600;
+    min-height: 30px;
 }
 
 .latest-result-team-logo {
@@ -98,4 +100,51 @@
 .latest-result-score-separator {
     font-size: 20px;
     font-weight: 600;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1120px) {
+    .latest-results-list {
+        padding: 0 8px;
+        overflow-x: scroll;
+    }
+    .latest-result-single {
+        min-width: calc(33.33% - 30px);
+    }
+}
+
+@media (max-width: 992px) {
+    .latest-result-single {
+        min-width: calc(50% - 60px);
+    }
+}
+
+@media (max-width: 768px) {
+    .latest-result-single {
+        min-width: calc(50% - 30px);
+        padding: 12px;
+    }
+    .latest-result-content {
+        margin-top: 12px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 645px) {
+    .latest-result-single {
+        min-width: calc(100% - 150px);
+    }
+}
+
+@media (max-width: 576px) {
+    .latest-result-single {
+        min-width: calc(100% - 100px);
+    }
+}
+
+@media (max-width: 480px) {
+    .latest-result-single {
+        min-width: calc(100% - 50px);
+    }
 }

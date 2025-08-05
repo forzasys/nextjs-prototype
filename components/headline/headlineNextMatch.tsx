@@ -84,7 +84,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     )
 
     const nextMatchTitle = (
-        <div className="headline-text">
+        <div className="headline-text next-match">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </div>
     )

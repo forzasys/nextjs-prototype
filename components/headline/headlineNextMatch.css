@@ -40,27 +40,13 @@
     z-index: 3;
 }
 
-.headline-text {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    max-width: 395px;
-    margin: auto;
-    height: fit-content;
-    font-size: 37px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
-    font-family: 'Exo', sans-serif;
-}
-
 .headline-next-match {
     box-sizing: border-box;
     padding: 15px;
     padding-top: 20px;
-    width: 280px;
+    width: 300px;
     background-color: var(--box-color);
-    color: black;
-    font-family: 'Exo', sans-serif;
+    color: var(--background-text-color);
     position: relative;
     z-index: 11;
 }
@@ -90,8 +76,8 @@
 
 .headline-next-match-team-logo {
     position: relative;
-    width: 75px;
-    height: 75px;
+    width: 80px;
+    height: 80px;
 }
 
 .headline-next-match-team {
@@ -163,4 +149,62 @@
     background-color: black;
     background: linear-gradient(to left, black 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.1) 70%, transparent 100%);
     z-index: 1;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 992px) {
+    .headline-text.next-match {
+        max-width: 350px;
+    }
+    
+    .headline-next-match {
+        width: 275px;
+    }
+
+    .headline-next-match-teams {
+        margin-top: 15px;
+    }
+
+    .headline-next-match-team-logo {
+        position: relative;
+        width: 70px;
+        height: 70px;
+    }
+
+    .match-countdown-item {
+        width: 45px;
+    }
+    
+    .match-countdown-number {
+        font-size: 27px;
+    }
+}
+
+@media (max-width: 768px) {
+    .headline-text.next-match {
+        max-width: 40%;
+    }
+}
+
+@media (max-width: 576px) {
+    .headline-text.next-match {
+        display: none;
+    }
+    .headline-next-match {
+        top: -32px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.85);
+    }
+    .headline-next-match-teams {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .headline-next-match-countdown {
+        padding: 7px 0;
+    }
+
+    .headline-img-mask-right, 
+    .headline-img-mask-left {
+        width: 10%;
+    }
 }

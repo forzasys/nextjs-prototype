@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { IoMdArrowDropdown } from "react-icons/io";
 import "./localeSwitcher.css";
 
-export default function LocaleSwitcher() {
+export default function LocaleSwitcher({mobile}: {mobile?: boolean}) {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -43,7 +43,7 @@ export default function LocaleSwitcher() {
     }
 
     return (
-        <div ref={ref} className="locale-switcher">
+        <div ref={ref} className={classNames("locale-switcher", {"mobile": mobile})}>
             <div className="language-selection">
                 <div onClick={() => setIsOpen(!isOpen)} className="language-selection-header">
                     <div className="language-selection-item-text">

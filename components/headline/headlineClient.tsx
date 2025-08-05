@@ -6,6 +6,7 @@ import HeadlineClubSite from './headlineClubSite'
 import { GameType, PlaylistType } from '@/types/dataTypes'
 import classNames from 'classnames'
 import { useTranslations } from 'next-intl'
+import { format, parseISO } from 'date-fns';
 import "./headline.css"
 
 interface HeadlineClientProps {
@@ -40,6 +41,11 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
         setIndex(idx)
     }
 
+    const nextMatchHomeTeam = game.home_team.name
+    const nextMatchAwayTeam = game.visiting_team.name
+    const nextGameDate = format(game.date, 'EEE, dd MMM yyyy');
+    const nextGameTime = format(parseISO(game.start_time), 'HH:mm')
+
     const headlineTimeBar = {width: timing + "%"}
     // const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`
 
@@ -51,8 +57,10 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                 </div>
                 <div className="headline-item-text">
                     <div className="headline-item-title">{t("next match")}</div>
-                    <div className="headline-item-subtitle">Vålerenga IF - FK Haugesund</div>
-                    <div className="headline-item-subtitle">20.07.2025 14:30</div>
+                    <div className="headline-item-subtitle">
+                        <div>{nextMatchHomeTeam} - {nextMatchAwayTeam}</div>
+                        <div>{nextGameDate}, {nextGameTime}</div>
+                    </div>
                 </div>
             </div>
             <div onClick={() => onSelectHeadline(1)} className={classNames("headline-item", {active: index === 1})}>
@@ -61,8 +69,10 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                 </div>
                 <div className="headline-item-text">
                     <div className="headline-item-title">{t("latest news")}</div>
-                    <div className="headline-item-subtitle">Find out the latest news from the club</div>
-                    <div className="headline-item-subtitle">Visit www.vif-fotball.no</div>
+                    <div className="headline-item-subtitle">
+                        <div>Find out the latest news from the club</div>
+                        <div>Visit www.vif-fotball.no</div>
+                    </div>
                 </div>
             </div>
         </div>

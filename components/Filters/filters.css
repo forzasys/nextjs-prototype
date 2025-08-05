@@ -1,6 +1,5 @@
 .filter-dropdown {
     position: relative;
-    font-family: 'Exo', sans-serif;
     color: var(--primary-text-color);
     width: 200px;
 }
