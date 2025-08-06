@@ -193,11 +193,10 @@ function RecentMeetings({ games }: RecentMeetingsProps) {
 
 interface MatchHeadToHeadProps {
     game?: GameType
+    table: TableType[]
 }
 
-async function MatchHeadToHead({ game }: MatchHeadToHeadProps) {
-
-    console.log(game)
+async function MatchHeadToHead({ game, table }: MatchHeadToHeadProps) {
 
     if (!game) return null
 
@@ -223,20 +222,13 @@ async function MatchHeadToHead({ game }: MatchHeadToHeadProps) {
         team_id: awayTeamId
     }
 
-    const currentSeason = config.availableSeasons[0]
-
-    const tableInitialQuery = {
-        season: currentSeason,
-        to_date: `${currentSeason}-12-31`,
-    }
+    const [allHomeTeamGamesData, allAwayTeamGamesData] = await Promise.all([
+        onFetch("game", allHomeTeamGamesQuery),
+        onFetch("game", allAwayTeamGamesQuery)
+    ])
     
-    const allHomeTeamGamesData = await onFetch("game", allHomeTeamGamesQuery)
-    const allAwayTeamGamesData = await onFetch("game", allAwayTeamGamesQuery)
-    const tableData = hasStatisticsPage ? await onFetch("stats/table", tableInitialQuery) : []
-
     const homeTeamGames = allHomeTeamGamesData?.games || []
     const awayTeamGames = allAwayTeamGamesData?.games || []
-    const table = tableData?.teams || []
     
     const headToHeadGames = homeTeamGames.filter((game: GameType) => awayTeamGames.some((g: GameType) => g.id === game.id))
     

@@ -1,28 +1,25 @@
-"use-client"
-import { onFetch } from '@/utilities/fetchApi'
 import Stat from './Stat'
-import { GameType } from '@/types/dataTypes'
+import { StatisticsType, TeamType } from '@/types/dataTypes'
 import config from '@/config'
 import './matchStats.css'
+
 interface MatchStatsProps { 
-    game: GameType
+    homeTeam: TeamType
+    awayTeam: TeamType
+    statistics: StatisticsType
 }
 
-async function MatchStats({ game } : MatchStatsProps) {
-
-    const gameId = game.id
-    const matchStatsData = await onFetch(`/game/${gameId}/stats`)
-    const statistics = matchStatsData.statistics
+async function MatchStats({ homeTeam, awayTeam, statistics } : MatchStatsProps) {
 
     const teamPlatform = config.team
 
     let side = "none"
 
     if (!!teamPlatform) {
-        if (game.home_team.id === teamPlatform) {
+        if (homeTeam.id === teamPlatform) {
             side = "home"
         }
-        if (game.visiting_team.id === teamPlatform) {
+        if (awayTeam.id === teamPlatform) {
             side = "away"
         }
     }

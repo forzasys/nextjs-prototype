@@ -20,18 +20,15 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const teamPlatformId = config.team;
   const currentSeason = config.availableSeasons[0]
+
+  const [tagsData, teamsData, playersData] = await Promise.all([
+    onFetch("tag"),
+    !teamPlatformId ? onFetch("team", {season: currentSeason}) : undefined,
+    teamPlatformId ? onFetch(`/team/${teamPlatformId}/active_players`, {season: currentSeason}) : undefined,
+  ])
   
-  const tagsData = await onFetch("tag");
   const tags = tagsData?.tags || [];
-  
-  const teamsData = !teamPlatformId ? await onFetch("team", {season: currentSeason}) : undefined;
   const teams = teamsData?.teams || [];
-
-  const playersQuery = {
-    season: config.availableSeasons[0],
-  }
-
-  const playersData = teamPlatformId ? await onFetch(`/team/${teamPlatformId}/active_players`, playersQuery) : undefined;
 
   const videosFilters = (
     <div className="filters-inline start middle-container">

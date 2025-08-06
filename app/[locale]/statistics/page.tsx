@@ -1,6 +1,6 @@
 import StatisticsTypeFilter from '@/components/Filters/statisticsTypeFilter';
 import { normalizeSearchParams } from '@/utilities/queryUtils';
-import { SearchParamsType } from '@/types/dataTypes';
+import { QueryType, SearchParamsType } from '@/types/dataTypes';
 import { onFetch } from '@/utilities/fetchApi';
 import config from '@/config';
 import Table from './table'
@@ -24,16 +24,49 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const currentSeason = config.availableSeasons[0]
   const season = seasonParam || currentSeason
 
-    const tableInitialQuery = {
-        to_date: `${currentSeason}-12-31`,
-        season: season,
-    }
+  const tableInitialQuery = {
+      to_date: `${currentSeason}-12-31`,
+      season: season,
+  }
 
-  const teamsData = await onFetch("team", {season: currentSeason})
-  const tableData = await onFetch("stats/table", tableInitialQuery)
+  const topScorerInitialQuery: QueryType = {
+    from_date: `${currentSeason}-01-01`,
+    to_date: `${currentSeason}-12-31`,
+    count: 10,
+  }
+
+  const statsCardsInitialQuery: QueryType = {
+    from_date: `${currentSeason}-01-01`,
+    to_date: `${currentSeason}-12-31`,
+    count: 100,
+}
+
+  // Team platform
+  const teamPlatformId = config.team
+  if (teamPlatformId) {
+    topScorerInitialQuery.team_id = teamPlatformId
+    statsCardsInitialQuery.team_id = teamPlatformId
+  }
+
+  const [
+    teamsData, 
+    tableData,
+    topScorersData,
+    topAssistsData,
+    statsCardsData,
+  ] = await Promise.all([  
+    onFetch("team", {season: currentSeason}),
+    onFetch("stats/table", tableInitialQuery),
+    onFetch("stats/top/scorer", topScorerInitialQuery),
+    onFetch("stats/top/assists", topScorerInitialQuery),
+    onFetch("stats/top/cards", topScorerInitialQuery)
+  ])
 
   const teams = teamsData?.teams || []
   const table = tableData?.teams || []
+  const topScorers = topScorersData?.players || []
+  const topAssists = topAssistsData?.players || []
+  const cards = statsCardsData?.players || []
 
   if (!config.hasStatisticsPage) return (
     <div>Statistics page is not available for this league</div>
@@ -44,9 +77,9 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   if (statisticTypeParam === "table" || !statisticTypeParam) {
     statisticsContent = <Table table={table} teams={teams} seasonParam={seasonParam}/>
   } else if (statisticTypeParam === "top_scorers") {
-    statisticsContent = <TopScorers seasonParam={seasonParam}/>
+    statisticsContent = <TopScorers seasonParam={seasonParam} topScorers={topScorers} topAssists={topAssists}/>
   } else if (statisticTypeParam === "cards") {
-    statisticsContent = <Cards seasonParam={seasonParam}/>  
+    statisticsContent = <Cards seasonParam={seasonParam} cards={cards}/>  
   }
 
   const statisticsFilters = (

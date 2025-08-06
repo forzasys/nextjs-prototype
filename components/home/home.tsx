@@ -4,7 +4,6 @@ import HomeTopScorer from "./homeTopScorer";
 import HomeLatestVideos from "./homeLatestVideos";
 // import HomeLatestHighlights from "./homeLatestHighlights";
 import HomePageHighlights from "./homePageHighlights";
-// import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollectionSlide';
 import { onFetch } from "@/utilities/fetchApi";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import config from "@/config";
@@ -38,21 +37,26 @@ async function Home() {
   if (teamPlatformId) topScorerInitialQuery.team_id = teamPlatformId
   const hasStatisticsPage = config.hasStatisticsPage
 
-  const topScorersData = hasStatisticsPage ? await onFetch("stats/top/scorer", topScorerInitialQuery) : []
+  const [
+    topScorersData, 
+    goalPlaylistData, 
+    gamesData
+  ] = await Promise.all([
+    hasStatisticsPage ? onFetch("stats/top/scorer", topScorerInitialQuery) : Promise.resolve([]),
+    onFetch("playlist", goalCollectionQuery),
+    onFetch("game", query),
+  ])
+
   const topScorers = topScorersData?.players || []
-
-  const latestGoalsData = await onFetch("playlist", goalCollectionQuery)
-  const latestGoals = latestGoalsData?.playlists || []
-
-  const gamesData = await onFetch("game", query)
+  const goalPlaylists = goalPlaylistData?.playlists || []
   const games = gamesData?.games || []
 
+  const latestGoals = goalPlaylists.slice(0, 6)
   const nextGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 4)
 
   return (
     <div className="home-container">
       <Headlines game={nextGames[0]}/>
-      {/* <VideoCollectionSlide collectionName={"goal"} showCollection={true}/> */}
       <HomeLatestVideos latestGoals={latestGoals} />
       {/* <HomeLatestHighlights games={games}/> */}
       <HomePageHighlights games={games} />

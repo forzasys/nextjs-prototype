@@ -29,7 +29,7 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
         const {home_team, visiting_team} = game
         const gameDate = format(game.date, 'EEE, dd MMM yyyy');
         return (
-            <div key={game.id} data-aos="fade-up" data-aos-delay={index * 100} className="latest-result-single">
+            <div key={game.id} data-aos="fade-up" data-aos-delay={index * 100} className="latest-result-single aos-init">
                 <div className="latest-result-header">
                     {/* <div className="latest-result-venue">{stadiumName}</div> */}
                     <div className="latest-result-league">{config.league}</div>

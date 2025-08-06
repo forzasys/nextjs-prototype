@@ -28,8 +28,11 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
 
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
-    const nextMatchStadium = getStadiumImage[home_team.id]
-    const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
+
+    const league = config.league
+    const nextMatchStadium = getStadiumImage[league as keyof typeof getStadiumImage][home_team.id]
+    
+    const leagueLogo = getLeagueLogo[league as keyof typeof getLeagueLogo]
 
     const nextMatchCountdown = (
         <div className="headline-next-match-countdown">

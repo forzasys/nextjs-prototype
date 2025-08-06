@@ -44,7 +44,7 @@ export async function onFetch(path: string, query?: QueryType) {
     console.log("🔵 Client fetching:", apiPath);
   }
 
-  const res = await fetch(apiPath, {mode: "cors", credentials: "include"})
+  const res = await fetch(apiPath, {mode: "cors", credentials: "include", next: {revalidate:180}})
 
   if (res.ok) return await res.json()
 

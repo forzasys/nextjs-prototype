@@ -39,7 +39,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
     const {home_team, visiting_team} = game
     const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = format(parseISO(game.start_time), 'HH:mm')
-    const stadiumName = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
+    const stadiumName = teamStadiumName[config.league as keyof typeof teamStadiumName]?.[home_team.id] || ""
 
     return (
       <div 

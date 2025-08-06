@@ -1,11 +1,8 @@
-"use client"
 import { onFetch } from "@/utilities/fetchApi";
-import { useQueries } from "@tanstack/react-query";
 import { generatePlaylistQueryFromParams } from "@/utilities/queryUtils";
 import CollectionSlide from "./collectionSlide";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+// import { useSearchParams } from "next/navigation";
 
 type CollectionTitlesType = {
   [key: string]: string
@@ -24,44 +21,55 @@ export const collectionTitles: CollectionTitlesType = {
 }
 
 interface VideoCollectionProps {
+  searchParams: URLSearchParams
   visibleCollections: string[]
   showCollection?: boolean | true
 }
 
-export function VideoCollectionSlide({visibleCollections}: VideoCollectionProps) {
-  
-  const searchParams = useSearchParams();
+export async function VideoCollectionSlide({searchParams, visibleCollections}: VideoCollectionProps) {
 
-  // Memoize the queries array to prevent constant re-creation
-  const queriesArray = useMemo(() => {
-    return visibleCollections.map((collection) => {
-      let collectionQuery = videoCollectionQueries({collectionName: collection})
-      collectionQuery = generatePlaylistQueryFromParams(searchParams, collectionQuery);
-      collectionQuery.count = 9
-      
-      return {
-        queryKey: ['playlist', collection, Object.entries(Object.fromEntries(searchParams)).toString()],
-        queryFn: () => onFetch('playlist', collectionQuery),
-        staleTime: 3 * 60 * 1000,
-      }
-    });
-  }, [visibleCollections, searchParams]);
-
-  const queries = useQueries({
-    queries: queriesArray,
+  // Build the same queriesArray structure
+  const queriesArray = visibleCollections.map((collection) => {
+    let collectionQuery = videoCollectionQueries({collectionName: collection})
+    collectionQuery = generatePlaylistQueryFromParams(searchParams, collectionQuery);
+    collectionQuery.count = 9
+    
+    return {
+      collection, // Keep track of which collection this is for
+      query: collectionQuery
+    }
   });
 
-  const allCollections = visibleCollections.map((collectionName, index) => {
-    return (
-      <CollectionSlide 
-        key={collectionName} 
-        collectionName={collectionName}
-        visibleCollections={visibleCollections}
-        playlists={queries[index].data?.playlists}
-      />
-    )
-  })
+  // Execute all queries in parallel using Promise.all
+  const collectionsData = await Promise.all(
+    queriesArray.map(async ({collection, query}) => {
+      try {
+        const data = await onFetch('playlist', query);
+        return {
+          collection,
+          data: data?.playlists || [],
+          error: null
+        };
+      } catch (error) {
+        console.error(`Failed to fetch ${collection}:`, error);
+        return {
+          collection,
+          data: [],
+          error: error
+        };
+      }
+    })
+  );
 
-  return allCollections
-  
-}
+  // Now you have all the data for your collections
+  const allCollections = collectionsData.map(({collection, data}, index) => (
+    <CollectionSlide 
+      key={collection} 
+      collectionName={collection}
+      playlists={data}
+      index={index}
+    />
+  ));
+
+  return allCollections;
+} 

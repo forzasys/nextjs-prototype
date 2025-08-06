@@ -148,4 +148,46 @@ export type TableType = {
   yellow_cards: number;
 }
 
+export type StatisticsType = {
+  corners: {
+    home_team: number
+    visiting_team: number
+  }
+  distances: {
+    home_team: number
+  }
+  fouls_committed: {
+    home_team: number
+    visiting_team: number
+  }
+  goals: {
+    home_team: number
+    visiting_team: number
+  }
+  offsides: {
+    home_team: number
+    visiting_team: number
+  }
+  possessions: {
+    home_team: number
+    visiting_team: number
+  }
+  red_cards: {
+    home_team: number
+    visiting_team: number
+  }
+  shots_on_target: {  
+    home_team: number
+    visiting_team: number
+  }
+  total_shots: {
+    home_team: number
+    visiting_team: number
+  }
+  yellow_cards: {
+    home_team: number
+    visiting_team: number
+  }
+}
+
 export type SearchParamsType = Record<string, string | string[] | undefined>;

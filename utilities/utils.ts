@@ -187,31 +187,45 @@ export const getTeamBaseColor = {
     45: "rgb(206, 58, 58)",
 }
 
-export const teamStadiumName = {
-    // VIF
-    1: "Intility Arena",
-    // Brann
-    7: "Brann Stadion",
-    // S08
-    8: "Sarpsborg Stadion",
-    // FKH
-    9: "Haugesund Sparebank Arena",
-    // TIL
-    10: "Romssa Arena",
-    // B/G
-    14: "Aspmyra Stadion",
-    // MOL
-    15: "Aker Stadion",
-    // SIF
-    16: "Marienlyst Stadion",
-    // SAN
-    18: "Jotun Arena",
-    // HAM
-    35: "Briskeby",
-    // KFUM
-    39: "KFUM Arena",
-    // FFK
-    44: "Fredrikstad Stadion",
-    // BRFK
-    45: "Bryne Stadion",
+interface TeamStadiumNameType {
+    [key: string]: {
+        [key: number]: string
+    }
+}
+
+export const teamStadiumName: TeamStadiumNameType = {
+    "eliteserien": {
+        // VIF
+        1: "Intility Arena",
+        // Brann
+        7: "Brann Stadion",
+        // S08
+        8: "Sarpsborg Stadion",
+        // FKH
+        9: "Haugesund Sparebank Arena",
+        // TIL
+        10: "Romssa Arena",
+        // B/G
+        14: "Aspmyra Stadion",
+        // MOL
+        15: "Aker Stadion",
+        // SIF
+        16: "Marienlyst Stadion",
+        // SAN
+        18: "Jotun Arena",
+        // HAM
+        35: "Briskeby",
+        // KFUM
+        39: "KFUM Arena",
+        // FFK
+        44: "Fredrikstad Stadion",
+        // BRFK
+        45: "Bryne Stadion",
+    },
+    "shl": {
+        7: "Scandinavium",
+        9: "Coop Norrbotten Arena",
+        10: "Monitor ERP Arena",
+        15: "Hovet Arena",
+    },
 }

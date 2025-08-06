@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
       "www.brynefk.no",
       "www.glimt.no",
       "www.vif-fotball.no",
+      "scontent-arn2-1.xx.fbcdn.net",
+      "hovetarena.se",
+      "chl-cloudinary.corebine.com",
+      "cdn1-photos.shl.se",
     ],
   },
 };

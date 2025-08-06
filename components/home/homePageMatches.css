@@ -20,6 +20,7 @@
     justify-content: space-between;
     gap: 15px;
     box-sizing: border-box;
+    /* cursor: grabbing; */
 }
 
 .home-match-single {
@@ -164,7 +165,12 @@
 @media (max-width: 1120px) {
     .next-matches-list {
         padding: 8px;
-        overflow-x: scroll;
+        overflow-x: auto;
+        cursor: grab;
+    }
+
+    .next-matches-list:active {
+        cursor: grabbing;
     }
 
     .home-match-single {

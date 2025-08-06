@@ -37,7 +37,7 @@ function Videos({ params }: {params: URLSearchParams}) {
     <div className="">
       {hasEventParam ? 
         <VideoCollection collectionName={eventParam} /> : 
-        <VideoCollectionSlide visibleCollections={visibleCollections} />
+        <VideoCollectionSlide searchParams={params} visibleCollections={visibleCollections} />
       }
     </div>
   )

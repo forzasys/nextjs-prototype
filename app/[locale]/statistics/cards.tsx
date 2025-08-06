@@ -1,7 +1,6 @@
 import React from 'react'
-import { onFetch } from '@/utilities/fetchApi'
 import config from '@/config';
-import { StatsPlayerType, QueryType } from '@/types/dataTypes'
+import { StatsPlayerType } from '@/types/dataTypes'
 import Link from 'next/link'
 import { useLocale } from 'next-intl';
 
@@ -42,27 +41,10 @@ function RenderCards({cards, type, seasonParam}: RenderCardsProps) {
 
 interface CardsProps {
     seasonParam: string | null
+    cards: StatsPlayerType[]
 }
 
-async function Cards({seasonParam}: CardsProps) {
-
-    const currentSeason = config.availableSeasons[0]
-
-    const statsCardsInitialQuery = {
-        from_date: `${currentSeason}-01-01`,
-        to_date: `${currentSeason}-12-31`,
-        count: 100,
-    }
-
-    const query: QueryType = statsCardsInitialQuery
-
-    // Team platform
-    const teamPlatformId = config.team
-    if (teamPlatformId) query.team_id = teamPlatformId
-
-    const statsCardsData = await onFetch("stats/top/cards", query)
-
-    const cards = statsCardsData?.players || []
+async function Cards({seasonParam, cards}: CardsProps) {
 
     const yellowCards = cards
         .filter((c: StatsPlayerType) => c.yellow_cards !== 0)

@@ -84,9 +84,6 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                 <div className="headline-slider-container">
                     <HeadlineNextMatch show={index === 0} game={game} />
                     <HeadlineClubSite show={index === 1}/>
-                    {/* <HeadlineLatestGoal translate={translate} latestGoal={latestGoal} /> */}
-                    {/* <div className="headline-img-mask-right"></div> */}
-                    {/* <div className="headline-img-mask-left"></div> */}
                 </div>
                 {headlineItems}
             </div>

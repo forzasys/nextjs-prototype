@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { saveQueryToSession, formatDuration, formatReadableDate } from '@/utilities/utils'
-import 'aos/dist/aos.css';
+// import 'aos/dist/aos.css';
 import { useLocale, useTranslations } from 'next-intl';
 import classNames from 'classnames'
 import { IoMdPlay } from "react-icons/io";

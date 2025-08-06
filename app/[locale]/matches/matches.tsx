@@ -26,7 +26,7 @@ function Match ({game}: {game: GameType}) {
   const date = format(game.date, 'EEE, dd MMM yyyy');
   const time = format(parseISO(game.start_time), 'HH:mm')
   const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
-  const stadiumName = teamStadiumName[game.home_team.id as keyof typeof teamStadiumName]
+  const stadiumName = teamStadiumName[config.league as keyof typeof teamStadiumName]?.[game.home_team.id] || ""
 
   const score = (
     <div className='single-match-score'>

@@ -30,8 +30,8 @@ async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
   const gameDate = format(game.date, 'EEE, dd MMM yyyy');
   const gameTime = format(parseISO(game.start_time), 'HH:mm')
 
-  const stadiumImage = getStadiumImage[home_team.id]
-  const teamStadium = teamStadiumName[home_team.id as keyof typeof teamStadiumName]
+  const stadiumImage = getStadiumImage[config.league as keyof typeof getStadiumImage]?.[home_team.id] || ""
+  const teamStadium = teamStadiumName[config.league as keyof typeof teamStadiumName]?.[home_team.id] || ""
 
   const matchScoreboardDetails = (
     <div className='match-scoreboard-details-cont'>
