@@ -178,13 +178,38 @@ export function formatReadableDate(dateString: string): string {
     return format(date, 'dd-MM-yyyy');
 }
 
-export const getTeamBaseColor = {
-    1: "#022ca1",
-    9: "#FFFFFF",
-    14: "#FBDD00",
-    16: "rgb(0, 33, 69)",
-    44: "#FFFFFF",
-    45: "rgb(206, 58, 58)",
+interface TeamBaseColorType {
+    [key: string]: {
+        [key: number]: string
+    }
+}
+
+export const getTeamBaseColor: TeamBaseColorType = {
+    "eliteserien": {
+        1: "#022ca1",
+        14: "#FBDD00",
+        16: "rgb(0, 33, 69)",
+        44: "#FFFFFF",
+        45: "rgb(206, 58, 58)",
+    },
+    "shl": {
+        1: "#035435",
+        2: "#050436",
+        3: "",
+        4: "",
+        5: "",
+        6: "#ebecf5",
+        7: "#c70404",
+        8: "",
+        9: "#bd0802",
+        10: "#242323",
+        11: "#e60c05",
+        12: "",
+        13: "",
+        14: "#01094a",
+        15: "",
+        17: "#faf5f5"        
+    }
 }
 
 interface TeamStadiumNameType {
@@ -223,9 +248,21 @@ export const teamStadiumName: TeamStadiumNameType = {
         45: "Bryne Stadion",
     },
     "shl": {
+        1: "Löfbergs Arena",
+        2: "Saab Arena",
+        3: "Vida Arena",
+        4: "Behrn Arena",
+        5: "Skellefteå Kraft Arena",
+        6: "Tegera Arena",
         7: "Scandinavium",
+        8: "NHK Arena",
         9: "Coop Norrbotten Arena",
         10: "Monitor ERP Arena",
+        11: "Malmö Arena",
+        12: "Be‑Ge Hockey Center",
+        13: "Catena Arena",
+        14: "Husqvarna Garden",
         15: "Hovet Arena",
+        17: "Hägglunds Arena"
     },
 }

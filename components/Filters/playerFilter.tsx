@@ -52,7 +52,7 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
         }
     }))
 
-    const disableTeamFilter = !teamPlatformId && !teamParam ? "Select team to enable player selection" : undefined
+    const disableTeamFilter = !teamPlatformId && !teamParam ? "Select team to enable" : undefined
 
     return (
         <PlayerFilterDropdown 

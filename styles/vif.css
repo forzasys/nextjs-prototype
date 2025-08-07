@@ -1,15 +1,19 @@
 html[data-theme="vif"] * {
+  /* Main colors */
   --background-color: #f0f0f0;
   --primary-color: #022ca1;
   --secondary-color: #040461;
   --header-color: #f0f0f0;
   --accent-color: #c3101f;
+  /* Attributes */
   --background-text-color: #000000;
   --primary-text-color: #FFFFFF;
   --secondary-text-color: var(--secondary-color);
   --header-text-color: var(--secondary-color);
   --box-color: #FFFFFF;
+  --video-background-color: var(--secondary-color);
   --button-color: var(--primary-color);
   --button-hover-color: var(--accent-color);
   --section-title-color: var(--accent-color);
+  --special-text-color: #b7810c;
 }

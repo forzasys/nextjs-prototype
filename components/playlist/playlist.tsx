@@ -14,9 +14,10 @@ interface PlaylistProps {
   playlist: PlaylistType
   query?: QueryType
   smaller?: boolean
+  line?: boolean | false
 }
 
-function Playlist({ playlist, query, smaller }: PlaylistProps) {
+function Playlist({ playlist, query, smaller, line }: PlaylistProps) {
 
   const router = useRouter()
   const locale = useLocale()
@@ -50,6 +51,7 @@ function Playlist({ playlist, query, smaller }: PlaylistProps) {
       className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
         "smaller": smaller,
+        "line": line,
       })}>
       <div onClick={onClickVideo} className="playlist-single">
         <div className="playlist-image">

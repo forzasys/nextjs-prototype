@@ -1,5 +1,6 @@
 export type TagsType = {
   action: string,
+  id?: number,
   team?: {
     id: number;
     value?: string;
@@ -21,7 +22,28 @@ export type TagsType = {
   },
   "shot type"?: {
     value: string;
-  }
+  },
+  keeper?: {
+    id: number;
+    value?: string;
+  },
+  "player in"?: {
+    id: number;
+    value?: string;
+  },
+  "player out"?: {
+    id: number;
+    value?: string;
+  },
+  "player awarded"?: {
+    id: number;
+    value?: string;
+  },
+  "offending player"?: {
+    id: number;
+    value?: string;
+  },
+  [key: string]: unknown;
 }
 
 export type QueryType = {
@@ -69,6 +91,7 @@ export type PlaylistType = {
   game: GameType;
   hd_thumbnail_url: string;
   id: string,
+  recording_timestamp: string,
   thumbnail_url: string;
   video_url: string;
   // other playlist props

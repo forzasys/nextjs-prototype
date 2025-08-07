@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
       "hovetarena.se",
       "chl-cloudinary.corebine.com",
       "cdn1-photos.shl.se",
+      "upload.wikimedia.org",
+      "pbs.twimg.com",
+      "scontent.fosl6-1.fna.fbcdn.net",
+      "cdn1-photos.shl.se",
+      "img.seekr.cloud",
+      "www.hogakusten.com",
+      "images.aftonbladet-cdn.se",
     ],
   },
 };

@@ -9,7 +9,8 @@
 }
 
 .main-content {
-    min-height: calc(100vh - 400px);
+    min-height: calc(100vh - 100px);
+    box-sizing: border-box;
 }
 
 .middle-container {
@@ -54,7 +55,7 @@
 .section-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     color: var(--primary-text-color);
 }
 
@@ -110,9 +111,9 @@
 
 .section-more svg {
     margin-top: -1px;
-    font-size: 17px;
+    font-size: 14px;
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-10px);
     transition: all 0.3s linear;
 }
 
@@ -146,7 +147,7 @@
 /* HOVER */
 .section-more:hover:after {
     opacity: 1;
-    left: -10px;
+    left: -8px;
 }
 
 .section-more:hover svg {

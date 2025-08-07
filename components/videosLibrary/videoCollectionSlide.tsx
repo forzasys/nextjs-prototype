@@ -67,6 +67,7 @@ export async function VideoCollectionSlide({searchParams, visibleCollections}: V
       key={collection} 
       collectionName={collection}
       playlists={data}
+      query={queriesArray[index].query}
       index={index}
     />
   ));

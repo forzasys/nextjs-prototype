@@ -1,0 +1,90 @@
+.video-page-cont {
+    padding: 50px 0;
+    background-color: var(--video-background-color);
+}
+
+.video-page {
+}
+
+.video-page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    color: var(--primary-text-color);
+    font-size: 14px;
+}
+
+.video-page-type-and-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.video-page-video-type {
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--special-text-color);
+}
+
+.video-page-date {
+    
+}
+
+.video-page-title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 25px;
+}
+
+.video-page-duration {
+}
+
+.video-page-desc {
+    font-size: 27px;
+}
+
+.video-page-content-bottom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 2px;
+    padding-top: 12px;
+    border-top: 1px solid var(--special-text-color);
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.video-page-game {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--primary-text-color);
+}
+
+
+.video-page-team-logo {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.video-page-team-logo img {
+    width: auto;
+    height: 25px;
+}
+
+.video-page-tags {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.video-page-single-tag {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}

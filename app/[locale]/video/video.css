@@ -1,0 +1,13 @@
+.video-suggestions-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.video-suggestions-title {
+    margin-bottom: 15px;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}

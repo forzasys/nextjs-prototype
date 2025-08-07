@@ -1,6 +1,7 @@
-import { PlaylistType } from '@/types/dataTypes';
+import { PlaylistType, QueryType } from '@/types/dataTypes';
 import { collectionTitles } from './videoCollectionSlide';
 import Playlist from '@/components/playlist/playlist';
+import VideoCollectionMore from './videoCollectionMore';
 import { useTranslations } from 'next-intl';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./videoCollection.css";
@@ -8,21 +9,21 @@ import "./videoCollection.css";
 interface VideoCollectionProps {
     playlists?: PlaylistType[] | undefined
     collectionName: string
+    query: QueryType
     index: number
 }
 
-export function CollectionSlide({playlists, collectionName, index}: VideoCollectionProps) {
+export function CollectionSlide({playlists, collectionName, index, query}: VideoCollectionProps) {
 
-  const t = useTranslations();
-
+  const t = useTranslations(); 
   const collectionTitle = collectionTitles[collectionName] || collectionName;
 
-  const playlist = (
+  const renderPlaylists = (
     <div className="collection-slide-playlist-container">
       {playlists?.map((p: PlaylistType) => {
         return (
           <div key={p.id} className="collection-slide-playlist-single">
-            <Playlist playlist={p} query={{}}/>
+            <Playlist playlist={p} query={query}/>
           </div>
         )
       })}
@@ -34,13 +35,7 @@ export function CollectionSlide({playlists, collectionName, index}: VideoCollect
     </div>
   )
 
-  let render
-
-  // if (isLoading) render = <div >Loading...</div>
-
   if (playlists?.length === 0) return null
-
-  else render = playlist
 
   return (
     <div 
@@ -51,12 +46,9 @@ export function CollectionSlide({playlists, collectionName, index}: VideoCollect
       <div className="collection-single middle-container">
         <div className="collection-title-cont">
           <div className="collection-slide-title">{t(collectionTitle)}</div>
-          <button  className="collection-title-more">
-            {t("more")}
-            <MdOutlineArrowForwardIos/>
-          </button>
+          <VideoCollectionMore collectionName={collectionName}/>
         </div>
-        {render}
+        {renderPlaylists}
       </div>
     </div>
   )

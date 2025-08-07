@@ -4,7 +4,7 @@ import MatchScoreboard from './matchScoreboard';
 import MatchCenterFilter from '../../../../components/Filters/matchCenterFilter';
 import MatchHeadToHead from './matchHeadToHead';
 import MatchStats from './matchStats';
-import MatchLineup from './matchLineup';
+// import MatchLineup from './matchLineup';
 import MatchEvents from './matchEvents';
 import "./match.css";
 
@@ -24,6 +24,7 @@ async function Page({ params, searchParams }: MatchPageProps) {
   const resolvedSearchParams = await Promise.resolve(searchParams);
 
   const gameId = resolvedParams.id;
+  const hasStatistics = config.hasStatisticsPage;
 
   const currentSeason = config.availableSeasons[0]
   const tableInitialQuery = {
@@ -36,12 +37,14 @@ async function Page({ params, searchParams }: MatchPageProps) {
     gameEventsData,
     tableData,
     matchStatsData,
-  ] = await Promise.all([
+  ] = await Promise.all(
+    [
     onFetch("game/" + gameId),
     onFetch(`/game/${gameId}/events`, { count: 999 }),
-    onFetch("stats/table", tableInitialQuery),
+    hasStatistics ? onFetch("stats/table", tableInitialQuery) : undefined,
     onFetch(`/game/${gameId}/stats`)
-  ])
+  ]
+)
 
   const game = gameData || null
   const gameEvents = gameEventsData?.events || [];
@@ -63,9 +66,9 @@ async function Page({ params, searchParams }: MatchPageProps) {
   if (match_center_type === "stats") {
     matchInfo = <MatchStats homeTeam={game.home_team} awayTeam={game.visiting_team} statistics={statistics} />;
   }
-  if (match_center_type === "lineup") {
-    matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;
-  }
+  // if (match_center_type === "lineup") {
+    // matchInfo = <MatchLineup gameId={gameId} gameEvents={gameEvents} />;
+  // }
   if (match_center_type === "events") {
     matchInfo = <MatchEvents gameEvents={gameEvents} />;
   }

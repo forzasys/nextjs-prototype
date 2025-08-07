@@ -7,7 +7,7 @@ import { format, parseISO } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 import config from '@/config';
 import { getLeagueLogo } from '@/utilities/imageUtil';
-import { HiOutlineArrowRight } from "react-icons/hi";
+import { RiArrowRightDoubleLine } from "react-icons/ri";
 import "./homePageMatches.css"
 
 interface HomePageMatchesProps {
@@ -88,7 +88,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
           </div>
           <Link href={moreMatchesUrl} className="section-more">
             {t("more matches")}
-            <HiOutlineArrowRight />
+            <RiArrowRightDoubleLine />
           </Link>
         </div>
         <div className="next-matches-list">

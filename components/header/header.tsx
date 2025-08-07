@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@react-hookz/web';
 // import HeaderSearch from './headerSearch';
 import Link from "next/link";
 import { useLocale, useTranslations } from 'next-intl';

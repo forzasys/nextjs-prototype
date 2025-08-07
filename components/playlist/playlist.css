@@ -79,6 +79,10 @@
     padding-bottom: 20px;
 }
 
+.line .playlist-content {
+    padding: 10px 7px;
+}
+
 .playlist-event-type {
     margin-bottom: 5px;
     font-size: 12px;
@@ -103,6 +107,11 @@
     justify-content: space-between;
     padding: 0 3px;
     /* border-bottom: 1px solid #d0d0d0; */
+}
+
+.line .playlist-info {
+    padding-top: 10px;
+    border-top: 1px solid #b8b8b8;
 }
 
 .playlist-date {

@@ -20,12 +20,12 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
 
     case "goal":
       query.tags = [{ action: "goal" }]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
     
     case "penalty":
       query.tags = [{ action: "penalty" }]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
 
     case "penalty goal":
@@ -33,27 +33,27 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
         {action: "goal", "shot type": {"value": "penalty"}},
         {action: "shot", "shot type": {"value": "penalty"}}
       ]
-      query.filters = ["event"]
+      query.filters = ["official", "event"]
       break
                 
     case "red card":
       query.tags = [{ action: "red card" }]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
     
     case "save":
       query.tags = [{"action":"shot", "shot result":{"value":"saved"}}]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
 
     case "shot":
       query.tags = [{ action: "shot" }]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
 
     case "yellow card":
       query.tags = [{ action: "yellow card" }]
-      query.filters = ["official"]
+      query.filters = ["official", "event"]
       break
 
     case "highlights":
@@ -98,15 +98,6 @@ export function videoCollectionQueries ({collectionName}: InitialCollectionParam
   }
 
   return query
-}
-
-const today = new Date();
-const formattedToday = today.toISOString().split('T')[0];
-
-export const initialGamesQuery: QueryType = {
-  season: config.availableSeasons[0],
-  from_date: formattedToday,
-  asc: true,
 }
 
 export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, initialQuery: QueryType | undefined) {
@@ -164,6 +155,16 @@ export function generatePlaylistQueryFromParams(searchParams: URLSearchParams, i
   return query;
 }
 
+const today = new Date();
+const formattedToday = today.toISOString().split('T')[0];
+
+export const initialGamesQuery: QueryType = {
+  season: config.availableSeasons[0],
+  from_date: formattedToday,
+  count: 100,
+  asc: true,
+}
+
 export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
   const params = searchParams
 
@@ -193,10 +194,6 @@ export function generateGamesQueryFromParams (searchParams: URLSearchParams) {
   }
 
   if (teamParam) query.team_id = parseInt(teamParam)
-
-  // Team platform
-  const teamPlatformId = config.team
-  if (teamPlatformId) query.team_id = teamPlatformId
 
   return query
 }

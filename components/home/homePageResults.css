@@ -1,0 +1,150 @@
+.home-page-results-cont {
+    padding: 50px 0;
+    background-color: var(--secondary-color);
+}
+
+.latest-results-title {
+    color: var(--primary-text-color);
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.latest-results-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}   
+
+.latest-result-single {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 25%;
+    padding: 20px;
+    background-color: var(--box-color);
+    color: var(--secondary-text-color);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.latest-result-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.latest-result-league {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.latest-result-date {
+    text-align: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    /* font-weight: 600; */
+    color: rgb(125, 125, 125);
+}
+
+.latest-result-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* border: 1px solid red; */
+}
+
+.latest-result-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    gap: 5px;
+    padding: 0 7px;
+}
+
+.latest-result-team-name {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    min-height: 30px;
+}
+
+.latest-result-team-logo {
+    position: relative;
+    height: 50px;
+    width: 50px;
+}
+
+.latest-result-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 3px;
+    font-size: 27px;
+    margin-top: -20px;
+}
+
+.latest-result-score-separator {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1120px) {
+    .latest-results-list {
+        padding: 0 8px;
+        overflow-x: scroll;
+    }
+    .latest-result-single {
+        min-width: calc(33.33% - 30px);
+    }
+}
+
+@media (max-width: 992px) {
+    .latest-result-single {
+        min-width: calc(50% - 60px);
+    }
+}
+
+@media (max-width: 768px) {
+    .latest-result-single {
+        min-width: calc(50% - 30px);
+        padding: 12px;
+    }
+    .latest-result-content {
+        margin-top: 12px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 645px) {
+    .latest-result-single {
+        min-width: calc(100% - 150px);
+    }
+}
+
+@media (max-width: 576px) {
+    .latest-result-single {
+        min-width: calc(100% - 100px);
+    }
+}
+
+@media (max-width: 480px) {
+    .latest-result-single {
+        min-width: calc(100% - 50px);
+    }
+}

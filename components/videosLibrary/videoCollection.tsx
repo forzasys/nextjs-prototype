@@ -9,6 +9,7 @@ import { Paging } from '../paging/paging';
 import { PlaylistType, QueryType } from '@/types/dataTypes';
 import Playlist from '../playlist/playlist';
 import { useTranslations } from 'next-intl';
+import "./videoCollection.css"
 
 interface CollectionProps {
     playlists: PlaylistType[]
@@ -45,7 +46,7 @@ function VideoCollection({collectionName}: {collectionName: string}) {
         queryKey: ['playlist', query],
         queryFn: () => onFetch("playlist", query),
         // staleTime: staleTime,
-    });
+    })
 
     const onUpdatePage = (page: number) => {
         updateParam("page", page.toString())
@@ -56,6 +57,8 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     const totalPage = Math.ceil(data?.total / resultsPerPage) || 0
 
     if (isLoading) return <div className="middle-container">Loading...</div>
+
+    console.log(query)
     
     return (
         <div className="collection-container middle-container">

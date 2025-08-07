@@ -6,9 +6,7 @@
 .events-filter-options {
     display: flex;
     align-items: center;
-    gap: 25px;
-    margin-bottom: 32px;
-}
+    gap: 25px;}
 
 .event-filter-item {
     position: relative;

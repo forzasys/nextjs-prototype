@@ -23,10 +23,8 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const isTeamPlatform = !!config.team
   const currentSeason = config.availableSeasons[0]
 
-  const [gamesData, teamsData] = await Promise.all([
-    isInitialQuery ? onFetch("game", initialGamesQuery) : undefined,
-    !isTeamPlatform ? onFetch("team", {season: currentSeason}) : undefined
-  ])
+  const gamesData = isInitialQuery ? await onFetch("game", initialGamesQuery) : undefined
+  const teamsData = !isTeamPlatform ? await onFetch("team", {season: currentSeason}) : undefined;
   
   const teams = teamsData?.teams || [];
 

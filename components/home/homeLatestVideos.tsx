@@ -2,10 +2,10 @@ import { videoCollectionQueries } from "@/utilities/queryUtils";
 import { PlaylistType } from "@/types/dataTypes";
 import Playlist from '@/components/playlist/playlist';
 import Link from 'next/link';
-import classNames from "classnames";
-import { HiOutlineArrowRight } from "react-icons/hi";
-import "./home.css"
 import { useLocale, useTranslations } from "next-intl";
+import classNames from "classnames";
+import { RiArrowRightDoubleLine } from "react-icons/ri";
+import "./home.css"
 
 interface HomeLatestVideosProps {
     latestGoals: PlaylistType[]
@@ -43,7 +43,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                 <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                             </div>
                         </div> */}
-                        <Playlist playlist={video} query={query}/>
+                        <Playlist playlist={video} query={query} line />
                     </div>
                 )
             })}
@@ -59,7 +59,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                 </div>  
                 <Link href={`/${locale}/${t("videos")}`} className="section-more">
                     {t("more latest videos")}
-                    <HiOutlineArrowRight />
+                    <RiArrowRightDoubleLine />
                 </Link>
             </div>
             {latestGoalsList}

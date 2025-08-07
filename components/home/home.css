@@ -4,7 +4,8 @@
 
 .latest-videos-container {
     padding-top: 20px;
-    /* background-color: var(--box-color); */
+    background-color: var(--box-color);
+    margin-bottom: 25px;
 }
 
 .latest-videos-subtitle {
@@ -26,8 +27,8 @@
 
 .latest-video-link {
     height: fit-content;
-    width: calc(33.33% - 7px);
-    margin-bottom: 32px;
+    width: calc(33.33% - 12px);
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     text-decoration: none;

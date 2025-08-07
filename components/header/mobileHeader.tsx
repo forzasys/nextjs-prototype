@@ -33,14 +33,14 @@ function MobileHeader() {
     const mobileHeaderContent = (
       <div className="mobile-header-content">
         <div className="mobile-header-content-links">
-            <Link href={`/${locale}/matches`} className="mobile-header-content-link">
+            <Link href={`/${locale}/matches`} onClick={() => setMenuOpen(false)} className="mobile-header-content-link">
                 {t("fixtures")} & {t("results")}
             </Link>
-            <Link href={`/${locale}/videos`} className="mobile-header-content-link">
+            <Link href={`/${locale}/videos`} onClick={() => setMenuOpen(false)} className="mobile-header-content-link">
                 {t("videos")}
             </Link>
             {hasStatisticsPage && (
-                <Link href={`/${locale}/statistics`} className="mobile-header-content-link">
+                <Link href={`/${locale}/statistics`} onClick={() => setMenuOpen(false)} className="mobile-header-content-link">
                   {t("statistics")}
                 </Link>
             )}
@@ -51,10 +51,10 @@ function MobileHeader() {
                 <LocaleSwitcher mobile/>
             </div>
             {leagueWebsite && (
-                <a href={leagueWebsite} className="mobile-header-bottom-link" target="_blank">{leagueWebsite.replace("https://", "")}</a>
+                <a href={leagueWebsite} onClick={() => setMenuOpen(false)} className="mobile-header-bottom-link" target="_blank">{leagueWebsite.replace("https://", "")}</a>
             )}
             {clubWebsite && (
-                <a href={clubWebsite} className="mobile-header-bottom-link" target="_blank">{clubWebsite.replace("https://", "")}</a>
+                <a href={clubWebsite} onClick={() => setMenuOpen(false)} className="mobile-header-bottom-link" target="_blank">{clubWebsite.replace("https://", "")}</a>
             )}
         </div>                
       </div>

@@ -16,6 +16,15 @@ function MatchCenterFilter({defaultType}: MatchCenterFilterProps) {
     const matchCenterTypeParam = searchParams.get("match_center_type");
     const t = useTranslations();
 
+    // const lineup = (
+        // <div 
+            // onClick={() => updateParam("match_center_type", "lineup")}
+            // className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "lineup"})}
+            // >
+            {/* <div className="">{t("lineup")}</div> */}
+        {/* </div> */}
+    // )
+
     return (
         <div className="match-center-filter middle-container">
             <div 
@@ -33,12 +42,6 @@ function MatchCenterFilter({defaultType}: MatchCenterFilterProps) {
                     (!matchCenterTypeParam && defaultType === "stats")
                 })}>
                 <div className="">Stats</div>
-            </div>
-            <div 
-                onClick={() => updateParam("match_center_type", "lineup")}
-                className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "lineup"})}
-                >
-                <div className="">{t("lineup")}</div>
             </div>
             <div 
                 onClick={() => updateParam("match_center_type", "events")}

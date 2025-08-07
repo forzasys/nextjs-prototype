@@ -39,10 +39,12 @@
     display: flex;
     align-items: center;
     gap: 2px;
+    margin-right: 5px;
     font-size: 13px;
     font-weight: 700;
     color: var(--primary-text-color);
     text-transform: uppercase;
+    text-decoration: none;
     cursor: pointer;
     background-color: transparent;
     border: none;
@@ -50,7 +52,7 @@
 }
 
 .collection-title-more svg {
-    font-size: 15px;
+    font-size: 13px;
     transition: transform 0.1s linear;
 }
 
@@ -75,19 +77,21 @@
 .collection-container {
     display: flex;
     flex-direction: column;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
 }
 
 .collection-playlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 15px;
     width: 100%;
     flex-grow: 1;
+    margin-bottom: 25px;
 }
 
 .collection-playlist-single {
     float: left;
-    width: calc(33.33% - 25px);
-    margin-right: 25px;
-    margin-bottom: 50px;
+    width: calc(33.33% - 15px);
 }
 
 .collection-playlist-slider{
@@ -122,7 +126,7 @@
 .collection-total-results {
     font-size: 14px;
     color: var(--secondary-text-color);
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 /* HOVER */
