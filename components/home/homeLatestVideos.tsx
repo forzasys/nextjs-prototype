@@ -20,6 +20,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     const latestGoalsList = (
         <div className="latest-videos-list">
             {latestGoals.map((video: PlaylistType) => {
+                const session = {playlistId: video.id, query}
                 return (
                     <div key={video.id} className={classNames("latest-video-link", {
                         // "first": index === 0,
@@ -43,7 +44,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                 <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                             </div>
                         </div> */}
-                        <Playlist playlist={video} query={query} line />
+                        <Playlist playlist={video} session={session} line />
                     </div>
                 )
             })}

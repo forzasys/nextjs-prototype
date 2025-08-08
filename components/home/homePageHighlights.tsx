@@ -6,6 +6,7 @@ import { formatDuration, getTeamBaseColor, saveQueryToSession } from '@/utilitie
 import { useLocale, useTranslations } from 'next-intl'
 import config from '@/config'
 import { useRouter } from 'next/navigation'
+import { useDragToScroll } from '@/utilities/ClientSideUtils'
 import "./homePageHighlights.css"
 
 interface HomeLatestHighlightsProps {
@@ -20,14 +21,30 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
     const locale = useLocale();
     const league = config.league
 
+    const {
+        containerRef: listRef,
+        onPointerDown,
+        onPointerMove,
+        onPointerUp: endPointerDrag,
+        onPointerCancel,
+        onPointerLeave,
+        onClickCapture,
+    } = useDragToScroll<HTMLDivElement>({
+        pointerType: 'mouse',
+        clickPreventThreshold: 3,
+        snap: true,
+        snapSelector: '.latest-single',
+        snapBehavior: 'smooth',
+        snapAlignment: 'start',
+    });
+
     const latestHighlights = highlights
         .filter((h) => h.game)
         .slice(0, 4)
 
     const onClickVideo = (playlistId: string) => {
         if (highlightsQuery) {
-            console.log("setting query", highlightsQuery)
-            saveQueryToSession(highlightsQuery)
+            saveQueryToSession({playlistId: playlistId, query: highlightsQuery})
         }
         router.push(`/${locale}/video/${playlistId}`)
     }
@@ -78,7 +95,16 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
                     <div className="section-title-mask"></div>
                 </div>
             </div>
-            <div className="latest-highlights-list">
+            <div 
+                className="latest-highlights-list"
+                ref={listRef}
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={endPointerDrag}
+                onPointerCancel={onPointerCancel}
+                onPointerLeave={onPointerLeave}
+                onClickCapture={onClickCapture}
+            >
                 {latestHighlightsList}
             </div>
         </div>

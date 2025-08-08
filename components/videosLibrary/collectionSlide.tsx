@@ -21,9 +21,10 @@ export function CollectionSlide({playlists, collectionName, index, query}: Video
   const renderPlaylists = (
     <div className="collection-slide-playlist-container">
       {playlists?.map((p: PlaylistType) => {
+        const session = {playlistId: p.id, query}
         return (
           <div key={p.id} className="collection-slide-playlist-single">
-            <Playlist playlist={p} query={query}/>
+            <Playlist playlist={p} session={session}/>
           </div>
         )
       })}

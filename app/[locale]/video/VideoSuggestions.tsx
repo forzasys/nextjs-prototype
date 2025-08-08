@@ -13,11 +13,13 @@ import "./video.css";
 
 function VideoSuggestions() {
 
+  const videoId = window.location.pathname.split('/').filter(Boolean).pop();
+
   const [query, setQuery] = useState<QueryType>({});
 
   useEffect(() => {
     try {
-      const queryFromLocalSession = loadQueryFromSession();
+      const queryFromLocalSession = loadQueryFromSession(videoId);
       if (queryFromLocalSession) setQuery(queryFromLocalSession)
     } catch (error) {
       console.error('Error accessing sessionStorage:', error);
@@ -36,9 +38,10 @@ function VideoSuggestions() {
   const playlist = (
     <div className="collection-slide-playlist-container">
       {collections.map((p: PlaylistType) => {
+        const session = {playlistId: p.id, query}
         return (
           <div key={p.id} className="collection-slide-playlist-single">
-            <Playlist playlist={p} query={query}/>
+            <Playlist playlist={p} session={session} />
           </div>
         )
       })}

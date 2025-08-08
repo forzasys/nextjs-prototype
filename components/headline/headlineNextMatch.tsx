@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
 import { getLeagueLogo } from "@/utilities/imageUtil"
 import config from "@/config"
+import "./headline.css"
 import './headlineNextMatch.css'
 
 interface HeadlineNextMatchProps {  

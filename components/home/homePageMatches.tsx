@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import config from '@/config';
 import { getLeagueLogo } from '@/utilities/imageUtil';
 import { RiArrowRightDoubleLine } from "react-icons/ri";
+import { useDragToScroll } from '@/utilities/ClientSideUtils';
 import "./homePageMatches.css"
 
 interface HomePageMatchesProps {
@@ -23,6 +24,23 @@ function HomePageMatches({games}: HomePageMatchesProps) {
   const leagueLogo = getLeagueLogo[config.league as keyof typeof getLeagueLogo]
 
   const moreMatchesUrl = `/${locale}/${t("matches")}`;
+
+  const {
+    containerRef: listRef,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp: endPointerDrag,
+    onPointerCancel,
+    onPointerLeave,
+    onClickCapture,
+  } = useDragToScroll<HTMLDivElement>({
+    pointerType: 'mouse',
+    clickPreventThreshold: 3,
+    snap: true,
+    snapSelector: '.home-match-single',
+    snapBehavior: 'smooth',
+    snapAlignment: 'start',
+  });
 
   const homeAwayLabel = (homeTeamId: number, awayTeamId: number) => {
     if (!teamPlatformId) return null;
@@ -79,22 +97,28 @@ function HomePageMatches({games}: HomePageMatchesProps) {
 
   return (
     <div className="home-page-matches-cont">
-      {/* <div className="home-page-matches-bg"></div> */}
-      <div className= "home-page-matches middle-container">
-        <div className="section-header">
-          <div className="section-title">
-            {t("next matches")}
-            <div className="section-title-mask"></div>
-          </div>
-          <Link href={moreMatchesUrl} className="section-more">
-            {t("more matches")}
-            <RiArrowRightDoubleLine />
-          </Link>
+      <div className="section-header middle-container">
+        <div className="section-title">
+          {t("next matches")}
+          <div className="section-title-mask"></div>
         </div>
-        <div className="next-matches-list">
-          {gamesList}
-        </div>
-      </div>   
+        <Link href={moreMatchesUrl} className="section-more">
+          {t("more matches")}
+          <RiArrowRightDoubleLine />
+        </Link>
+      </div>
+      <div
+        className="next-matches-list middle-container clear-right"
+        ref={listRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endPointerDrag}
+        onPointerCancel={onPointerCancel}
+        onPointerLeave={onPointerLeave}
+        onClickCapture={onClickCapture}
+      >
+        {gamesList}
+      </div>  
     </div>
   )
 }

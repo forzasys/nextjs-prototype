@@ -4,6 +4,7 @@ import { GameType } from '@/types/dataTypes'
 import Image from 'next/image'
 import config from '@/config'
 import Link from 'next/link';
+import { useDragToScroll } from '@/utilities/ClientSideUtils';
 import { format } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 import { RiArrowRightDoubleLine } from "react-icons/ri";
@@ -14,6 +15,23 @@ interface HomePageHighlightsProps {
 }
 
 function HomePageHighlights({games}: HomePageHighlightsProps) {
+
+    const {
+        containerRef: listRef,
+        onPointerDown,
+        onPointerMove,
+        onPointerUp: endPointerDrag,
+        onPointerCancel,
+        onPointerLeave,
+        onClickCapture,
+      } = useDragToScroll<HTMLDivElement>({
+        pointerType: 'mouse',
+        clickPreventThreshold: 3,
+        snap: true,
+        snapSelector: '.latest-result-single',
+        snapBehavior: 'smooth',
+        snapAlignment: 'start',
+    });
 
     const t = useTranslations();
     const locale = useLocale();
@@ -63,20 +81,27 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
 
     return (
         <div className="home-page-results-cont">
-            <div className="home-page-results middle-container">
-                <div className="section-header opposite">
-                    <div className="section-title">
-                        {t("latest results")}
-                        <div className="section-title-mask"></div>
-                    </div>
-                    <Link href={moreResultsUrl} className="section-more">
-                        {t("more results")}
-                        <RiArrowRightDoubleLine />
-                    </Link>
+            <div className="section-header opposite middle-container">
+                <div className="section-title">
+                    {t("latest results")}
+                    <div className="section-title-mask"></div>
                 </div>
-                <div className="latest-results-list">
-                    {latestHighlightsList}
-                </div>
+                <Link href={moreResultsUrl} className="section-more">
+                    {t("more results")}
+                    <RiArrowRightDoubleLine />
+                </Link>
+            </div>
+            <div 
+                className="latest-results-list middle-container clear-right"
+                ref={listRef}
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={endPointerDrag}
+                onPointerCancel={onPointerCancel}
+                onPointerLeave={onPointerLeave}
+                onClickCapture={onClickCapture}
+            >
+                {latestHighlightsList}
             </div>
         </div>
     )

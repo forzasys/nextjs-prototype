@@ -7,6 +7,8 @@ import { GameType, PlaylistType } from '@/types/dataTypes'
 import classNames from 'classnames'
 import { useTranslations } from 'next-intl'
 import { format, parseISO } from 'date-fns';
+import { getLeagueLink } from '@/utilities/utils';
+import config from '@/config';
 import "./headline.css"
 
 interface HeadlineClientProps {
@@ -48,6 +50,7 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
 
     const headlineTimeBar = {width: timing + "%"}
     // const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`
+    const leagueLink = getLeagueLink[config.league as keyof typeof getLeagueLink]
 
     const headlineItems = (
         <div className="headline-items middle-container">
@@ -71,7 +74,7 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
                     <div className="headline-item-title">{t("latest news")}</div>
                     <div className="headline-item-subtitle">
                         <div>Find out the latest news from the club</div>
-                        <div>Visit www.vif-fotball.no</div>
+                        <div>{leagueLink}</div>
                     </div>
                 </div>
             </div>

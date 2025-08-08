@@ -53,25 +53,14 @@ export function getGameTime (gameTime: number, phase: string) {
     return [time, isStoppage]
 };
 
-export function getOrCreateTabId() {
-    let tabId = sessionStorage.getItem("tabId");
-    if (!tabId) {
-      tabId = crypto.randomUUID();
-      sessionStorage.setItem("tabId", tabId);
-    }
-    return tabId;
+export function saveQueryToSession(session: {playlistId: string, query?: QueryType}) {
+    const key = session.playlistId;
+    sessionStorage.setItem(key, JSON.stringify(session.query));
 }
 
-export function saveQueryToSession(query: QueryType) {
-    const tabId = getOrCreateTabId();
-    const key = `query_${tabId}`;
-    sessionStorage.setItem(key, JSON.stringify(query));
-}
-
-export function loadQueryFromSession() {
-    const tabId = getOrCreateTabId();
-    const key = `query_${tabId}`;
-    const query = sessionStorage.getItem(key);
+export function loadQueryFromSession(playlistId: string | undefined) {
+    if (!playlistId) return null;
+    const query = sessionStorage.getItem(playlistId);
     return query ? JSON.parse(query) : null;
 }
 
@@ -178,13 +167,20 @@ export function formatReadableDate(dateString: string): string {
     return format(date, 'dd-MM-yyyy');
 }
 
-interface TeamBaseColorType {
+export const ignoredTags = ["end phase", "corner", "free kick", "medical treatment", "misc", "offside", "start phase", "substitution", "throw-in"]
+
+interface IdToObjectAndStringType {
     [key: string]: {
         [key: number]: string
     }
 }
 
-export const getTeamBaseColor: TeamBaseColorType = {
+export const getLeagueLink: Record<string, string> = {
+    "vif": "www.vif-fotball.no",
+    "shl": "www.shl.se",
+}
+
+export const getTeamBaseColor: IdToObjectAndStringType = {
     "eliteserien": {
         1: "#022ca1",
         14: "#FBDD00",
@@ -212,13 +208,7 @@ export const getTeamBaseColor: TeamBaseColorType = {
     }
 }
 
-interface TeamStadiumNameType {
-    [key: string]: {
-        [key: number]: string
-    }
-}
-
-export const teamStadiumName: TeamStadiumNameType = {
+export const teamStadiumName: IdToObjectAndStringType = {
     "eliteserien": {
         // VIF
         1: "Intility Arena",

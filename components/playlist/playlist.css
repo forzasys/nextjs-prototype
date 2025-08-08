@@ -136,31 +136,6 @@
     color: var(--background-text-color);
 }
 
-/* SMALLER PLAYLIST ITEM */
-.smaller .playlist-duration-cont {
-    height: 22px;
-}
-
-.smaller .playlist-duration-play-icon {
-    width: 20px;
-    font-size: 11px;
-}
-
-.smaller .playlist-duration {
-    min-width: 40px;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.smaller .playlist-description {
-    height: 40px;
-    font-size: 15px;
-}
-
-.smaller .playlist-info-type {
-    font-size: 11px;
-}
-
 /* HOVER */
 .playlist-single-link:not(.game-hovered):hover .playlist-duration-hover {
     width: 100%;

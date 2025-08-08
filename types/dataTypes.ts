@@ -17,6 +17,14 @@ export type TagsType = {
     id: number | "" | undefined;
     value?: string;
   },
+  "assist1"?: {
+    id: number | "" | undefined;
+    value?: string;
+  },
+  "assist2"?: {
+    id: number | "" | undefined;
+    value?: string;
+  },
   "shot result"?: {
     value: string;
   },
@@ -24,6 +32,10 @@ export type TagsType = {
     value: string;
   },
   keeper?: {
+    id: number;
+    value?: string;
+  },
+  "goalkeeper"?: {
     id: number;
     value?: string;
   },
@@ -40,6 +52,10 @@ export type TagsType = {
     value?: string;
   },
   "offending player"?: {
+    id: number;
+    value?: string;
+  },
+  "offending_player"?: {
     id: number;
     value?: string;
   },
@@ -88,6 +104,7 @@ export type PlaylistType = {
   description: string;
   duration_ms: number;
   events: EventType[];
+  filters: string[];
   game: GameType;
   hd_thumbnail_url: string;
   id: string,

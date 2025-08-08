@@ -3,6 +3,7 @@ import { GameType, PlaylistType, TagsType } from "@/types/dataTypes"
 import Link from "next/link"
 import config from "@/config"
 import { useLocale, useTranslations } from "next-intl"
+import { ignoredTags } from "@/utilities/utils"
 import "./videoPage.css"
 
 const pathnameTranslations = {
@@ -66,17 +67,24 @@ function useGetPlaylistCategoryAndPlayerLinks (playlist: PlaylistType) {
     const locale = useLocale()
     const t = useTranslations()
 
-    const {events, game} = playlist
+    const {events, game, filters} = playlist
     const tag = events[0]?.tags[0]
     if (!tag) return []
 
-    const links: LinkType[] = [{
-        key: "event", 
-        text: t(tag.action), 
-        href: `/${locale}/videos?event=${tag.action}`,
-    }]
+    const isValidEvent = !ignoredTags.includes(tag.action)
+    const isHighlights = filters.includes("playlist")
 
-    if (game) {
+    const links: LinkType[] = []
+
+    if (isValidEvent && !isHighlights) {
+        links.push({
+            key: "event", 
+            text: t(tag.action), 
+            href: `/${locale}/videos?event=${tag.action}`,
+        })
+    }
+
+    if (game && !isHighlights) {
         if ("scorer" in tag) {
             links.push({
                 key: "scorer",
@@ -91,6 +99,20 @@ function useGetPlaylistCategoryAndPlayerLinks (playlist: PlaylistType) {
                 href: getLinksFromTag("assist by", tag, playlist, locale),
             })
         }
+        if ("assist1" in tag) {
+            links.push({
+                key: "assist1",
+                text: tag["assist1"]?.value,
+                href: getLinksFromTag("assist1", tag, playlist, locale),
+            })
+        }
+        if ("assist2" in tag) {
+            links.push({
+                key: "assist2",
+                text: tag["assist2"]?.value,
+                href: getLinksFromTag("assist2", tag, playlist, locale),
+            })
+        }
         if ("player" in tag) {
             links.push({
                 key: "player",
@@ -103,6 +125,13 @@ function useGetPlaylistCategoryAndPlayerLinks (playlist: PlaylistType) {
                 key: "keeper",
                 text: tag["keeper"]?.value,
                 href: getLinksFromTag("keeper", tag, playlist, locale),
+            })
+        }
+        if ("goalkeeper" in tag) {
+            links.push({
+                key: "goalkeeper",
+                text: tag["goalkeeper"]?.value,
+                href: getLinksFromTag("goalkeeper", tag, playlist, locale),
             })
         }
         if ("player in" in tag) {
@@ -132,6 +161,33 @@ function useGetPlaylistCategoryAndPlayerLinks (playlist: PlaylistType) {
                 text: tag["offending player"]?.value,
                 href: getLinksFromTag("offending player", tag, playlist, locale),
             })
+        }
+        if ("offending_player" in tag) {
+            links.push({
+                key: "offending_player",
+                text: tag["offending_player"]?.value,
+                href: getLinksFromTag("offending_player", tag, playlist, locale),
+            })
+        }
+    }
+
+    // Highlight video tag links
+    if (isHighlights) {
+        if (game) {
+            if (game.home_team) {
+                links.push({
+                    key: "home team",
+                    text: game.home_team.name,
+                    href: `/${locale}/videos?team=${game.home_team.id}`,
+                })
+            }
+            if (game.visiting_team) {
+                links.push({
+                    key: "away team",
+                    text: game.visiting_team.name,
+                    href: `/${locale}/videos?team=${game.visiting_team.id}`,
+                })
+            }
         }
     }
 

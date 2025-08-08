@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import classNames from 'classnames';
 import "./filters.css";
 import './eventFilters.css';
+import { ignoredTags } from '@/utilities/utils';
 
 interface EventFilterProps {
   tags: string[];
@@ -79,9 +80,9 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
     return acc;
   }, []);
 
-  const uselessTags = ["end phase", "corner", "free kick", "medical treatment", "misc", "offside", "start phase", "substitution", "throw-in"]
   
-  const availableTags = allTags.filter((t) => !uselessTags.includes(t))
+  
+  const availableTags = allTags.filter((t) => !ignoredTags.includes(t))
   
   if (config.target !== "shl") {
     availableTags.push("assist", "save")

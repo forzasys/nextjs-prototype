@@ -31,10 +31,6 @@
     text-transform: uppercase;
 }
 
-/* .top-first .collection-title {
-    color: var(--primary-text-color);
-} */
-
 .collection-title-more {
     display: flex;
     align-items: center;

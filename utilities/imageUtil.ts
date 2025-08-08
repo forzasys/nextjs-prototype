@@ -3,8 +3,7 @@ import brannLogo from "@/public/img/logo/brann-logo.png";
 import shlLogo from "@/public/img/logo/shl-logo.png";
 import shlLogoBlack from "@/public/img/logo/shl-logo-black.png";
 import eliteserienLogo from "@/public/img/logo/eliteserien-logo.png";
-import vifClubSiteImage from "@/public/img/clubSite/vif-club-site.png";
-import { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image"
 
 interface ImageType {
     [key: string]: StaticImageData | string
@@ -55,5 +54,6 @@ export const getStadiumImage: StadiumImageType = {
 }
 
 export const getClubSiteImage: ImageType = {
-    "VIF": vifClubSiteImage,
+    "vif": "https://www.vif-fotball.no/_/image/aae6606d-ed90-4ff8-849c-f5e6e9c56c20:51ea6e02fc00284475414e27bcca56c0b64d814b/width-1600/Dark-Background-2025.png",
+    "shl": "https://cdn1-photos.shl.se/photos/25/05/f372dc93-e6c5-486b-b3f1-871c424ef915TruppkollenKarusell16x9v3.jpg?ixlib=js-3.8.0&fp-y=0.5&fp-x=0.5&ar=1.47&crop=focalpoint&fit=crop&w=2257&s=bf88b6dc9ded51c851d2f722e8556133 2257w",
 }

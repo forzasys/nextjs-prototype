@@ -17,14 +17,16 @@ interface CollectionProps {
 }
 
 function Collection ({playlists, query}: CollectionProps) {
-
     return (
         <div className="collection-playlist-container">
-            {playlists.map((playlist: PlaylistType) => (
-                <div key={playlist.id} className="collection-playlist-single">
-                    <Playlist playlist={playlist} query={query} />
-                </div>
-            ))}
+            {playlists.map((playlist: PlaylistType) => {
+                const session = {playlistId: playlist.id, query}
+                return (
+                    <div key={playlist.id} className="collection-playlist-single">
+                        <Playlist playlist={playlist} session={session} />
+                    </div>
+                )
+            })}
         </div>
     )
 }

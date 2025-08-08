@@ -12,12 +12,11 @@ import "./playlist.css";
 
 interface PlaylistProps {
   playlist: PlaylistType
-  query?: QueryType
-  smaller?: boolean
+  session?: {playlistId: string, query?: QueryType}
   line?: boolean | false
 }
 
-function Playlist({ playlist, query, smaller, line }: PlaylistProps) {
+function Playlist({ playlist, session, line }: PlaylistProps) {
 
   const router = useRouter()
   const locale = useLocale()
@@ -26,9 +25,9 @@ function Playlist({ playlist, query, smaller, line }: PlaylistProps) {
   const t = useTranslations();
 
   const onClickVideo = () => {
-    if (query) {
-      console.log("setting query", query)
-      saveQueryToSession(query)
+    if (session) {
+      console.log("setting query", session)
+      saveQueryToSession(session)
     }
     router.push(`/${locale}/video/${playlist.id}`)
   }
@@ -50,7 +49,6 @@ function Playlist({ playlist, query, smaller, line }: PlaylistProps) {
       onClick={onClickVideo}
       className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
-        "smaller": smaller,
         "line": line,
       })}>
       <div onClick={onClickVideo} className="playlist-single">
