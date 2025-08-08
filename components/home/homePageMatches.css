@@ -23,11 +23,6 @@
     overflow-x: auto;
 }
 
-.next-matches-list.dragging {
-    cursor: grabbing;
-    user-select: none;
-}
-
 .next-matches-list::-webkit-scrollbar {
     display: none;
 }
@@ -45,7 +40,6 @@
     padding-top: 25px;
     background-color: var(--box-color);
     transition: transform 0.3s linear;
-    cursor: pointer;
 }
 
 .home-match-single-top {
@@ -181,6 +175,9 @@
 @media (max-width: 1120px) {
     .home-match-single {
         min-width: calc(33.33% - 30px);
+    }
+    .next-matches-list.dragging {
+        cursor: grabbing;
     }
 }
 

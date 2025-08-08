@@ -10,12 +10,13 @@ import './eventFilters.css';
 import { ignoredTags } from '@/utilities/utils';
 
 interface EventFilterProps {
-  tags: string[];
-  playersData: {
+  tags?: Record<string, unknown>;
+  availableTags?: string[];
+  playersData?: {
     active_players: {
       player: PlayerType
     }[]
-  }
+  };
 }
 
 interface SingleEventProps {
@@ -61,7 +62,7 @@ function SingleEvent({ event, playerSelected, eventParam, isGoalkeeper }: Single
   )
 }
 
-function EventFilter({ tags, playersData }: EventFilterProps) {
+function EventFilter({ tags, availableTags: availableTagsProp, playersData }: EventFilterProps) {
 
   const searchParams = useSearchParams();
   const playerParam = searchParams.get("player");
@@ -71,26 +72,27 @@ function EventFilter({ tags, playersData }: EventFilterProps) {
   const t = useTranslations();
   const { updateMultipleParams } = useUpdateSearchParam();
 
-  if (tags.length === 0) return null
-
-  const allTags = Object.entries(tags).reduce<string[]>((acc, [key, value]) => {
-    if (Array.isArray(value) && value.length > 0) {
-      acc.push(key);
+  // Prefer server-provided availableTags to avoid recomputation; fall back to local calculation
+  let availableTags: string[] | null = null;
+  if (availableTagsProp && availableTagsProp.length > 0) {
+    availableTags = availableTagsProp.slice();
+  } else if (tags) {
+    const allTags = Object.entries(tags).reduce<string[]>((acc, [key, value]) => {
+      if (Array.isArray(value) && value.length > 0) acc.push(key);
+      return acc;
+    }, []);
+    availableTags = allTags.filter((t) => !ignoredTags.includes(t));
+    if (config.target !== "shl") {
+      if (!availableTags.includes("assist")) availableTags.push("assist");
+      if (!availableTags.includes("save")) availableTags.push("save");
     }
-    return acc;
-  }, []);
-
-  
-  
-  const availableTags = allTags.filter((t) => !ignoredTags.includes(t))
-  
-  if (config.target !== "shl") {
-    availableTags.push("assist", "save")
   }
 
-  const allPlayers = playersData?.active_players.map((p) => p.player)
+  if (!availableTags || availableTags.length === 0) return null;
 
-  const selectedPlayer: PlayerType | null = !!teamParam && allPlayers?.find(t => t.id === Number(teamParam)) || null
+  const allPlayers = playersData?.active_players?.map((p) => p.player) || [];
+
+  const selectedPlayer: PlayerType | null = !!playerParam && allPlayers.find(p => p.id === Number(playerParam)) || null
   const selectedPlayerIsGoalkeeper = !!selectedPlayer && selectedPlayer.role === "goalkeeper"
 
   const onSelectAllTag = () => {

@@ -49,14 +49,14 @@ function DesktopHeader() {
             <Image src={headerLogo} alt="team logo"/>
           </Link>
         )}
-        <Link href={`/${locale}/matches`} className="header-link">
+        <Link href={`/${locale}/${t("matches")}`} className="header-link">
           {t("fixtures")} & {t("results")}
         </Link>
-        <Link href={`/${locale}/videos`} className="header-link">
+        <Link href={`/${locale}/${t("videos")}`} className="header-link">
           {t("videos")}
         </Link>
         {hasStatisticsPage && (
-          <Link href={`/${locale}/statistics`} className="header-link">
+          <Link href={`/${locale}/${t("statistics")}`} className="header-link">
             {t("statistics")}
           </Link>
         )}

@@ -44,7 +44,7 @@ export async function VideoCollectionSlide({searchParams, visibleCollections}: V
   const collectionsData = await Promise.all(
     queriesArray.map(async ({collection, query}) => {
       try {
-        const data = await onFetch('playlist', query);
+        const data = await onFetch('playlist', query, { revalidate: 300, cache: 'force-cache' });
         return {
           collection,
           data: data?.playlists || [],

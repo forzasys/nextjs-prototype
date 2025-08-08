@@ -136,6 +136,12 @@
     color: var(--background-text-color);
 }
 
+.playlist-info-team-logo {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
 /* HOVER */
 .playlist-single-link:not(.game-hovered):hover .playlist-duration-hover {
     width: 100%;

@@ -32,7 +32,7 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
         onClickCapture,
     } = useDragToScroll<HTMLDivElement>({
         pointerType: 'mouse',
-        clickPreventThreshold: 3,
+        clickPreventThreshold: 10,
         snap: true,
         snapSelector: '.latest-single',
         snapBehavior: 'smooth',
@@ -72,10 +72,10 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
                     </div>                
                     <div className="latest-single-team">
                         <div className="latest-single-team-logo">
-                            <Image src={game.home_team.logo_url} alt={game.home_team.name} width={60} height={60} priority={false} />
+                            <Image src={game.home_team.logo_url} alt={game.home_team.name} fill sizes="()" />
                         </div>
                         <div className="latest-single-team-logo">
-                            <Image src={game.visiting_team.logo_url} alt={game.visiting_team.name} width={60} height={60} priority={false} />
+                            <Image src={game.visiting_team.logo_url} alt={game.visiting_team.name} fill sizes="()" />
                         </div>
                     </div>
                     <div className='latest-highlights-duration'>{duration}</div>

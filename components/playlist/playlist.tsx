@@ -83,11 +83,15 @@ function Playlist({ playlist, session, line }: PlaylistProps) {
               onMouseEnter={() => setIsGameHovered(true)}
               onMouseLeave={() => setIsGameHovered(false)}
             >
-              <Image src={game.home_team.logo_url} alt="home team logo" width={27} height={27} />
+              <div className="playlist-info-team-logo">
+                <Image src={game.home_team.logo_url} alt="home team logo" fill sizes="()" />
+              </div>
               <div className="playlist-info-match-score">
                 {game.home_team_goals} - {game.visiting_team_goals}
               </div>
-              <Image src={game.visiting_team.logo_url} alt="visiting team logo" width={27} height={27} />
+              <div className="playlist-info-team-logo">
+                <Image src={game.visiting_team.logo_url} alt="visiting team logo" fill sizes="()" />
+              </div>
             </div>
           )}
         </div>

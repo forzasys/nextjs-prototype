@@ -4,7 +4,7 @@ import { videoCollectionQueries } from '@/utilities/queryUtils';
 import { useSearchParams } from 'next/navigation';
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { generatePlaylistQueryFromParams } from '@/utilities/queryUtils';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Paging } from '../paging/paging';
 import { PlaylistType, QueryType } from '@/types/dataTypes';
 import Playlist from '../playlist/playlist';
@@ -44,10 +44,14 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     const resultsPerPage = 12
     query.count = resultsPerPage
 
-    const { data, isLoading } = useQuery({
+    type PlaylistResponse = { playlists: PlaylistType[]; total: number };
+
+    const { data, isLoading } = useQuery<PlaylistResponse>({
         queryKey: ['playlist', query],
         queryFn: () => onFetch("playlist", query),
-        // staleTime: staleTime,
+        staleTime: 60_000,
+        gcTime: 5 * 60_000,
+        placeholderData: keepPreviousData,
     })
 
     const onUpdatePage = (page: number) => {
@@ -56,7 +60,8 @@ function VideoCollection({collectionName}: {collectionName: string}) {
 
     const playlists = data?.playlists || []
 
-    const totalPage = Math.ceil(data?.total / resultsPerPage) || 0
+    const totalResults = typeof data?.total === 'number' ? data.total : 0
+    const totalPage = Math.ceil(totalResults / resultsPerPage)
 
     if (isLoading) return <div className="middle-container">Loading...</div>
 
@@ -64,7 +69,7 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     
     return (
         <div className="collection-container middle-container">
-            <div className="collection-total-results">{t("showing")} {data?.total} {t("results")}</div>
+            <div className="collection-total-results">{t("showing")} {totalResults} {t("results")}</div>
             <Collection playlists={playlists} query={query}/>
             <Paging page={Number(pageParam)} pageCount={totalPage} onChange={onUpdatePage}/>
         </div>

@@ -96,6 +96,7 @@ interface UseDragToScrollOptions {
   snapAlignment?: 'start' | 'center'
   snapOnScrollEnd?: boolean
   scrollEndDebounceMs?: number
+  ignoreInteractive?: boolean
 }
 
 export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(options?: UseDragToScrollOptions) {
@@ -108,6 +109,7 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
     snapAlignment = 'start',
     snapOnScrollEnd = true,
     scrollEndDebounceMs = 150,
+    ignoreInteractive = true,
   } = options || {}
 
   const containerRef = useRef<TElement | null>(null)
@@ -116,6 +118,7 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
   const startScrollLeftRef = useRef<number>(0)
   const hasDraggedRef = useRef<boolean>(false)
   const scrollEndTimeoutRef = useRef<number | null>(null)
+  const startedOnInteractiveRef = useRef<boolean>(false)
 
   const snapToNearest = useCallback((container: TElement) => {
     if (!snap) return
@@ -158,11 +161,25 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
     if (!isPointerAllowed(event)) return
     const container = containerRef.current
     if (!container) return
+
+    // Skip starting a drag when interacting with links/buttons/inputs
+    if (ignoreInteractive) {
+      const target = event.target as HTMLElement
+      const interactiveAncestor = target.closest(
+        'a, button, input, textarea, select, [contenteditable="true"], [data-no-drag]'
+      )
+      if (interactiveAncestor) {
+        startedOnInteractiveRef.current = true
+        return
+      }
+    }
+
+    startedOnInteractiveRef.current = false
     isDraggingRef.current = true
     startXRef.current = event.clientX
     startScrollLeftRef.current = container.scrollLeft
     hasDraggedRef.current = false
-    container.classList.add('dragging')
+    // Note: add 'dragging' class only after surpassing threshold in onPointerMove
     try { container.setPointerCapture(event.pointerId) } catch {}
   }
 
@@ -173,9 +190,12 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
     if (!container) return
     const deltaX = event.clientX - startXRef.current
     if (Math.abs(deltaX) > clickPreventThreshold) {
-      hasDraggedRef.current = true
+      if (!hasDraggedRef.current) {
+        hasDraggedRef.current = true
+        container.classList.add('dragging')
+      }
+      container.scrollLeft = startScrollLeftRef.current - deltaX
     }
-    container.scrollLeft = startScrollLeftRef.current - deltaX
   }
 
   const endPointerDrag = (event: React.PointerEvent<TElement>) => {
@@ -192,7 +212,7 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
     if (snap && hasDraggedRef.current && container) {
       snapToNearest(container)
     }
-    setTimeout(() => { hasDraggedRef.current = false }, 0)
+    setTimeout(() => { hasDraggedRef.current = false; startedOnInteractiveRef.current = false }, 0)
   }
 
   // Snap after inertial/native scroll ends (works for mouse wheel, trackpad, touch flicks)
@@ -216,6 +236,12 @@ export function useDragToScroll<TElement extends HTMLElement = HTMLDivElement>(o
   }, [snap, snapOnScrollEnd, scrollEndDebounceMs, snapToNearest])
 
   const onClickCapture = (event: React.MouseEvent<TElement>) => {
+    // Always allow clicks that started on interactive elements (e.g., Links)
+    if (startedOnInteractiveRef.current) {
+      startedOnInteractiveRef.current = false
+      return
+    }
+    // Prevent accidental clicks only if a drag actually occurred
     if (hasDraggedRef.current) {
       event.preventDefault()
       event.stopPropagation()

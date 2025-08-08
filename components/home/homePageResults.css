@@ -17,11 +17,6 @@
     overflow-x: auto;
 }   
 
-.latest-results-list.dragging {
-    cursor: grabbing;
-    user-select: none;
-}
-
 .latest-results-list::-webkit-scrollbar {
     display: none;
 }
@@ -42,7 +37,6 @@
     background-color: var(--box-color);
     color: var(--secondary-text-color);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    cursor: pointer;
 }
 
 .latest-result-header {
@@ -120,6 +114,9 @@
 @media (max-width: 1120px) {
     .latest-results-list {
         overflow-x: scroll;
+    }
+    .latest-results-list.dragging {
+        cursor: grabbing;
     }
     .latest-result-single {
         min-width: calc(33.33% - 30px);

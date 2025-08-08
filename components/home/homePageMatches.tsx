@@ -36,7 +36,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
     onClickCapture,
   } = useDragToScroll<HTMLDivElement>({
     pointerType: 'mouse',
-    clickPreventThreshold: 3,
+    clickPreventThreshold: 10,
     snap: true,
     snapSelector: '.home-match-single',
     snapBehavior: 'smooth',

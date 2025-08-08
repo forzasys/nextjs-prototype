@@ -35,7 +35,12 @@ export function getApiPath (
   return url.toString()
 }
 
-export async function onFetch(path: string, query?: QueryType) {
+type FetchOptions = {
+  revalidate?: number;
+  cache?: RequestCache;
+};
+
+export async function onFetch(path: string, query?: QueryType, options?: FetchOptions) {
   const apiPath = getApiPath(path, query)
   
   if (typeof window === 'undefined') {
@@ -44,7 +49,12 @@ export async function onFetch(path: string, query?: QueryType) {
     console.log("🔵 Client fetching:", apiPath);
   }
 
-  const res = await fetch(apiPath, {mode: "cors", credentials: "include", next: {revalidate:180}})
+  const res = await fetch(apiPath, {
+    mode: "cors",
+    credentials: "include",
+    cache: options?.cache,
+    next: { revalidate: options?.revalidate ?? 180 },
+  })
 
   if (res.ok) return await res.json()
 

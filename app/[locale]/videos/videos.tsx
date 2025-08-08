@@ -2,6 +2,7 @@ import { VideoCollectionSlide } from '@/components/videosLibrary/videoCollection
 import config from '@/config';
 import { collectionsToShow } from '@/utilities/utils';
 import VideoCollection from '@/components/videosLibrary/videoCollection';
+import { Suspense } from 'react';
 
 function Videos({ params }: {params: URLSearchParams}) {
 
@@ -35,10 +36,15 @@ function Videos({ params }: {params: URLSearchParams}) {
 
   return (
     <div className="">
-      {hasEventParam ? 
-        <VideoCollection collectionName={eventParam} /> : 
+      {hasEventParam ? (
+        <Suspense fallback={<div className="middle-container">Loading...</div>}>
+          {/* Client component handles its own fetching with React Query */}
+          <VideoCollection collectionName={eventParam} />
+        </Suspense>
+      ) : (
+        // Server component prefetches multiple playlists concurrently
         <VideoCollectionSlide searchParams={params} visibleCollections={visibleCollections} />
-      }
+      )}
     </div>
   )
 }

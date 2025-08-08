@@ -38,7 +38,7 @@ export default async function Page({ params }: VideoPageProps) {
         {homeTeam.name}
       </div>
       <div className="video-page-team-logo">
-        <Image src={homeTeam.logo_url} alt={homeTeam.name} fill />
+        <Image src={homeTeam.logo_url} alt={homeTeam.name} fill sizes="()" />
       </div> 
       <div className="video-page-team-score">
         {playlist.game.home_team_goals}
@@ -50,7 +50,7 @@ export default async function Page({ params }: VideoPageProps) {
         {playlist.game.visiting_team_goals}
       </div>
       <div className="video-page-team-logo">
-        <Image src={awayTeam.logo_url} alt={awayTeam.name} fill />
+        <Image src={awayTeam.logo_url} alt={awayTeam.name} fill sizes="()" />
       </div>
       <div className="video-page-team-name">
         {awayTeam.name}
