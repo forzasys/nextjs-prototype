@@ -48,25 +48,32 @@ export function calculateRemainingTime (time: string) {
 }
 
 export function useCountDown (time: string) {
-    
-  const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(time))
+  // Start with null to avoid time-based differences during SSR vs client hydration
+  const [remainingTime, setRemainingTime] = useState<number | null>(null)
 
   useEffect(() => {
-      setRemainingTime(calculateRemainingTime(time))
-      const countdown = setInterval(() => {
-          const timeLeft = calculateRemainingTime(time)
-          setRemainingTime(timeLeft)
-          if (timeLeft && timeLeft <= 0){
-              clearInterval(countdown)
-          } 
-      }, 1000)
-      return () => clearInterval(countdown)
+    // Initialize on mount and then tick every second
+    const update = () => setRemainingTime(calculateRemainingTime(time))
+    update()
+
+    const countdown = setInterval(() => {
+      const timeLeft = calculateRemainingTime(time)
+      setRemainingTime(timeLeft)
+      if (timeLeft !== null && timeLeft <= 0) {
+        clearInterval(countdown)
+      }
+    }, 1000)
+
+    return () => clearInterval(countdown)
   }, [time])
 
-  if (!remainingTime) return {}
+  // While hydrating or if time is invalid, show stable placeholders
+  if (remainingTime === null) {
+    return { days: '00', hours: '00', minutes: '00', seconds: '00' }
+  }
 
   const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
-  const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)))
+  const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
 
@@ -75,7 +82,7 @@ export function useCountDown (time: string) {
   const minutesStr = minutes.toString().length === 1 ? `0${minutes}` : minutes.toString()
   const secondsStr = seconds.toString().length === 1 ? `0${seconds}` : seconds.toString()
 
-  return {days: daysStr, hours: hoursStr, minutes: minutesStr, seconds: secondsStr}
+  return { days: daysStr, hours: hoursStr, minutes: minutesStr, seconds: secondsStr }
 }
 
 type AllowedPointer = 'mouse' | 'all'

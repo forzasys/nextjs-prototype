@@ -1,5 +1,5 @@
-'use client';
-import { useEffect } from 'react'
+"use client";
+import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';
 import { generateGamesQueryFromParams } from '@/utilities/queryUtils';
 import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
@@ -62,7 +62,7 @@ function Match ({game}: {game: GameType}) {
         <div className='single-match-team'>
           <div className='single-match-team-name'>{game.home_team.name}</div>
           <div className='single-match-team-logo'>
-            <Image src={game.home_team.logo_url} alt="team logo" fill priority/>
+            <Image src={game.home_team.logo_url} alt="team logo" fill sizes="()" />
           </div>
         </div>
         <div className='single-match-middle'>
@@ -70,7 +70,7 @@ function Match ({game}: {game: GameType}) {
         </div>  
         <div className='single-match-team away'>
           <div className='single-match-team-logo'>
-            <Image src={game.visiting_team.logo_url} alt="team logo" fill priority/>
+            <Image src={game.visiting_team.logo_url} alt="team logo" fill sizes="()" />
           </div>
           <div className='single-match-team-name'>{game.visiting_team.name}</div>
         </div>
@@ -81,18 +81,17 @@ function Match ({game}: {game: GameType}) {
         <HiOutlineArrowRight/>
       </div>
       <div className='single-match-league'>
-        <Image src={leagueLogo} alt="league logo" fill priority/>
+        <Image src={leagueLogo} alt="league logo" fill sizes="()" />
       </div>
     </Link>
   )
 }
 
 interface MatchesProps {
-  gamesData: GameType[];
-  isInitialQuery: boolean;
+  gamesData: { games: GameType[] } | undefined;
 }
 
-function Matches({ gamesData, isInitialQuery }: MatchesProps) {
+function Matches({ gamesData }: MatchesProps) {
 
   const searchParams = useSearchParams();
   const {updateParam} = useUpdateSearchParam();
@@ -110,11 +109,12 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
     queryKey: ['game', query],
     queryFn: () => onFetch("game", query),
     initialData: gamesData,
-    enabled: !isInitialQuery,
+    // Ensure initial server data is treated as fresh to avoid double fetch
+    initialDataUpdatedAt: Date.now(),
     staleTime: 3 * 60 * 1000, // 3 minutes
   });
   
-  const games = data?.games || [];
+  const games = data?.games || gamesData?.games || [];
 
   const render = isLoading ? (
     <div style={{fontSize: "32px"}}>Loading...</div>
@@ -154,4 +154,4 @@ function Matches({ gamesData, isInitialQuery }: MatchesProps) {
   )
 }
 
-export default Matches
+export default React.memo(Matches)

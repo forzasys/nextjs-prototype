@@ -1,7 +1,7 @@
 import React from 'react'
 import { EventType } from '@/types/dataTypes';
 
-async function MatchEvents({ gameEvents } : { gameEvents: [] }) {
+async function MatchEvents({ gameEvents } : { gameEvents: EventType[] }) {
 
     if (gameEvents.length === 0) return (
         <div>No events found</div>

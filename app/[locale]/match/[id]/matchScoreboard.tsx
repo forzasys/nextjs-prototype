@@ -119,13 +119,13 @@ async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
           {home_team.name}
         </div>
         <div className='match-scoreboard-team-logo'>
-          <Image src={home_team.logo_url} alt="team logo" fill priority/>
+          <Image src={home_team.logo_url} alt="team logo" fill sizes="()" />
         </div>
       </div>
       {matchScoreboardCenter}
       <div className='match-scoreboard-team away'>
         <div className='match-scoreboard-team-logo'>
-          <Image src={visiting_team.logo_url} alt="team logo" fill priority/>
+          <Image src={visiting_team.logo_url} alt="team logo" fill sizes="()" />
         </div>
         <div className='match-scoreboard-team-name'>
           {visiting_team.name}
@@ -142,7 +142,8 @@ async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
             src={stadiumImage} 
             alt="stadium" 
             fill
-            priority  
+            priority
+            sizes="()"
             className="match-scoreboard-single-img blur-in"
             data-aos="fade"
             data-aos-duration="1000"

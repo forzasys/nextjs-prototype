@@ -14,21 +14,20 @@ interface VideoPageProps {
   }
 }
 
+export const revalidate = 180;
+
 export default async function Page({ params }: VideoPageProps) {
 
   const t = await getTranslations();
   const locale = await getLocale()
 
-  const resolvedParams = await Promise.resolve(params);
-  const playlistId = resolvedParams.id;
+  const playlistId = params.id;
 
   const playlistData = await onFetch(`/playlist/${playlistId}`);
   const playlist = playlistData || {};
 
   const duration = formatDuration(playlist.duration_ms / 1000)
   const date = formatReadableDate(playlist.date)
-
-  console.log(playlist)
 
   const homeTeam = playlist.game?.home_team
   const awayTeam = playlist.game?.visiting_team

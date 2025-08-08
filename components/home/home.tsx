@@ -7,7 +7,7 @@ import HomePageResults from "./homePageResults";
 import { onFetch } from "@/utilities/fetchApi";
 import { videoCollectionQueries } from "@/utilities/queryUtils";
 import config from "@/config";
-import { GameType, QueryType } from "@/types/dataTypes";
+import { QueryType } from "@/types/dataTypes";
 import "./home.css";
 
 async function Home() {
@@ -16,11 +16,21 @@ async function Home() {
   // const formattedToday = today.toISOString().split('T')[0];
   const currentSeason = config.availableSeasons[0]
 
-  const query = {
-    season: config.availableSeasons[0],
-    from_date: "2025-03-01",
+  // Fetch the minimal data required for home: 4 upcoming fixtures + 4 latest results
+  const today = new Date();
+  const formattedToday = today.toISOString().split('T')[0];
+
+  const fixturesQuery = {
+    season: currentSeason,
+    from_date: formattedToday,
     asc: true,
-    count: 100,
+    count: 4,
+  }
+  const resultsQuery = {
+    season: currentSeason,
+    to_date: formattedToday,
+    asc: false,
+    count: 4,
   }
   // query.count = 3
 
@@ -52,29 +62,31 @@ async function Home() {
   const [
     topScorersData, 
     goalPlaylistData, 
-    gamesData,
+    fixturesData,
     highlightsData,
+    resultsData,
   ] = await Promise.all([
     hasStatisticsPage ? onFetch("stats/top/scorer", topScorerInitialQuery) : Promise.resolve([]),
     onFetch("playlist", goalCollectionQuery),
-    onFetch("game", query),
+    onFetch("game", fixturesQuery),
     !isTeamPlatform ? onFetch("playlist", highlightsQuery) : Promise.resolve([]),
+    onFetch("game", resultsQuery),
   ])
 
   const topScorers = topScorersData?.players || []
   const goalPlaylists = goalPlaylistData?.playlists || []
-  const games = gamesData?.games || []
+  const nextGames = fixturesData?.games || []
+  const latestResults = resultsData?.games || []
   const highlights = highlightsData?.playlists || []
 
   const latestGoals = goalPlaylists.slice(0, 6)
-  const nextGames = games.filter((game: GameType) => new Date(game.date) > new Date()).slice(0, 4)
 
   return (
     <div className="home-container">
       <Headlines game={nextGames[0]}/>
       <HomeLatestVideos latestGoals={latestGoals} />
       {!isTeamPlatform && <HomePageHighlights highlights={highlights} highlightsQuery={highlightsQuery}/>}
-      <HomePageResults games={games} />
+      <HomePageResults games={latestResults} />
       <HomePageMatches games={nextGames} />
       {hasStatisticsPage && <HomeTopScorer topScorers={topScorers}/>}
     </div>

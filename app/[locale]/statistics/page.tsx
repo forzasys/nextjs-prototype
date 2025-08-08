@@ -12,6 +12,8 @@ import { getTranslations } from 'next-intl/server';
 import "./statistics.css"
 import "@/components/Filters/filters.css"
 
+export const revalidate = 180;
+
 async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   const t = await getTranslations()
@@ -38,8 +40,8 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const statsCardsInitialQuery: QueryType = {
     from_date: `${currentSeason}-01-01`,
     to_date: `${currentSeason}-12-31`,
-    count: 100,
-}
+    count: 10,
+  }
 
   // Team platform
   const teamPlatformId = config.team
@@ -48,18 +50,28 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
     statsCardsInitialQuery.team_id = teamPlatformId
   }
 
+  const isTable = statisticTypeParam === "table" || !statisticTypeParam;
+  const isTopScorers = statisticTypeParam === "top_scorers";
+  const isCards = statisticTypeParam === "cards";
+
+  const teamsPromise = onFetch("team", { season: currentSeason });
+  const tablePromise = isTable ? onFetch("stats/table", tableInitialQuery) : Promise.resolve(null);
+  const topScorersPromise = isTopScorers ? onFetch("stats/top/scorer", topScorerInitialQuery) : Promise.resolve(null);
+  const topAssistsPromise = isTopScorers ? onFetch("stats/top/assists", topScorerInitialQuery) : Promise.resolve(null);
+  const cardsPromise = isCards ? onFetch("stats/top/cards", statsCardsInitialQuery) : Promise.resolve(null);
+
   const [
-    teamsData, 
+    teamsData,
     tableData,
     topScorersData,
     topAssistsData,
     statsCardsData,
-  ] = await Promise.all([  
-    onFetch("team", {season: currentSeason}),
-    onFetch("stats/table", tableInitialQuery),
-    onFetch("stats/top/scorer", topScorerInitialQuery),
-    onFetch("stats/top/assists", topScorerInitialQuery),
-    onFetch("stats/top/cards", topScorerInitialQuery)
+  ] = await Promise.all([
+    teamsPromise,
+    tablePromise,
+    topScorersPromise,
+    topAssistsPromise,
+    cardsPromise,
   ])
 
   const teams = teamsData?.teams || []
@@ -74,11 +86,11 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
 
   let statisticsContent = null;
   
-  if (statisticTypeParam === "table" || !statisticTypeParam) {
+  if (isTable) {
     statisticsContent = <Table table={table} teams={teams} seasonParam={seasonParam}/>
-  } else if (statisticTypeParam === "top_scorers") {
+  } else if (isTopScorers) {
     statisticsContent = <TopScorers seasonParam={seasonParam} topScorers={topScorers} topAssists={topAssists}/>
-  } else if (statisticTypeParam === "cards") {
+  } else if (isCards) {
     statisticsContent = <Cards seasonParam={seasonParam} cards={cards}/>  
   }
 

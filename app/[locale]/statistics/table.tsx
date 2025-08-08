@@ -40,7 +40,7 @@ function Table({table, teams, seasonParam}: TableProps) {
                         <div className="table-position">{t.rank}</div>
                         <div className="table-statistic team item">
                             <div className="table-statistic-team-logo">
-                                <Image src={getTeamLogo(t.id)} alt={t.name} fill priority />
+                                <Image src={getTeamLogo(t.id)} alt={t.name} fill sizes="()" />
                             </div>
                             {t.name}
                         </div>
@@ -61,7 +61,7 @@ function Table({table, teams, seasonParam}: TableProps) {
     return (
         <div className="league-table">
             <div className="league-table-logo">
-                <Image src={leagueLogo} alt="League logo" fill priority />
+                <Image src={leagueLogo} alt="League logo" fill sizes="()" />
             </div>
             {tableList}
         </div>

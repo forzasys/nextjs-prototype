@@ -3,20 +3,19 @@ import React, { useState, useEffect } from 'react'
 import HeadlineNextMatch from './headlineNextMatch'
 import HeadlineClubSite from './headlineClubSite'
 // import HeadlineLatestGoal from './headlineLatestGoal'
-import { GameType, PlaylistType } from '@/types/dataTypes'
+import { GameType } from '@/types/dataTypes'
 import classNames from 'classnames'
 import { useTranslations } from 'next-intl'
-import { format, parseISO } from 'date-fns';
+// import { format, parseISO } from 'date-fns';
 import { getLeagueLink } from '@/utilities/utils';
 import config from '@/config';
 import "./headline.css"
 
 interface HeadlineClientProps {
     game: GameType
-    latestGoal: PlaylistType
 }
 
-function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
+function HeadlineClient({game}: HeadlineClientProps) {
 
     const [index, setIndex] = useState(0)
     const [timing, setTiming] = useState(1)
@@ -45,8 +44,8 @@ function HeadlineClient({game, latestGoal}: HeadlineClientProps) {
 
     const nextMatchHomeTeam = game.home_team.name
     const nextMatchAwayTeam = game.visiting_team.name
-    const nextGameDate = format(game.date, 'EEE, dd MMM yyyy');
-    const nextGameTime = format(parseISO(game.start_time), 'HH:mm')
+    const nextGameDate = game.date // keep server/client identical without timezone transforms
+    const nextGameTime = game.start_time?.length >= 16 ? game.start_time.substring(11, 16) : ''
 
     const headlineTimeBar = {width: timing + "%"}
     // const headlinePosition = index === 0 ? "0%" : `${-index * 100}%`

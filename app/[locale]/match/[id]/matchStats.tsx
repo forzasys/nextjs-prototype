@@ -6,7 +6,7 @@ import './matchStats.css'
 interface MatchStatsProps { 
     homeTeam: TeamType
     awayTeam: TeamType
-    statistics: StatisticsType
+    statistics: StatisticsType | null
 }
 
 async function MatchStats({ homeTeam, awayTeam, statistics } : MatchStatsProps) {
@@ -23,6 +23,8 @@ async function MatchStats({ homeTeam, awayTeam, statistics } : MatchStatsProps) 
             side = "away"
         }
     }
+
+    if (!statistics) return null
 
     const {corners, distances, fouls_committed, goals, offsides, possessions, red_cards, shots_on_target, total_shots, yellow_cards} = statistics
     

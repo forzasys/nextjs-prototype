@@ -28,36 +28,39 @@ async function Page({ params, searchParams }: MatchPageProps) {
 
   const currentSeason = config.availableSeasons[0]
   const tableInitialQuery = {
-      season: currentSeason,
-      to_date: `${currentSeason}-12-31`,
+    season: currentSeason,
+    to_date: `${currentSeason}-12-31`,
   }
 
-  const [
-    gameData, 
-    gameEventsData,
-    tableData,
-    matchStatsData,
-  ] = await Promise.all(
-    [
-    onFetch("game/" + gameId),
-    onFetch(`/game/${gameId}/events`, { count: 999 }),
-    hasStatistics ? onFetch("stats/table", tableInitialQuery) : undefined,
-    onFetch(`/game/${gameId}/stats`)
-  ]
-)
-
+  // Fetch game first to decide what else we need
+  const gameData = await onFetch("game/" + gameId)
   const game = gameData || null
-  const gameEvents = gameEventsData?.events || [];
-  const table = tableData?.teams || []
-  const statistics = matchStatsData.statistics || null
 
   if (!game) return null
 
   const isUpcomingMatch = game.phase === "not started" && game.start_time > new Date().toISOString()
+  const isFinishedMatch = game.phase === "finished"
 
   const defaultMatchCenterType = isUpcomingMatch ? "headtohead" : "stats";
   const match_center_type = resolvedSearchParams.match_center_type || defaultMatchCenterType;
 
+  const needEvents = isFinishedMatch || match_center_type === "events"
+  const needTable = hasStatistics && match_center_type === "headtohead"
+  const needStats = match_center_type === "stats"
+
+  const [
+    gameEventsData,
+    tableData,
+    matchStatsData,
+  ] = await Promise.all([
+    needEvents ? onFetch(`/game/${gameId}/events`, { count: 200 }) : Promise.resolve(null),
+    needTable ? onFetch("stats/table", tableInitialQuery) : Promise.resolve(null),
+    needStats ? onFetch(`/game/${gameId}/stats`) : Promise.resolve(null),
+  ])
+
+  const gameEvents = gameEventsData?.events || [];
+  const table = tableData?.teams || []
+  const statistics = matchStatsData?.statistics || null
   let matchInfo
 
   if (match_center_type === "headtohead") {

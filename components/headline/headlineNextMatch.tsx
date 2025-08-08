@@ -2,7 +2,8 @@
 import { GameType } from "@/types/dataTypes"
 import Image from "next/image"
 import { useCountDown } from "@/utilities/ClientSideUtils"
-import { format, parseISO } from 'date-fns';
+// Avoid timezone-dependent formatting during SSR vs client hydration
+// import { format, parseISO } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
@@ -27,8 +28,9 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const {home_team, visiting_team} = game
     const {days, hours, minutes, seconds} = countdown
 
-    const gameDate = format(game.date, 'EEE, dd MMM yyyy');
-    const gameTime = format(parseISO(game.start_time), 'HH:mm')
+    // Keep values deterministic across server and client
+    const gameDate = game.date
+    const gameTime = game.start_time?.length >= 16 ? game.start_time.substring(11, 16) : ''
 
     const league = config.league
     const nextMatchStadium = getStadiumImage[league as keyof typeof getStadiumImage][home_team.id]
@@ -62,20 +64,20 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const nextMatch = (
       <div className="headline-next-match">
         <div className='headline-next-match-league'>
-            <Image src={leagueLogo} alt="league logo" fill priority />
+            <Image src={leagueLogo} alt="league logo" fill sizes="()" />
         </div>
         <div className="headline-next-match-date">{gameDate}</div>
         <div className="headline-next-match-time">{gameTime}</div>
         <div className="headline-next-match-teams">
             <div className="headline-next-match-team">
                 <div className="headline-next-match-team-logo">
-                    <Image src={home_team.logo_url} alt="team logo" fill priority/>
+                    <Image src={home_team.logo_url} alt="team logo" fill sizes="()" />
                 </div>
                 <div className="headline-next-match-team-name">{home_team.short_name}</div>
             </div>
             <div className="headline-next-match-team">
                 <div className="headline-next-match-team-logo">
-                    <Image src={visiting_team.logo_url} alt="team logo" fill priority/>
+                    <Image src={visiting_team.logo_url} alt="team logo" fill sizes="()" />
                 </div>
                 <div className="headline-next-match-team-name">{visiting_team.short_name}</div>
             </div>
@@ -101,6 +103,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
                     alt="stadium" 
                     fill
                     priority
+                    sizes="()"
                     className="headline-single-img blur-in"
                     data-aos="fade"
                     data-aos-duration="1000"

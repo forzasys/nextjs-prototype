@@ -1,6 +1,6 @@
 import React from 'react'
 import { onFetch } from "@/utilities/fetchApi";
-import { generateGamesQueryFromParams, normalizeSearchParams, initialGamesQuery } from '@/utilities/queryUtils';
+import { generateGamesQueryFromParams, normalizeSearchParams } from '@/utilities/queryUtils';
 import { SearchParamsType } from '@/types/dataTypes';
 import Matches from './matches';
 import SeasonFilter from '@/components/Filters/seasonFilter';
@@ -8,6 +8,8 @@ import TeamFilter from '@/components/Filters/teamFilter';
 import MatchesTypeFilter from '@/components/Filters/matchesTypeFilter';
 import config from '@/config';
 import { getTranslations } from 'next-intl/server';
+
+export const revalidate = 180;
 
 // Matches
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -18,12 +20,11 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const query = generateGamesQueryFromParams(params);
   const t = await getTranslations();
 
-  const initialQuery = structuredClone(initialGamesQuery)
-  const isInitialQuery = JSON.stringify(query) === JSON.stringify(initialQuery)
   const isTeamPlatform = !!config.team
   const currentSeason = config.availableSeasons[0]
 
-  const gamesData = isInitialQuery ? await onFetch("game", initialGamesQuery) : undefined
+  // Always fetch server-side to hydrate client with ready data and leverage ISR cache
+  const gamesData = await onFetch("game", query)
   const teamsData = !isTeamPlatform ? await onFetch("team", {season: currentSeason}) : undefined;
   
   const teams = teamsData?.teams || [];
@@ -49,7 +50,7 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
       </div>
       <MatchesTypeFilter/>
       {matchesFilters}
-      <Matches gamesData={gamesData} isInitialQuery={isInitialQuery} />
+      <Matches gamesData={gamesData} />
     </div>
   )
 }

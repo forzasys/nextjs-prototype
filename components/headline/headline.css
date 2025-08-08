@@ -178,10 +178,6 @@
     white-space: nowrap;
 }
 
-.headline-image-container {
-
-}
-
 /* HOVER */
 @media (min-width: 576px) {
     .headline-item:hover {

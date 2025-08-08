@@ -1,4 +1,5 @@
 "use client"
+import React from 'react'
 import Link from 'next/link';
 import { GameType } from '@/types/dataTypes';
 import Image from 'next/image';
@@ -68,7 +69,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
       >
         <div className="home-match-single-top">
           <div className='home-match-single-league'>
-            <Image src={leagueLogo} alt="league logo" fill priority />
+            <Image src={leagueLogo} alt="league logo" fill sizes="()" />
           </div>
           {homeAwayLabel(home_team.id, visiting_team.id)}
         </div>
@@ -77,10 +78,10 @@ function HomePageMatches({games}: HomePageMatchesProps) {
         <div className="home-match-time">{gameTime}</div>
         <div className="home-match-teams">
             <div className="home-match-team">
-                <Image src={home_team.logo_url} alt="team logo" fill priority />
+                <Image src={home_team.logo_url} alt="team logo" fill sizes="()" />
             </div>
             <div className="home-match-team">
-                <Image src={visiting_team.logo_url} alt="team logo" fill priority />
+                <Image src={visiting_team.logo_url} alt="team logo" fill sizes="()" />
             </div>
         </div>
         <div className="home-match-team-names">
@@ -123,4 +124,4 @@ function HomePageMatches({games}: HomePageMatchesProps) {
   )
 }
 
-export default HomePageMatches
+export default React.memo(HomePageMatches)

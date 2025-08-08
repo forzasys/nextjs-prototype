@@ -37,10 +37,8 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
     const locale = useLocale();
     const moreResultsUrl = `/${locale}/${t("matches")}?match_type=results`;
 
+    // Parent now provides only latest results
     const latestGames = games
-        .filter((game) => new Date(game.start_time).getTime() < new Date().getTime())
-        .sort((a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime())
-        .slice(0, 4)
 
     const latestHighlightsList = latestGames.map((game, index) => {
 
@@ -56,7 +54,7 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
                 <div className="latest-result-content">
                     <div className='latest-result-team'>
                         <div className='latest-result-team-logo'>
-                            <Image src={home_team.logo_url} alt="team logo" fill priority />
+                            <Image src={home_team.logo_url} alt="team logo" fill sizes="()" />
                         </div>
                         <div className='latest-result-team-name'>{home_team.name}</div>
                     </div>
@@ -67,7 +65,7 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
                     </div>
                     <div className='latest-result-team'>
                         <div className='latest-result-team-logo'>
-                            <Image src={visiting_team.logo_url} alt="team logo" fill priority />
+                            <Image src={visiting_team.logo_url} alt="team logo" fill sizes="()" />
                         </div>
                         <div className='latest-result-team-name'>{visiting_team.name}</div>
                     </div>
@@ -107,4 +105,4 @@ function HomePageHighlights({games}: HomePageHighlightsProps) {
     )
 }
 
-export default HomePageHighlights
+export default React.memo(HomePageHighlights)

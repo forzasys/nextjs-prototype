@@ -211,14 +211,14 @@ async function MatchHeadToHead({ game, table }: MatchHeadToHeadProps) {
     const allHomeTeamGamesQuery = {
         to_date: dayBeforeGameDateString,
         asc: false,
-        count: 99,
+        count: 20,
         team_id: homeTeamId
     }
 
     const allAwayTeamGamesQuery = {
         to_date: dayBeforeGameDateString,
         asc: false,
-        count: 99,
+        count: 20,
         team_id: awayTeamId
     }
 
@@ -230,7 +230,7 @@ async function MatchHeadToHead({ game, table }: MatchHeadToHeadProps) {
     const homeTeamGames = allHomeTeamGamesData?.games || []
     const awayTeamGames = allAwayTeamGamesData?.games || []
     
-    const headToHeadGames = homeTeamGames.filter((game: GameType) => awayTeamGames.some((g: GameType) => g.id === game.id))
+    const headToHeadGames = homeTeamGames.filter((game: GameType) => awayTeamGames.some((g: GameType) => g.id === game.id)).slice(0, 3)
     
     console.log(headToHeadGames)
 

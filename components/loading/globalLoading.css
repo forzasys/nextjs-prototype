@@ -9,8 +9,8 @@
     width: 100vw;
     z-index: 1000;
     background-color: var(--background-color);
-    /* opacity: 0; */
-    /* animation: fadeIn 1s ease-out forwards; */
+    opacity: 0;
+    animation: fadeIn 200ms ease-out forwards;
 }
 
 .global-loading-logo img {

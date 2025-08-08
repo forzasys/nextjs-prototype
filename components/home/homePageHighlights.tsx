@@ -1,4 +1,5 @@
 "use client"
+import React from 'react'
 import Image from 'next/image'
 import { PlaylistType, QueryType } from '@/types/dataTypes'
 import { format } from 'date-fns'
@@ -38,9 +39,8 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
         snapAlignment: 'start',
     });
 
-    const latestHighlights = highlights
-        .filter((h) => h.game)
-        .slice(0, 4)
+    // Parent now provides limited highlights
+    const latestHighlights = highlights.filter((h) => h.game).slice(0, 4)
 
     const onClickVideo = (playlistId: string) => {
         if (highlightsQuery) {
@@ -49,7 +49,7 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
         router.push(`/${locale}/video/${playlistId}`)
     }
 
-    const latestHighlightsList = latestHighlights.map((h) => {
+    const latestHighlightsList = latestHighlights.map((h, index) => {
 
         const game = h.game
         const {home_team, visiting_team} = game
@@ -59,17 +59,23 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
         const duration = formatDuration(h.duration_ms / 1000)
 
         return (
-            <div key={game.id} onClick={() => onClickVideo(h.id)} className="latest-single">
+            <div 
+                key={game.id} 
+                onClick={() => onClickVideo(h.id)} 
+                className="latest-single"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+            >
                 <div className="latest-single-box">
                     <div style={{backgroundColor: homeTeamColor}} className="latest-single-bg">
                         <div style={{backgroundColor: awayTeamColor}} className="latest-highlights-away-bg"></div>
                     </div>                
                     <div className="latest-single-team">
                         <div className="latest-single-team-logo">
-                            <Image src={game.home_team.logo_url} alt={game.home_team.name} width={60} height={60} />
+                            <Image src={game.home_team.logo_url} alt={game.home_team.name} width={60} height={60} priority={false} />
                         </div>
                         <div className="latest-single-team-logo">
-                            <Image src={game.visiting_team.logo_url} alt={game.visiting_team.name} width={60} height={60} />
+                            <Image src={game.visiting_team.logo_url} alt={game.visiting_team.name} width={60} height={60} priority={false} />
                         </div>
                     </div>
                     <div className='latest-highlights-duration'>{duration}</div>
@@ -112,4 +118,4 @@ function HomeLatestHighlights({highlights, highlightsQuery}: HomeLatestHighlight
   )
 }
 
-export default HomeLatestHighlights
+export default React.memo(HomeLatestHighlights)

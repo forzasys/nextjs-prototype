@@ -16,7 +16,7 @@ function HeadlineLatestGoal({translate, latestGoal}: HeadlineLatestGoalProps) {
                 alt="latest goal" 
                 fill
                 className="headline-single-img"
-                priority
+                sizes="()"
             />
             <div className="headline-single-content">
                 {latestGoal.description}

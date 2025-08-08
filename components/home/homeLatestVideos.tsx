@@ -11,6 +11,8 @@ interface HomeLatestVideosProps {
     latestGoals: PlaylistType[]
 }
 
+import React from 'react'
+
 function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
 
     const t = useTranslations();
@@ -34,8 +36,8 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                     src={video.thumbnail_url}
                                     alt={video.description || "Video thumbnail"}
                                     fill
+                                    sizes="()"
                                     className="latest-video-img"
-                                    priority
                                 />
                             </div>
                             <div className="latest-video-details">
@@ -68,4 +70,4 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     )
 }
 
-export default HomeLatestVideos
+export default React.memo(HomeLatestVideos)

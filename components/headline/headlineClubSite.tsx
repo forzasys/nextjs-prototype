@@ -20,17 +20,15 @@ function HeadlineClubSite({show}: HeadlineClubSiteProps) {
     return (
         <div className="headline-single">
             {clubSiteImage && (
-                <div className="headline-image-container">
-                    <Image 
-                        src={clubSiteImage} 
-                        alt="wallpaper" 
-                        fill
-                        priority
-                        className="headline-single-img blur-in"
-                        data-aos="fade"
-                        data-aos-duration="1000"
-                    />
-                </div>
+                <Image 
+                    src={clubSiteImage} 
+                    alt="wallpaper" 
+                    fill
+                    sizes="()"
+                    className="headline-single-img blur-in"
+                    data-aos="fade"
+                    data-aos-duration="1000"
+                />
             )}
             <div className="headline-content middle-container">
                 <div className="headline-text">
