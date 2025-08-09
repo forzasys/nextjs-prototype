@@ -63,7 +63,7 @@ function MobileHeader() {
     return (
       <div className="mobile-header">
         <Link href={`/${locale}`} className="mobile-header-logo">
-          <Image src={headerLogo} alt="team logo"/>
+          <Image src={headerLogo} alt="team logo" priority/>
         </Link>
         <div onClick={() => setMenuOpen(!menuOpen)} className="mobile-header-menu">
             <AiOutlineClose className={classNames("mobile-header-menu-icon", {

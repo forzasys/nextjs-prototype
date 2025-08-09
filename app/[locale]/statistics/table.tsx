@@ -61,7 +61,7 @@ function Table({table, teams, seasonParam}: TableProps) {
     return (
         <div className="league-table">
             <div className="league-table-logo">
-                <Image src={leagueLogo} alt="League logo" fill sizes="()" />
+                <Image src={leagueLogo} alt="League logo" />
             </div>
             {tableList}
         </div>

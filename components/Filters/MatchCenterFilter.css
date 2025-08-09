@@ -1,3 +1,8 @@
+.match-center-filter-cont {
+    height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 .match-center-filter {
     display: flex;
     align-items: center;
@@ -12,7 +17,7 @@
     align-items: center;
     height: 100%;
     padding: 0 3px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -44,4 +49,19 @@
 
 .match-center-filter-item:hover {
     color: var(--background-text-color);
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 576px) {
+    .match-center-filter-cont {
+        height: 35px;
+    }
+    .match-center-filter-item {
+        padding: 0 3px;
+        font-size: 10px;
+        letter-spacing: 0;
+    }
+    .match-center-filter {
+        gap: 20px;
+    }
 }

@@ -1,4 +1,6 @@
 .home-page-matches-cont {
+    width: 100%;
+    box-sizing: border-box;
     /* background-color: var(--box-color); */
     padding-top: 30px;
     padding-bottom: 50px;
@@ -49,10 +51,9 @@
     margin-bottom: 15px;
 }
 
-.home-match-single-league {
-    position: relative;
-    width: 48px;
+.home-match-single-league img {
     height: 24px;
+    width: auto;
 }
 
 .home-match-date {
@@ -140,8 +141,7 @@
         padding-top: 20px;
     }
 
-    .home-match-single-league {
-        width: 40px;
+    .home-match-single-league img {
         height: 20px;
     }
     
@@ -188,6 +188,9 @@
     .home-match-team-name {
         font-size: 20px;
     }
+    .home-match-single-top {
+        margin-bottom: 5px;
+    }
 }
 
 @media (max-width: 645px) {
@@ -200,5 +203,14 @@
 @media (max-width: 576px) {
     .home-match-single {
         min-width: calc(100% - 70px);
+    }
+    .home-match-date {
+        font-size: 10px;
+    }
+    .home-match-league {
+        font-size: 10px;
+    }
+    .home-match-time {
+        font-size: 20px;
     }
 }

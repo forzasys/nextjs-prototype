@@ -52,14 +52,8 @@
 
 .single-match-team-logo {
     position: relative;
-    width: 80px;
-    height: 80px;
-}
-
-.single-match-team-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 75px;
+    height: 75px;
 }
 
 .single-match-team-name {
@@ -159,15 +153,14 @@
     transition: all 0.3s linear;
 }
 
-.single-match-league {
+.single-match-league img {
     position: absolute;
-    top: 25px;
+    top: 20px;
     left: 20px;
-    width: 60px;
-    height: 30px;
+    height: 27px;
+    width: auto;
     font-size: 14px;
     color: gray;
-    text-transform: uppercase;
 }
 
 .single-match-stadium {
@@ -304,7 +297,7 @@
 
     .single-match-stadium {
         justify-content: flex-end;
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .single-match-date {
@@ -313,6 +306,7 @@
 
     .single-match-time {
         font-size: 18px;
+        margin-top: -27px;
     }
 
     .single-match-league {
@@ -339,6 +333,12 @@
         font-weight: 600;
     }
 
+    .single-match-team-logo {
+        position: relative;
+        width: 60px;
+        height: 60px;
+    }
+
     .single-match-middle {
         width: 90px;
     }
@@ -361,5 +361,11 @@
 
     .single-match-center {
         font-size: 11px;
+    }
+
+    .single-match-league img {
+        top: 15px;
+        left: 15px;
+        height: 22px;
     }
 }

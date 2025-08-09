@@ -1,8 +1,15 @@
 .home-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 50px;
+    box-sizing: border-box;
 }
 
 .latest-videos-container {
+    box-sizing: border-box;
+    padding: 0 20px;
     padding-top: 20px;
     background-color: var(--box-color);
     margin-bottom: 25px;

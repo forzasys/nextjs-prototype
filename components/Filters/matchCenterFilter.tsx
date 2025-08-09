@@ -26,28 +26,30 @@ function MatchCenterFilter({defaultType}: MatchCenterFilterProps) {
     // )
 
     return (
-        <div className="match-center-filter middle-container">
-            <div 
-                onClick={() => updateParam("match_center_type", "headtohead")}
-                className={classNames("match-center-filter-item", {
-                    "selected": matchCenterTypeParam === "headtohead" || 
-                    (!matchCenterTypeParam && defaultType === "headtohead")
-                })}>
-                <div className="">Head to head</div>
-            </div>
-            <div 
-                onClick={() => updateParam("match_center_type", "stats")}
-                className={classNames("match-center-filter-item", {
-                    "selected": matchCenterTypeParam === "stats" || 
-                    (!matchCenterTypeParam && defaultType === "stats")
-                })}>
-                <div className="">Stats</div>
-            </div>
-            <div 
-                onClick={() => updateParam("match_center_type", "events")}
-                className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "events"})}
-                >
-                <div className="">{t("events")}</div>
+        <div className="match-center-filter-cont">
+            <div className="match-center-filter middle-container">
+                <div 
+                    onClick={() => updateParam("match_center_type", "headtohead")}
+                    className={classNames("match-center-filter-item", {
+                        "selected": matchCenterTypeParam === "headtohead" || 
+                        (!matchCenterTypeParam && defaultType === "headtohead")
+                    })}>
+                    <div className="">Head to head</div>
+                </div>
+                <div 
+                    onClick={() => updateParam("match_center_type", "stats")}
+                    className={classNames("match-center-filter-item", {
+                        "selected": matchCenterTypeParam === "stats" || 
+                        (!matchCenterTypeParam && defaultType === "stats")
+                    })}>
+                    <div className="">Stats</div>
+                </div>
+                <div 
+                    onClick={() => updateParam("match_center_type", "events")}
+                    className={classNames("match-center-filter-item", {"selected": matchCenterTypeParam === "events"})}
+                    >
+                    <div className="">{t("events")}</div>
+                </div>
             </div>
         </div>
     )

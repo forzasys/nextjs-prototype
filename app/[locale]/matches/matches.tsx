@@ -81,7 +81,7 @@ function Match ({game}: {game: GameType}) {
         <HiOutlineArrowRight/>
       </div>
       <div className='single-match-league'>
-        <Image src={leagueLogo} alt="league logo" fill sizes="()" />
+        <Image src={leagueLogo} alt="league logo" />
       </div>
     </Link>
   )

@@ -69,7 +69,7 @@ function HomePageMatches({games}: HomePageMatchesProps) {
       >
         <div className="home-match-single-top">
           <div className='home-match-single-league'>
-            <Image src={leagueLogo} alt="league logo" fill sizes="()" />
+            <Image src={leagueLogo} alt="league logo" />
           </div>
           {homeAwayLabel(home_team.id, visiting_team.id)}
         </div>

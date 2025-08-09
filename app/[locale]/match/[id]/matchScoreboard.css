@@ -86,15 +86,19 @@
 
 .match-scoreboard-team-logo {
     position: relative;
-    height: 90px;
-    width: 90px;
+    min-height: 90px;
+    min-width: 90px;
 }
 
 .match-scoreboard-team-name {
     font-size: 20px;
     font-weight: 500;
     text-transform: uppercase;
-    text-align: center;
+    text-align: right;
+}
+
+.away .match-scoreboard-team-name {
+    text-align: left;
 }
 
 .match-scoreboard-score-cont {
@@ -142,7 +146,7 @@
 }
 
 .match-scoreboard-time {
-    font-size: 35px;
+    font-size: 32px;
 }
 
 .match-scoreboard-date {
@@ -236,9 +240,7 @@
 
 .match-scoreboard-event {
     display: flex;
-    align-items: center;
     gap: 12px;
-    font-size: 13px;
 }
 
 .match-scoreboard-event-time {
@@ -250,11 +252,159 @@
     text-align: left;
 }
 
-/* .match-scoreboard-single-img.blur-in {
-    filter: blur(10px);
-    transition: filter 1s ease-out;
+.match-scoreboard-event-player {
+    text-align: right;
 }
 
-.aos-animate.blur-in {
-    filter: blur(0);
-} */
+/* MEDIA QUERIES */
+@media (max-width: 992px) {
+    .match-scoreboard {
+        gap: 25px;
+    }
+    .match-scoreboard-time {
+        font-size: 27px;
+    }
+    .match-scoreboard-score {
+        height: 50px;
+        width: 40px;
+        font-size: 27px;
+    }
+    .match-scoreboard-team-logo {
+        min-height: 75px;
+        min-width: 75px;
+    }
+}
+
+@media (max-width: 768px) {
+    .match-scoreboard-main {
+        max-height: 400px;
+    }
+    .match-scoreboard-team-name {
+        font-size: 15px;
+    }
+    .match-scoreboard {
+        gap: 15px;
+    }
+    .match-scoreboard-time {
+        font-size: 22px;
+    }
+    .match-scoreboard-score {
+        height: 37px;
+        width: 32px;
+        font-size: 22px;
+    }
+    .match-scoreboard-team-logo {
+        min-height: 65px;
+        min-width: 65px;
+    }
+    .match-scoreboard-status {
+        margin-top: 15px;
+        height: 22px;
+    }
+    .match-scoreboard-phase {
+        padding: 2px 5px;
+        font-size: 9px;
+    }
+    .match-scoreboard-live {
+        padding: 3px 5px;
+        font-size: 9px;
+        gap: 5px;
+    }
+    .match-scoreboard-info {
+        gap: 20px;
+        font-size: 11px;
+    }
+    .match-scoreboard-date-venue {
+        gap: 15px;
+    }
+    .match-scoreboard-league {
+        font-size: 11px;
+    }
+    .match-scoreboard-details-cont {
+        margin-top: 20px;
+        font-size: 12px;
+    }
+    .match-scoreboard-score-separator {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .match-scoreboard-main {
+        height: fit-content;
+        min-height: 200px;
+    }
+    .match-scoreboard-content {
+        padding: 20px 12px;
+    }
+    .match-scoreboard-league {
+        display: none;
+    }
+    .match-scoreboard-date-venue {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .match-scoreboard-info {
+        padding-bottom: 5px;
+        font-size: 10px;
+    }
+    .match-scoreboard-details-cont {
+        font-size: 9px;
+        padding-bottom: 7px;
+    }
+    .match-scoreboard-status {
+        margin-top: 7px;
+    }
+    .match-scoreboard-details {
+        padding-right: 7px;
+    }
+    .match-scoreboard-details.away {
+        padding-left: 7px;
+    }
+    .match-scoreboard-event {
+        gap: 5px;
+    }
+    .match-scoreboard-team {
+        flex-direction: column-reverse;
+    }
+    .match-scoreboard-team.away {
+        flex-direction: column;
+    }
+    .match-scoreboard-team-logo {
+        min-height: 55px;
+        min-width: 55px;
+    }
+    .match-scoreboard-team-name {
+        height: 30px;
+        font-size: 12px;
+        text-align: center;
+    }
+    .away .match-scoreboard-team-name {
+        font-size: 12px;
+        text-align: center;
+    }
+    .match-scoreboard-score-cont {
+        margin-top: -35px;
+    }
+    .match-scoreboard-details-cont {
+        margin-top: 10px;
+    }
+    .match-scoreboard-img-mask-right {
+        width: 10%;
+    }
+    .match-scoreboard-img-mask-left {
+        width: 10%;
+    }
+    .match-scoreboard-date svg {
+        font-size: 14px;
+    }
+    .match-scoreboard-stadium svg {
+        font-size: 14px;
+    }
+    .match-scoreboard-phase {
+        font-size: 8px;
+    }
+    .match-scoreboard-live {
+        font-size: 8px;
+    }
+}

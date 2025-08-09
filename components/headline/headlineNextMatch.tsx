@@ -2,8 +2,7 @@
 import { GameType } from "@/types/dataTypes"
 import Image from "next/image"
 import { useCountDown } from "@/utilities/ClientSideUtils"
-// Avoid timezone-dependent formatting during SSR vs client hydration
-// import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { getStadiumImage } from "@/utilities/imageUtil"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
@@ -29,7 +28,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const {days, hours, minutes, seconds} = countdown
 
     // Keep values deterministic across server and client
-    const gameDate = game.date
+    const gameDate = format(game.date, 'EEE, dd MMM yyyy');
     const gameTime = game.start_time?.length >= 16 ? game.start_time.substring(11, 16) : ''
 
     const league = config.league
@@ -64,7 +63,7 @@ function HeadlineNextMatch({show, game}: HeadlineNextMatchProps) {
     const nextMatch = (
       <div className="headline-next-match">
         <div className='headline-next-match-league'>
-            <Image src={leagueLogo} alt="league logo" fill sizes="()" />
+            <Image src={leagueLogo} alt="league logo" />
         </div>
         <div className="headline-next-match-date">{gameDate}</div>
         <div className="headline-next-match-time">{gameTime}</div>

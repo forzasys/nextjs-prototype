@@ -36,25 +36,25 @@ async function MatchScoreboard({ game, gameEvents }: MatchScoreboardProps) {
   const matchScoreboardDetails = (
     <div className='match-scoreboard-details-cont'>
       <div className="match-scoreboard-details">
-            {homeFilteredEvents.map((e: EventType) => {
-                const [time,] = getGameTime(e.game_time, e.game_phase);
-                return (
-                    <div key={e.id} className="match-scoreboard-event">
-                        <div>{e.tag.scorer?.value}</div>
-                        <div className="match-scoreboard-event-time">{time} &apos;</div>
-                    </div>
-                )
-            })}
-        </div>
-        <div className="match-scoreboard-details away">
-          {awayFilteredEvents.map((e: EventType) => {
-              const [time,] = getGameTime(e.game_time, e.game_phase);
-              return (
-                  <div key={e.id} className="match-scoreboard-event away">
-                      <div className="match-scoreboard-event-time">{time} &apos;</div>
-                      <div>{e.tag.scorer?.value}</div>
-                  </div>
-              )
+        {homeFilteredEvents.map((e: EventType) => {
+            const [time,] = getGameTime(e.game_time, e.game_phase);
+            return (
+                <div key={e.id} className="match-scoreboard-event">
+                    <div>{e.tag.scorer?.value}</div>
+                    <div className="match-scoreboard-event-time">{time} &apos;</div>
+                </div>
+            )
+        })}
+      </div>
+      <div className="match-scoreboard-details away">
+        {awayFilteredEvents.map((e: EventType) => {
+            const [time,] = getGameTime(e.game_time, e.game_phase);
+            return (
+                <div key={e.id} className="match-scoreboard-event away">
+                    <div className="match-scoreboard-event-time">{time} &apos;</div>
+                    <div className="match-scoreboard-event-player">{e.tag.scorer?.value}</div>
+                </div>
+            )
           })}
       </div>
     </div>

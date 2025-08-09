@@ -1,6 +1,8 @@
 .home-page-results-cont {
+    width: 100%;
     padding: 50px 0;
     background-color: var(--secondary-color);
+    box-sizing: border-box;
 }
 
 .latest-results-title {

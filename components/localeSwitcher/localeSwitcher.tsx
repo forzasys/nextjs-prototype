@@ -50,7 +50,7 @@ export default function LocaleSwitcher({mobile}: {mobile?: boolean}) {
                         {locale}
                     </div>
                     <div className="language-selection-item-flag">
-                        <Image src={localeToFlag[locale]} alt="Norway flag" fill sizes="()" />
+                        <Image src={localeToFlag[locale]} alt="Norway flag" />
                     </div>
                     <div className="language-selection-arrow">
                         <IoMdArrowDropdown />                    
@@ -63,7 +63,7 @@ export default function LocaleSwitcher({mobile}: {mobile?: boolean}) {
                                  no
                              </div>
                              <div className="language-selection-item-flag">
-                                 <Image src={norwegianFlag} alt="Norway flag" fill sizes="()" />
+                                 <Image src={norwegianFlag} alt="Norway flag" />
                              </div>
                          </div>
                          <div onClick={() => handleLanguageChange("sv")} className={classNames("language-selection-item", {"selected": locale === "sv"})}>
@@ -71,7 +71,7 @@ export default function LocaleSwitcher({mobile}: {mobile?: boolean}) {
                                  sv
                              </div>
                              <div className="language-selection-item-flag">
-                                 <Image src={swedishFlag} alt="Swedish flag" fill sizes="()" />
+                                 <Image src={swedishFlag} alt="Swedish flag" />
                              </div>
                          </div>
                          <div onClick={() => handleLanguageChange("en")} className={classNames("language-selection-item", {"selected": locale === "en"})}>
@@ -79,7 +79,7 @@ export default function LocaleSwitcher({mobile}: {mobile?: boolean}) {
                                  en
                              </div>
                              <div className="language-selection-item-flag">
-                                 <Image src={ukFlag} alt="English flag" fill sizes="()" />
+                                 <Image src={ukFlag} alt="English flag" />
                              </div>
                          </div>
                   </div>

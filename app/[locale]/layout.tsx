@@ -1,4 +1,5 @@
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import Main from './main';
@@ -19,21 +20,22 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: {locale: string};
 }) {
   // Ensure that the incoming `locale` is valid
-  const {locale} = await params;
+  const {locale} = params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
   const theme = process.env.NEXT_PUBLIC_TARGET || 'default';
+  const messages = await getMessages();
  
   return (
     <html data-theme={theme} lang={locale} className={fonts}>
       <body>
         <ReactQueryProvider>
-          <NextIntlClientProvider>
+          <NextIntlClientProvider messages={messages} locale={locale}>
             <AOSWrapper />
             <Main>
               {children}

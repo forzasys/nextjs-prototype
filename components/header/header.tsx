@@ -46,7 +46,7 @@ function DesktopHeader() {
       <div className="header-links">
         {headerLogo && (
           <Link href={`/${locale}`} className="header-link">
-            <Image src={headerLogo} alt="team logo"/>
+            <Image src={headerLogo} alt="team logo" priority/>
           </Link>
         )}
         <Link href={`/${locale}/${t("matches")}`} className="header-link">

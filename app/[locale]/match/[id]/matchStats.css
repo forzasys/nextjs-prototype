@@ -5,6 +5,7 @@
     justify-content: center;
     margin: 0 auto;
     gap: 10px;
+    box-sizing: border-box;
     width: 100%;
     margin-top: 25px;
     margin-bottom: 25px;
@@ -43,12 +44,28 @@
 
 .statistic-value {
     width: 20px;
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 500;
     text-align: center;
+    color: var(--secondary-text-color);
     /* border: 1px solid var(--primary-color); */
 }
 
 .statistic-percentage-bar {
     height: 100%;
     background-color: lightgrey;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 576px) {
+    .statistic-cont {
+        padding: 0 7px;
+        margin-top: 15px;
+    }
+    .statistic-title {
+        font-size: 10px;
+    }
+    .statistic-value {
+        font-size: 15px;
+    }
 }

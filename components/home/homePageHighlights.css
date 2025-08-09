@@ -1,6 +1,8 @@
 /* Home Latest Highlights Styles */
 
 .home-latest-highlights-cont {
+    width: 100%;
+    box-sizing: border-box;
     padding: 50px 0;
     background-color: black;
     color: white;

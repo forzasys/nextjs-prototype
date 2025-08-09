@@ -18,7 +18,7 @@
     max-width: 1380px;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0 25px;
+    padding: 0 20px;
 }
 
 .page-header {
@@ -55,7 +55,7 @@
 .section-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 25px;
     color: var(--primary-text-color);
 }
 
@@ -65,14 +65,14 @@
     gap: 8px;
     box-sizing: border-box;
     color: var(--secondary-text-color);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.2px;
     text-transform: uppercase;
 }
 
 .section-title-mask {
-    height: 22px;
+    height: 20px;
     width: 5px;
     margin-top: -2px;
     border-radius: 1px;
@@ -87,7 +87,7 @@
     justify-content: center;
     background-color: transparent;
     color: var(--secondary-text-color);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
@@ -98,11 +98,11 @@
 .section-more:after {
     content: '';
     position: absolute;
-    top: 5px;
+    top: 3px;
     /* margin: auto; */
     left: 0;
     width: 4px;
-    height: 15px;
+    height: 14px;
     opacity: 0;
     transform: skewX(-22deg);
     background-color: var(--accent-color);
@@ -147,7 +147,7 @@
 /* HOVER */
 .section-more:hover:after {
     opacity: 1;
-    left: -8px;
+    left: -10px;
 }
 
 .section-more:hover svg {

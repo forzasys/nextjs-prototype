@@ -46,7 +46,7 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
                                 <div className="latest-video-item-date">{formatReadableDate(video.date)}</div>
                             </div>
                         </div> */}
-                        <Playlist playlist={video} session={session} line />
+                        <Playlist playlist={video} session={session} />
                     </div>
                 )
             })}
@@ -54,18 +54,20 @@ function HomeLatestVideos({latestGoals}: HomeLatestVideosProps) {
     )
 
     return (
-        <div className="latest-videos-container middle-container">
-            <div className="section-header">
-                <div className="section-title">
-                    {t("latest videos")}
-                    <div className="section-title-mask"></div>
-                </div>  
-                <Link href={`/${locale}/${t("videos")}`} className="section-more">
-                    {t("more latest videos")}
-                    <RiArrowRightDoubleLine />
-                </Link>
-            </div>
+        <div className="middle-container">
+            <div className="latest-videos-container">
+                <div className="section-header">
+                    <div className="section-title">
+                        {t("latest videos")}
+                        <div className="section-title-mask"></div>
+                    </div>  
+                    <Link href={`/${locale}/${t("videos")}`} className="section-more">
+                        {t("more latest videos")}
+                        <RiArrowRightDoubleLine />
+                    </Link>
+                </div>
             {latestGoalsList}
+            </div>
         </div>
     )
 }
