@@ -3,8 +3,17 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    padding-bottom: 25px;
     overflow: hidden;
+}
+
+.collection-single {
+    background-color: var(--box-color);
+    border-radius: 3px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 2px;
+    margin-bottom: 25px;
 }
 
 .collection-title-cont {
@@ -15,18 +24,15 @@
     height: fit-content;
     box-sizing: border-box;
     width: 100%;
-    margin-bottom: 7px;
-    padding: 3px 0;
-    padding-left: 10px;
-    padding-right: 3px;
-    color: var(--primary-text-color);
-    background-color: var(--section-title-color);
-    font-family: "Titillium Web", sans-serif;
+    margin-bottom: 12px;
+    color: var(--secondary-text-color);
 }
 
 .collection-slide-title {
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 18px;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -35,16 +41,13 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    margin-right: 5px;
+    margin-right: 10px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--primary-text-color);
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    background-color: transparent;
     border: none;
-    font-family: "Titillium Web", sans-serif;
 }
 
 .collection-title-more svg {
@@ -59,15 +62,15 @@
 .collection-slide-playlist-container {
     position: relative;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     width: 100%;
     overflow: hidden;
 }
 
 .collection-slide-playlist-single {
     float: left;
-    min-width: calc(33.33% - 25px);
-    max-width: calc(33.33% - 25px);
+    min-width: calc(33.33% - 30px);
+    max-width: calc(33.33% - 30px);
 }
 
 .collection-container {
@@ -123,6 +126,7 @@
     font-size: 14px;
     color: var(--secondary-text-color);
     margin-bottom: 20px;
+    text-transform: capitalize;
 }
 
 /* HOVER */

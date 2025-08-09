@@ -17,9 +17,10 @@ interface FilterDropdownProps {
     value?: string | null
     defaultValue?: string | null
     hasAll?: boolean
+    box?: boolean
 }
 
-export function FilterDropdown({title, options, value, defaultValue, hasAll}: FilterDropdownProps) {
+export function FilterDropdown({title, options, value, defaultValue, hasAll, box}: FilterDropdownProps) {
 
     const {updateParam} = useUpdateSearchParam();
     const t = useTranslations();
@@ -52,8 +53,10 @@ export function FilterDropdown({title, options, value, defaultValue, hasAll}: Fi
     return (
         <div 
             ref={ref}
-            className={classNames("filter-dropdown", {"narrow": title === "season"})}
-            >
+            className={classNames("filter-dropdown", {
+                "narrow": title === "season",
+                "box": box,
+            })}>
             <div className="filter-dropdown-title">{t(title)}</div>
             <div onClick={() => setIsOpen(!isOpen)} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">
@@ -99,6 +102,7 @@ interface PlayerFilterDropdownProps {
     hasAll?: boolean
     disabled?: string | undefined
     isLoading?: boolean
+    box?: boolean
 }
 
 export function PlayerFilterDropdown({
@@ -108,6 +112,7 @@ export function PlayerFilterDropdown({
     hasAll, 
     disabled,
     isLoading,
+    box,
 }: PlayerFilterDropdownProps) {
 
     const {updateParam} = useUpdateSearchParam();
@@ -157,7 +162,10 @@ export function PlayerFilterDropdown({
         setIsOpen(false)
     }                                
     return (
-        <div ref={ref} className={classNames("filter-dropdown wide", {"disabled": disabled})}>
+        <div ref={ref} className={classNames("filter-dropdown wide", {
+            "disabled": disabled,
+            "box": box,
+            })}>
             <div className="filter-dropdown-title">{t(title)}</div>
             <div onClick={onOpenList} className="filter-dropdown-box">
                 <div className="filter-dropdown-header">

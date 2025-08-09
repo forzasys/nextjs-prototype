@@ -66,7 +66,7 @@ function EventFilter({ tags, availableTags: availableTagsProp, playersData }: Ev
 
   const searchParams = useSearchParams();
   const playerParam = searchParams.get("player");
-  const teamParam = searchParams.get("team");
+  // const teamParam = searchParams.get("team");
   const eventParam = searchParams.get("event");
 
   const t = useTranslations();
@@ -125,7 +125,7 @@ function EventFilter({ tags, availableTags: availableTagsProp, playersData }: Ev
   )
 
   return (
-    <div className="events-filter middle-container">
+    <div className="events-filter">
       {eventsOptions}
     </div>
   )

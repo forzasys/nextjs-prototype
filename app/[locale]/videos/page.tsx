@@ -7,10 +7,10 @@ import PlayerFilter from '@/components/Filters/playerFilter';
 import EventFilter from '@/components/Filters/eventFilter';
 import config from '@/config';
 import { getTranslations } from 'next-intl/server';
-import "./videos.css";
 import TeamFilter from '@/components/Filters/teamFilter';
 import { ignoredTags } from '@/utilities/utils';
 import { Suspense } from 'react';
+import "./videos.css";
 
 // Highlights
 // TODO name this function more specific or keep "Page" (Page is standard name for Next.js pages)
@@ -46,10 +46,13 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
   const teams = teamsData?.teams || [];
 
   const videosFilters = (
-    <div className="filters-inline start middle-container">
-      <SeasonFilter games/>
-      {!teamPlatformId && <TeamFilter teams={teams} />}
-      <PlayerFilter playersData={playersData} />
+    <div className="videos-page-filters middle-container">
+      <div className="videos-page-filters-inline">
+        <SeasonFilter games box/>
+        {!teamPlatformId && <TeamFilter teams={teams} box/>}
+        <PlayerFilter playersData={playersData} box/>
+      </div>
+      <EventFilter availableTags={availableTags} playersData={playersData} />
     </div>
   )
 
@@ -63,8 +66,9 @@ async function Page({searchParams}: {searchParams: SearchParamsType}) {
           </div>
         </div>
       </div>
-      {videosFilters}
-      <EventFilter availableTags={availableTags} playersData={playersData} />
+      <div className="videos-page-filters-cont">
+        {videosFilters}
+      </div>
       <Suspense fallback={<div className="middle-container">Loading...</div>}>
         <Videos params={params} />
       </Suspense>

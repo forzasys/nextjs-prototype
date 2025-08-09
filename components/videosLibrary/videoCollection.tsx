@@ -23,7 +23,7 @@ function Collection ({playlists, query}: CollectionProps) {
                 const session = {playlistId: playlist.id, query}
                 return (
                     <div key={playlist.id} className="collection-playlist-single">
-                        <Playlist playlist={playlist} session={session} />
+                        <Playlist playlist={playlist} session={session} box />
                     </div>
                 )
             })}
@@ -64,8 +64,6 @@ function VideoCollection({collectionName}: {collectionName: string}) {
     const totalPage = Math.ceil(totalResults / resultsPerPage)
 
     if (isLoading) return <div className="middle-container">Loading...</div>
-
-    console.log(query)
     
     return (
         <div className="collection-container middle-container">

@@ -4,6 +4,7 @@ import Playlist from '@/components/playlist/playlist';
 import VideoCollectionMore from './videoCollectionMore';
 import { useTranslations } from 'next-intl';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
+import 'aos/dist/aos.css';
 import "./videoCollection.css";
 
 interface VideoCollectionProps {
@@ -40,13 +41,16 @@ export function CollectionSlide({playlists, collectionName, index, query}: Video
 
   return (
     <div 
-      className="collection-slide-container aos-init aos-animate" 
+      className="collection-slide-container middle-container" 
       data-aos="fade-up"
       data-aos-delay={index <= 1 ? index * 100 : 0}
     >
-      <div className="collection-single middle-container">
+      <div className="collection-single">
         <div className="collection-title-cont">
-          <div className="collection-slide-title">{t(collectionTitle)}</div>
+          <div className="collection-slide-title">
+            {t(collectionTitle)}
+            <div className="section-title-mask smaller"></div>
+          </div>
           <VideoCollectionMore collectionName={collectionName}/>
         </div>
         {renderPlaylists}

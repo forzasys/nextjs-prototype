@@ -34,8 +34,8 @@
     max-width: 1380px;
     margin: 0 auto;
     letter-spacing: 2px;
-    padding-top: 75px;
-    padding-bottom: 35px;
+    padding-top: 50px;
+    padding-bottom: 25px;
     color: var(--primary-text-color);
     z-index: 2;
 }
@@ -78,6 +78,10 @@
     border-radius: 1px;
     background-color: var(--accent-color);
     transform: skewX(-22deg);
+}
+
+.section-title-mask.smaller {
+    height: 18px;
 }
 
 .section-more {

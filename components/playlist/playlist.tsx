@@ -12,10 +12,10 @@ import "./playlist.css";
 interface PlaylistProps {
   playlist: PlaylistType
   session?: {playlistId: string, query?: QueryType}
-  line?: boolean | false
+  box?: boolean | false
 }
 
-function Playlist({ playlist, session, line }: PlaylistProps) {
+function Playlist({ playlist, session, box }: PlaylistProps) {
 
   const router = useRouter()
   const locale = useLocale()
@@ -48,7 +48,7 @@ function Playlist({ playlist, session, line }: PlaylistProps) {
       onClick={onClickVideo}
       className={classNames("playlist-single-link", {
         "game-hovered": isGameHovered,
-        "line": line,
+        "box": box,
       })}>
       <div onClick={onClickVideo} className="playlist-single">
         <div className="playlist-image">

@@ -3,7 +3,12 @@ import config from '@/config';
 import { useSearchParams } from 'next/navigation';
 import { FilterDropdown } from './filterDropdown';
 
-function SeasonFilter({games}: {games?: boolean}) {
+interface SeasonFilterProps {
+  games?: boolean
+  box?: boolean
+}
+
+function SeasonFilter({games, box}: SeasonFilterProps) {
 
   const searchParams = useSearchParams();
   const seasonParam = searchParams.get("season");
@@ -22,7 +27,14 @@ function SeasonFilter({games}: {games?: boolean}) {
   }))
 
   return (
-    <FilterDropdown title="season" options={seasonsOptions} value={seasonParam} defaultValue={currentSeason} hasAll/>
+    <FilterDropdown 
+      title="season" 
+      options={seasonsOptions} 
+      value={seasonParam} 
+      defaultValue={currentSeason} 
+      hasAll
+      box={box}
+    />
   )
 }
 

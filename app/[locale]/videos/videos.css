@@ -1,5 +1,19 @@
-.videos-page {
+.videos-page-filters-cont {
+    background-color: var(--primary-color);
+    padding-top: 20px;
+    margin-bottom: 32px;
 }
 
-.videos-main {
+.videos-page-filters {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding-bottom: 15px;
+}
+
+.videos-page-filters-inline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

@@ -5,7 +5,12 @@ import { useUpdateSearchParam } from '@/utilities/ClientSideUtils';
 import { useSearchParams } from 'next/navigation';
 import { FilterDropdown } from './filterDropdown';
 
-function TeamFilter({ teams }: { teams: TeamType[] }) {
+interface TeamFilterProps {
+  teams: TeamType[]
+  box?: boolean
+}
+
+function TeamFilter({ teams, box }: TeamFilterProps) {
 
   const {updateParam} = useUpdateSearchParam();
   const searchParams = useSearchParams();
@@ -29,7 +34,13 @@ function TeamFilter({ teams }: { teams: TeamType[] }) {
 
   return (
     <div>
-      <FilterDropdown title="team" options={teamOptions} value={teamParam} hasAll={true}/>
+      <FilterDropdown 
+        title="team" 
+        options={teamOptions} 
+        value={teamParam} 
+        hasAll={true} 
+        box={box}
+        />
     </div>
   )
 }

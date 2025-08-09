@@ -17,9 +17,10 @@ interface PlayerFilterProps {
             player: PlayerType
         }[]
     }
+    box?: boolean
 }
 
-function PlayerFilter({ playersData }: PlayerFilterProps) {
+function PlayerFilter({ playersData, box }: PlayerFilterProps) {
 
     const searchParams = useSearchParams();
 
@@ -62,6 +63,7 @@ function PlayerFilter({ playersData }: PlayerFilterProps) {
             hasAll
             isLoading={isLoading}
             disabled={disableTeamFilter}
+            box={box}
         />
     )
 }

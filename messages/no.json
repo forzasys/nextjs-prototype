@@ -1,7 +1,7 @@
 {
     "all": "alle",
-    "assist": "assist",
-    "assists": "assisterer",
+    "assist": "målgiver",
+    "assists": "målgivere",
     "cards": "kort",
     "days": "dag",
     "event": "hendelse",
@@ -33,7 +33,7 @@
     "player": "spiller",
     "recent individual matches": "de siste individuelle kampene",
     "results": "resultater",
-    "penalty": "straff",
+    "penalty": "straffe",
     "penalties": "straffer",
     "red card": "rødt kort",
     "red cards": "røde kort",
